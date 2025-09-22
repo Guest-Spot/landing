@@ -143,27 +143,19 @@
 
 .form-input {
   width: 100%;
-  color: #fff !important;
 
   .q-field__control {
-    border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     background: var(--surface-color);
-    color: var(--text-primary);
     font-family: var(--font-family);
     font-size: var(--font-size-base);
     transition: all var(--transition-normal);
   }
 }
 
-.form-input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(255, 61, 0, 0.1);
-}
-
-.form-input::placeholder {
-  color: var(--text-disabled);
+.q-field--dark .q-field__control:before,
+.q-field--dark .q-field__control:hover:before {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .form-textarea {
