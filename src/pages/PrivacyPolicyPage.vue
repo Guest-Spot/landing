@@ -176,27 +176,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { onMounted } from 'vue'
 
-export default defineComponent({
-  name: 'PrivacyPolicyPage',
-  data() {
-    return {
-      lastUpdated: 'December 19, 2024'
-    }
-  },
-  mounted() {
-    // Set page title and meta
-    document.title = 'Privacy Policy - GuestSpot'
+const lastUpdated = 'December 19, 2024'
 
-    // Track page view
-    if (window.gtag) {
-      window.gtag('event', 'page_view', {
-        page_title: 'Privacy Policy',
-        page_location: window.location.href
-      })
-    }
+onMounted(() => {
+  // Set page title and meta
+  document.title = 'Privacy Policy - GuestSpot'
+
+  // Track page view
+  if (window.gtag) {
+    window.gtag('event', 'page_view', {
+      page_title: 'Privacy Policy',
+      page_location: window.location.href
+    })
   }
 })
 </script>

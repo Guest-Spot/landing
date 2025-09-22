@@ -90,7 +90,7 @@
               data-cy="subject"
               v-model="formData.subject"
               label="Subject *"
-              :rules="[val => !!val || 'Subject is required', val => val.length >= 5 || 'Subject must be at least 5 characters']"
+              :rules="[(val: string) => !!val || 'Subject is required', (val: string) => val.length >= 5 || 'Subject must be at least 5 characters']"
               outlined
               class="form-input full-width"
             />
@@ -102,9 +102,9 @@
               type="textarea"
               rows="6"
               :rules="[
-                val => !!val || 'Message is required',
-                val => val.length >= 10 || 'Message must be at least 10 characters',
-                val => val.length <= 1000 || 'Message must be no more than 1000 characters'
+                (val: string) => !!val || 'Message is required',
+                (val: string) => val.length >= 10 || 'Message must be at least 10 characters',
+                (val: string) => val.length <= 1000 || 'Message must be no more than 1000 characters'
               ]"
               outlined
               class="form-input full-width"
@@ -145,99 +145,85 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { FormService } from '../services/formService.js'
 
-export default defineComponent({
-  name: 'ContactForm',
-  setup() {
-    const formService = new FormService()
-    const isSubmitting = ref(false)
-    const submitMessage = ref(null)
+const formService = new FormService()
+const isSubmitting = ref(false)
+const submitMessage = ref<{ type: string; text: string } | null>(null)
 
-    const formData = reactive({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    })
+const formData = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+})
 
-    const isValidEmail = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      return emailRegex.test(email)
-    }
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
 
-    const onSubmit = async () => {
-      isSubmitting.value = true
-      submitMessage.value = null
+const onSubmit = async () => {
+  isSubmitting.value = true
+  submitMessage.value = null
 
-      try {
-        const result = await formService.submitContactInquiry(formData)
+  try {
+    const result = await formService.submitContactInquiry(formData)
 
-        if (result.success) {
-          submitMessage.value = {
-            type: 'success',
-            text: result.message
-          }
-
-          // Reset form
-          Object.keys(formData).forEach(key => {
-            formData[key] = ''
-          })
-
-          // Track successful submission
-          if (window.gtag) {
-            window.gtag('event', 'contact_form_submitted', {
-              event_category: 'form_submission',
-              event_label: 'contact_inquiry'
-            })
-          }
-        } else {
-          submitMessage.value = {
-            type: 'error',
-            text: result.message
-          }
-        }
-      } catch (error) {
-        console.error('Form submission error:', error)
-        submitMessage.value = {
-          type: 'error',
-          text: 'An error occurred. Please try again later.'
-        }
-      } finally {
-        isSubmitting.value = false
-      }
-    }
-
-    const openSocial = (platform) => {
-      const urls = {
-        facebook: 'https://facebook.com/guestspot',
-        instagram: 'https://instagram.com/guestspot',
-        twitter: 'https://twitter.com/guestspot'
+    if (result.success) {
+      submitMessage.value = {
+        type: 'success',
+        text: result.message
       }
 
-      window.open(urls[platform], '_blank')
+      // Reset form
+      Object.keys(formData).forEach(key => {
+        (formData as any)[key] = ''
+      })
 
-      // Track social click
+      // Track successful submission
       if (window.gtag) {
-        window.gtag('event', 'social_click', {
-          event_category: 'engagement',
-          event_label: platform
+        window.gtag('event', 'contact_form_submitted', {
+          event_category: 'form_submission',
+          event_label: 'contact_inquiry'
         })
       }
+    } else {
+      submitMessage.value = {
+        type: 'error',
+        text: result.message
+      }
     }
-
-    return {
-      formData,
-      isSubmitting,
-      submitMessage,
-      isValidEmail,
-      onSubmit,
-      openSocial
+  } catch (error) {
+    console.error('Form submission error:', error)
+    submitMessage.value = {
+      type: 'error',
+      text: 'An error occurred. Please try again later.'
     }
+  } finally {
+    isSubmitting.value = false
   }
-})
+}
+
+const openSocial = (platform: string) => {
+  const urls: Record<string, string> = {
+    facebook: 'https://facebook.com/guestspot',
+    instagram: 'https://instagram.com/guestspot',
+    twitter: 'https://twitter.com/guestspot'
+  }
+
+  window.open(urls[platform], '_blank')
+
+  // Track social click
+  if (window.gtag) {
+    window.gtag('event', 'social_click', {
+      event_category: 'engagement',
+      event_label: platform
+    })
+  }
+}
 </script>
 
 <style scoped>

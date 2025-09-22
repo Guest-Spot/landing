@@ -155,27 +155,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { onMounted } from 'vue'
 
-export default defineComponent({
-  name: 'TermsOfServicePage',
-  data() {
-    return {
-      lastUpdated: 'December 19, 2024'
-    }
-  },
-  mounted() {
-    // Set page title and meta
-    document.title = 'Terms of Service - GuestSpot'
+const lastUpdated = 'December 19, 2024'
 
-    // Track page view
-    if (window.gtag) {
-      window.gtag('event', 'page_view', {
-        page_title: 'Terms of Service',
-        page_location: window.location.href
-      })
-    }
+onMounted(() => {
+  // Set page title and meta
+  document.title = 'Terms of Service - GuestSpot'
+
+  // Track page view
+  if (window.gtag) {
+    window.gtag('event', 'page_view', {
+      page_title: 'Terms of Service',
+      page_location: window.location.href
+    })
   }
 })
 </script>

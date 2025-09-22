@@ -48,12 +48,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'LegalDocuments'
-})
+<script setup lang="ts">
+// No additional logic needed for this component
 </script>
 
 <style scoped>

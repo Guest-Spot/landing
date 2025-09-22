@@ -20,26 +20,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import AppNavigation from 'src/components/AppNavigation.vue'
-import HeroSection from 'src/components/HeroSection.vue'
-import FeaturesSection from 'src/components/FeaturesSection.vue'
-import SalonApplicationForm from 'src/components/SalonApplicationForm.vue'
-import ContactForm from 'src/components/ContactForm.vue'
-import AppFooter from 'src/components/AppFooter.vue'
-
-export default defineComponent({
-  name: 'IndexPage',
-  components: {
-    AppNavigation,
-    HeroSection,
-    FeaturesSection,
-    SalonApplicationForm,
-    ContactForm,
-    AppFooter
-  }
-})
+<script setup lang="ts">
+import AppNavigation from '../components/AppNavigation.vue'
+import HeroSection from '../components/HeroSection.vue'
+import FeaturesSection from '../components/FeaturesSection.vue'
+import SalonApplicationForm from '../components/SalonApplicationForm.vue'
+import ContactForm from '../components/ContactForm.vue'
+import AppFooter from '../components/AppFooter.vue'
 </script>
 
 <style scoped>

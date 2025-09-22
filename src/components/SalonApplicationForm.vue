@@ -20,7 +20,7 @@
                   data-cy="business-name"
                   v-model="formData.businessName"
                   label="Business Name *"
-                  :rules="[val => !!val || 'Business name is required']"
+                  :rules="[(val: string) => !!val || 'Business name is required']"
                   outlined
                   class="form-input"
                 />
@@ -28,7 +28,7 @@
                   data-cy="contact-name"
                   v-model="formData.contactName"
                   label="Contact Person *"
-                  :rules="[val => !!val || 'Contact name is required']"
+                  :rules="[(val: string) => !!val || 'Contact name is required']"
                   outlined
                   class="form-input"
                 />
@@ -40,7 +40,7 @@
                   v-model="formData.email"
                   label="Email Address *"
                   type="email"
-                  :rules="[val => !!val || 'Email is required', val => isValidEmail(val) || 'Invalid email format']"
+                  :rules="[(val: string) => !!val || 'Email is required', (val: string) => isValidEmail(val) || 'Invalid email format']"
                   outlined
                   class="form-input"
                 />
@@ -62,7 +62,7 @@
                 data-cy="address"
                 v-model="formData.address"
                 label="Street Address *"
-                :rules="[val => !!val || 'Address is required']"
+                :rules="[(val: string) => !!val || 'Address is required']"
                 outlined
                 class="form-input full-width"
               />
@@ -72,7 +72,7 @@
                   data-cy="city"
                   v-model="formData.city"
                   label="City *"
-                  :rules="[val => !!val || 'City is required']"
+                  :rules="[(val: string) => !!val || 'City is required']"
                   outlined
                   class="form-input"
                 />
@@ -80,7 +80,7 @@
                   data-cy="state"
                   v-model="formData.state"
                   label="State/Province *"
-                  :rules="[val => !!val || 'State is required']"
+                  :rules="[(val: string) => !!val || 'State is required']"
                   outlined
                   class="form-input"
                 />
@@ -88,7 +88,7 @@
                   data-cy="zip-code"
                   v-model="formData.zipCode"
                   label="ZIP/Postal Code *"
-                  :rules="[val => !!val || 'ZIP code is required']"
+                  :rules="[(val: string) => !!val || 'ZIP code is required']"
                   outlined
                   class="form-input"
                 />
@@ -98,7 +98,7 @@
                 data-cy="country"
                 v-model="formData.country"
                 label="Country *"
-                :rules="[val => !!val || 'Country is required']"
+                :rules="[(val: string) => !!val || 'Country is required']"
                 outlined
                 class="form-input full-width"
               />
@@ -129,7 +129,7 @@
                   v-model="formData.experience"
                   label="Years of Experience *"
                   type="number"
-                  :rules="[val => !!val || 'Experience is required', val => val > 0 || 'Must be greater than 0']"
+                  :rules="[(val: string) => !!val || 'Experience is required', (val: string) => Number(val) > 0 || 'Must be greater than 0']"
                   outlined
                   class="form-input"
                 />
@@ -245,130 +245,113 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { FormService } from '../services/formService.js'
 
-export default defineComponent({
-  name: 'SalonApplicationForm',
-  setup() {
-    const formService = new FormService()
-    const isSubmitting = ref(false)
-    const submitMessage = ref(null)
-    const specialtiesInput = ref('')
+const formService = new FormService()
+const isSubmitting = ref(false)
+const submitMessage = ref<{ type: string; text: string } | null>(null)
+const specialtiesInput = ref('')
 
-    const formData = reactive({
-      businessName: '',
-      contactName: '',
-      email: '',
-      phone: '',
-      address: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      country: '',
-      services: [],
-      experience: '',
-      portfolioUrl: '',
-      socialMedia: {
-        instagram: '',
-        facebook: '',
-        website: ''
-      },
-      specialties: [],
-      message: ''
-    })
-
-    const availableServices = [
-      { value: 'tattoo', label: 'Tattoo' },
-      { value: 'piercing', label: 'Piercing' },
-      { value: 'consultation', label: 'Consultation' },
-      { value: 'coverup', label: 'Cover-up' },
-      { value: 'touchup', label: 'Touch-up' },
-      { value: 'design', label: 'Custom Design' }
-    ]
-
-    const isValidEmail = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      return emailRegex.test(email)
-    }
-
-    const updateSpecialties = () => {
-      if (specialtiesInput.value.trim()) {
-        const specialties = specialtiesInput.value
-          .split(',')
-          .map(s => s.trim())
-          .filter(s => s.length > 0)
-        formData.specialties = [...new Set(specialties)]
-        specialtiesInput.value = ''
-      }
-    }
-
-    const removeSpecialty = (specialty) => {
-      formData.specialties = formData.specialties.filter(s => s !== specialty)
-    }
-
-    const onSubmit = async () => {
-      isSubmitting.value = true
-      submitMessage.value = null
-
-      try {
-        const result = await formService.submitSalonApplication(formData)
-
-        if (result.success) {
-          submitMessage.value = {
-            type: 'success',
-            text: result.message
-          }
-
-          // Reset form
-          Object.keys(formData).forEach(key => {
-            if (key === 'socialMedia') {
-              formData[key] = { instagram: '', facebook: '', website: '' }
-            } else if (key === 'services' || key === 'specialties') {
-              formData[key] = []
-            } else {
-              formData[key] = ''
-            }
-          })
-
-          // Track successful submission
-          if (window.gtag) {
-            window.gtag('event', 'salon_application_submitted', {
-              event_category: 'form_submission',
-              event_label: 'salon_application'
-            })
-          }
-        } else {
-          submitMessage.value = {
-            type: 'error',
-            text: result.message
-          }
-        }
-      } catch (error) {
-        console.error('Form submission error:', error)
-        submitMessage.value = {
-          type: 'error',
-          text: 'An error occurred. Please try again later.'
-        }
-      } finally {
-        isSubmitting.value = false
-      }
-    }
-
-    return {
-      formData,
-      availableServices,
-      isSubmitting,
-      submitMessage,
-      specialtiesInput,
-      isValidEmail,
-      updateSpecialties,
-      removeSpecialty,
-      onSubmit
-    }
-  }
+const formData = reactive({
+  businessName: '',
+  contactName: '',
+  email: '',
+  phone: '',
+  address: '',
+  city: '',
+  state: '',
+  zipCode: '',
+  country: '',
+  services: [] as string[],
+  experience: '',
+  portfolioUrl: '',
+  socialMedia: {
+    instagram: '',
+    facebook: '',
+    website: ''
+  },
+  specialties: [] as string[],
+  message: ''
 })
+
+const availableServices = [
+  { value: 'tattoo', label: 'Tattoo' },
+  { value: 'piercing', label: 'Piercing' },
+  { value: 'consultation', label: 'Consultation' },
+  { value: 'coverup', label: 'Cover-up' },
+  { value: 'touchup', label: 'Touch-up' },
+  { value: 'design', label: 'Custom Design' }
+]
+
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+const updateSpecialties = () => {
+  if (specialtiesInput.value.trim()) {
+    const specialties = specialtiesInput.value
+      .split(',')
+      .map(s => s.trim())
+      .filter(s => s.length > 0)
+    formData.specialties = [...new Set(specialties)]
+    specialtiesInput.value = ''
+  }
+}
+
+const removeSpecialty = (specialty: string) => {
+  formData.specialties = formData.specialties.filter(s => s !== specialty)
+}
+
+const onSubmit = async () => {
+  isSubmitting.value = true
+  submitMessage.value = null
+
+  try {
+    const result = await formService.submitSalonApplication(formData)
+
+    if (result.success) {
+      submitMessage.value = {
+        type: 'success',
+        text: result.message
+      }
+
+      // Reset form
+      Object.keys(formData).forEach(key => {
+        if (key === 'socialMedia') {
+          (formData as any)[key] = { instagram: '', facebook: '', website: '' }
+        } else if (key === 'services' || key === 'specialties') {
+          (formData as any)[key] = []
+        } else {
+          (formData as any)[key] = ''
+        }
+      })
+
+      // Track successful submission
+      if (window.gtag) {
+        window.gtag('event', 'salon_application_submitted', {
+          event_category: 'form_submission',
+          event_label: 'salon_application'
+        })
+      }
+    } else {
+      submitMessage.value = {
+        type: 'error',
+        text: result.message
+      }
+    }
+  } catch (error) {
+    console.error('Form submission error:', error)
+    submitMessage.value = {
+      type: 'error',
+      text: 'An error occurred. Please try again later.'
+    }
+  } finally {
+    isSubmitting.value = false
+  }
+}
 </script>
 
 <style scoped>

@@ -78,36 +78,29 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'HeroSection',
-  methods: {
-    downloadApp() {
-      // Track download button click
-      if (window.gtag) {
-        window.gtag('event', 'download_app_click', {
-          event_category: 'engagement',
-          event_label: 'hero_section'
-        })
-      }
-
-      // In a real app, this would redirect to app stores
-      window.open('https://apps.apple.com/app/guestspot', '_blank')
-    },
-
-    scrollToFeatures() {
-      const featuresSection = document.querySelector('[data-cy="features-section"]')
-      if (featuresSection) {
-        featuresSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        })
-      }
-    }
+<script setup lang="ts">
+const downloadApp = () => {
+  // Track download button click
+  if (window.gtag) {
+    window.gtag('event', 'download_app_click', {
+      event_category: 'engagement',
+      event_label: 'hero_section'
+    })
   }
-})
+
+  // In a real app, this would redirect to app stores
+  window.open('https://apps.apple.com/app/guestspot', '_blank')
+}
+
+const scrollToFeatures = () => {
+  const featuresSection = document.querySelector('[data-cy="features-section"]')
+  if (featuresSection) {
+    featuresSection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
 </script>
 
 <style scoped>

@@ -45,101 +45,91 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'FeaturesSection',
-  data() {
-    return {
-      features: [
-        {
-          id: 1,
-          icon: 'search',
-          title: 'Smart Search',
-          description: 'Find studios and artists based on your location, style preferences, and availability.',
-          benefits: [
-            'Advanced filtering options',
-            'Real-time availability',
-            'Style-based recommendations',
-            'Distance-based sorting'
-          ]
-        },
-        {
-          id: 2,
-          icon: 'photo_library',
-          title: 'Portfolio Gallery',
-          description: 'Browse thousands of high-quality portfolios to find the perfect artist for your vision.',
-          benefits: [
-            'High-resolution images',
-            'Style categorization',
-            'Before/after photos',
-            'Artist specializations'
-          ]
-        },
-        {
-          id: 3,
-          icon: 'event_available',
-          title: 'Easy Booking',
-          description: 'Book appointments directly through the app with real-time calendar integration.',
-          benefits: [
-            'Instant booking confirmation',
-            'Calendar synchronization',
-            'Reminder notifications',
-            'Rescheduling options'
-          ]
-        },
-        {
-          id: 4,
-          icon: 'star_rate',
-          title: 'Verified Reviews',
-          description: 'Read authentic reviews from real customers to make informed decisions.',
-          benefits: [
-            'Verified customer reviews',
-            'Photo reviews included',
-            'Rating breakdowns',
-            'Recent feedback'
-          ]
-        },
-        {
-          id: 5,
-          icon: 'security',
-          title: 'Safe & Secure',
-          description: 'All studios are verified and licensed. Your safety and satisfaction are our priority.',
-          benefits: [
-            'Licensed professionals only',
-            'Health & safety compliance',
-            'Secure payment processing',
-            'Insurance coverage'
-          ]
-        },
-        {
-          id: 6,
-          icon: 'support_agent',
-          title: '24/7 Support',
-          description: 'Get help whenever you need it with our dedicated customer support team.',
-          benefits: [
-            'Live chat support',
-            'Phone assistance',
-            'Email support',
-            'FAQ database'
-          ]
-        }
-      ]
-    }
+<script setup lang="ts">
+const features = [
+  {
+    id: 1,
+    icon: 'search',
+    title: 'Smart Search',
+    description: 'Find studios and artists based on your location, style preferences, and availability.',
+    benefits: [
+      'Advanced filtering options',
+      'Real-time availability',
+      'Style-based recommendations',
+      'Distance-based sorting'
+    ]
   },
-  methods: {
-    scrollToApplication() {
-      const applicationSection = document.querySelector('[data-cy="salon-application-form"]')
-      if (applicationSection) {
-        applicationSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        })
-      }
-    }
+  {
+    id: 2,
+    icon: 'photo_library',
+    title: 'Portfolio Gallery',
+    description: 'Browse thousands of high-quality portfolios to find the perfect artist for your vision.',
+    benefits: [
+      'High-resolution images',
+      'Style categorization',
+      'Before/after photos',
+      'Artist specializations'
+    ]
+  },
+  {
+    id: 3,
+    icon: 'event_available',
+    title: 'Easy Booking',
+    description: 'Book appointments directly through the app with real-time calendar integration.',
+    benefits: [
+      'Instant booking confirmation',
+      'Calendar synchronization',
+      'Reminder notifications',
+      'Rescheduling options'
+    ]
+  },
+  {
+    id: 4,
+    icon: 'star_rate',
+    title: 'Verified Reviews',
+    description: 'Read authentic reviews from real customers to make informed decisions.',
+    benefits: [
+      'Verified customer reviews',
+      'Photo reviews included',
+      'Rating breakdowns',
+      'Recent feedback'
+    ]
+  },
+  {
+    id: 5,
+    icon: 'security',
+    title: 'Safe & Secure',
+    description: 'All studios are verified and licensed. Your safety and satisfaction are our priority.',
+    benefits: [
+      'Licensed professionals only',
+      'Health & safety compliance',
+      'Secure payment processing',
+      'Insurance coverage'
+    ]
+  },
+  {
+    id: 6,
+    icon: 'support_agent',
+    title: '24/7 Support',
+    description: 'Get help whenever you need it with our dedicated customer support team.',
+    benefits: [
+      'Live chat support',
+      'Phone assistance',
+      'Email support',
+      'FAQ database'
+    ]
   }
-})
+]
+
+const scrollToApplication = () => {
+  const applicationSection = document.querySelector('[data-cy="salon-application-form"]')
+  if (applicationSection) {
+    applicationSection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
 </script>
 
 <style scoped>

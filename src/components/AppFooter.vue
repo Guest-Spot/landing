@@ -119,58 +119,49 @@
   </footer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed } from 'vue'
 import LegalDocuments from './LegalDocuments.vue'
 
-export default defineComponent({
-  name: 'AppFooter',
-  components: {
-    LegalDocuments
-  },
-  computed: {
-    currentYear() {
-      return new Date().getFullYear()
-    }
-  },
-  methods: {
-    openSocial(platform) {
-      const urls = {
-        facebook: 'https://facebook.com/guestspot',
-        instagram: 'https://instagram.com/guestspot',
-        twitter: 'https://twitter.com/guestspot',
-        youtube: 'https://youtube.com/guestspot'
-      }
-
-      window.open(urls[platform], '_blank')
-
-      // Track social click
-      if (window.gtag) {
-        window.gtag('event', 'social_click', {
-          event_category: 'engagement',
-          event_label: platform
-        })
-      }
-    },
-
-    downloadApp(platform) {
-      const urls = {
-        ios: 'https://apps.apple.com/app/guestspot',
-        android: 'https://play.google.com/store/apps/details?id=com.guestspot.app'
-      }
-
-      window.open(urls[platform], '_blank')
-
-      // Track download click
-      if (window.gtag) {
-        window.gtag('event', 'download_app_click', {
-          event_category: 'engagement',
-          event_label: platform
-        })
-      }
-    }
-  }
+const currentYear = computed(() => {
+  return new Date().getFullYear()
 })
+
+const openSocial = (platform: string) => {
+  const urls: Record<string, string> = {
+    facebook: 'https://facebook.com/guestspot',
+    instagram: 'https://instagram.com/guestspot',
+    twitter: 'https://twitter.com/guestspot',
+    youtube: 'https://youtube.com/guestspot'
+  }
+
+  window.open(urls[platform], '_blank')
+
+  // Track social click
+  if (window.gtag) {
+    window.gtag('event', 'social_click', {
+      event_category: 'engagement',
+      event_label: platform
+    })
+  }
+}
+
+const downloadApp = (platform: string) => {
+  const urls: Record<string, string> = {
+    ios: 'https://apps.apple.com/app/guestspot',
+    android: 'https://play.google.com/store/apps/details?id=com.guestspot.app'
+  }
+
+  window.open(urls[platform], '_blank')
+
+  // Track download click
+  if (window.gtag) {
+    window.gtag('event', 'download_app_click', {
+      event_category: 'engagement',
+      event_label: platform
+    })
+  }
+}
 </script>
 
 <style scoped>

@@ -5,3 +5,11 @@ declare namespace NodeJS {
     VUE_ROUTER_BASE: string | undefined;
   }
 }
+
+declare global {
+  interface Window {
+    gtag?: (command: string, action: string, parameters?: Record<string, any>) => void;
+  }
+
+  const gtag: (command: string, action: string, parameters?: Record<string, any>) => void;
+}

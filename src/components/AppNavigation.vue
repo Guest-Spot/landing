@@ -33,44 +33,32 @@
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-export default defineComponent({
-  name: 'AppNavigation',
-  setup() {
-    const isMenuOpen = ref(false)
+const isMenuOpen = ref(false)
 
-    const toggleMenu = () => {
-      isMenuOpen.value = !isMenuOpen.value
-    }
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
 
-    const closeMenu = () => {
-      isMenuOpen.value = false
-    }
+const closeMenu = () => {
+  isMenuOpen.value = false
+}
 
-    const downloadApp = () => {
-      // Track download button click
-      if (window.gtag) {
-        window.gtag('event', 'download_app_click', {
-          event_category: 'engagement',
-          event_label: 'navigation'
-        })
-      }
-
-      // In a real app, this would redirect to app stores
-      window.open('https://apps.apple.com/app/guestspot', '_blank')
-      closeMenu()
-    }
-
-    return {
-      isMenuOpen,
-      toggleMenu,
-      closeMenu,
-      downloadApp
-    }
+const downloadApp = () => {
+  // Track download button click
+  if (window.gtag) {
+    window.gtag('event', 'download_app_click', {
+      event_category: 'engagement',
+      event_label: 'navigation'
+    })
   }
-})
+
+  // In a real app, this would redirect to app stores
+  window.open('https://apps.apple.com/app/guestspot', '_blank')
+  closeMenu()
+}
 </script>
 
 <style scoped>

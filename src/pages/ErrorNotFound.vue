@@ -42,36 +42,27 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'ErrorNotFoundPage',
-  setup() {
-    const router = useRouter()
+const router = useRouter()
 
-    const goHome = () => {
-      void router.push('/')
-    }
+const goHome = () => {
+  void router.push('/')
+}
 
-    const goBack = () => {
-      window.history.back()
-    }
+const goBack = () => {
+  window.history.back()
+}
 
-    return {
-      goHome,
-      goBack
-    }
-  },
-  mounted() {
-    // Track 404 error
-    if (window.gtag) {
-      window.gtag('event', 'page_not_found', {
-        event_category: 'error',
-        page_location: window.location.href
-      })
-    }
+onMounted(() => {
+  // Track 404 error
+  if (window.gtag) {
+    window.gtag('event', 'page_not_found', {
+      event_category: 'error',
+      page_location: window.location.href
+    })
   }
 })
 </script>
