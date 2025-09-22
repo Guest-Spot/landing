@@ -40,7 +40,7 @@
                 flat
                 round
                 color="white"
-                icon="facebook"
+                icon="mdi-facebook"
                 size="lg"
                 @click="openSocial('facebook')"
               />
@@ -48,7 +48,7 @@
                 flat
                 round
                 color="white"
-                icon="fab-instagram"
+                icon="mdi-instagram"
                 size="lg"
                 @click="openSocial('instagram')"
               />
@@ -56,7 +56,7 @@
                 flat
                 round
                 color="white"
-                icon="fab-twitter"
+                icon="mdi-twitter"
                 size="lg"
                 @click="openSocial('twitter')"
               />

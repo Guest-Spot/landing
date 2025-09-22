@@ -17,7 +17,7 @@
                 flat
                 round
                 color="white"
-                icon="facebook"
+                icon="mdi-facebook"
                 size="md"
                 @click="openSocial('facebook')"
                 aria-label="Follow us on Facebook"
@@ -26,7 +26,7 @@
                 flat
                 round
                 color="white"
-                icon="fab-instagram"
+                icon="mdi-instagram"
                 size="md"
                 @click="openSocial('instagram')"
                 aria-label="Follow us on Instagram"
@@ -35,7 +35,7 @@
                 flat
                 round
                 color="white"
-                icon="fab-twitter"
+                icon="mdi-twitter"
                 size="md"
                 @click="openSocial('twitter')"
                 aria-label="Follow us on Twitter"
@@ -44,7 +44,7 @@
                 flat
                 round
                 color="white"
-                icon="fab-youtube"
+                icon="mdi-youtube"
                 size="md"
                 @click="openSocial('youtube')"
                 aria-label="Subscribe to our YouTube channel"
