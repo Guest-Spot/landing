@@ -1,4 +1,31 @@
+export interface IMetaData {
+  title: string
+  description: string
+  keywords: string
+  image: string
+  url: string
+  siteName: string
+}
+
+export interface IFAQ {
+  question: string
+  answer: string
+}
+
+export interface IAnalyticsEvent {
+  [key: string]: unknown
+}
+
+// Extend Window interface to include ym
+declare global {
+  interface Window {
+    ym: (id: string | number, command: string, config?: unknown) => void
+  }
+}
+
 export class SEOService {
+  defaultMeta: IMetaData
+
   constructor() {
     this.defaultMeta = {
       title: 'GuestSpot - Find Your Perfect Tattoo Studio',
@@ -10,7 +37,7 @@ export class SEOService {
     }
   }
 
-  setPageMeta(meta = {}) {
+  setPageMeta(meta: Partial<IMetaData> = {}): void {
     const pageMeta = { ...this.defaultMeta, ...meta }
 
     // Set title
@@ -38,38 +65,38 @@ export class SEOService {
     this.setCanonicalUrl(pageMeta.url)
   }
 
-  setMetaTag(attribute, name, content) {
+  setMetaTag(attribute: string, name: string, content: string): void {
     let element = document.querySelector(`meta[${attribute}="${name}"]`)
-    
+
     if (!element) {
       element = document.createElement('meta')
       element.setAttribute(attribute, name)
       document.head.appendChild(element)
     }
-    
+
     element.setAttribute('content', content)
   }
 
-  setCanonicalUrl(url) {
+  setCanonicalUrl(url: string): void {
     let canonical = document.querySelector('link[rel="canonical"]')
-    
+
     if (!canonical) {
       canonical = document.createElement('link')
       canonical.setAttribute('rel', 'canonical')
       document.head.appendChild(canonical)
     }
-    
+
     canonical.setAttribute('href', url)
   }
 
-  addStructuredData(data) {
+  addStructuredData(data: Record<string, unknown>): void {
     const script = document.createElement('script')
     script.type = 'application/ld+json'
     script.textContent = JSON.stringify(data)
     document.head.appendChild(script)
   }
 
-  setLegalDocumentMeta(documentType, title) {
+  setLegalDocumentMeta(documentType: string, title: string): void {
     const meta = {
       title: `${title} - GuestSpot`,
       description: `Read our ${title.toLowerCase()} to understand how we handle your data and our service terms.`,
@@ -126,7 +153,7 @@ export class SEOService {
   }
 
   // Structured data for FAQ section
-  addFAQStructuredData(faqs) {
+  addFAQStructuredData(faqs: IFAQ[]): void {
     const faqData = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -177,7 +204,7 @@ export class SEOService {
     }
   }
 
-  loadGoogleAnalytics(gaId) {
+  loadGoogleAnalytics(gaId: string): void {
     const script1 = document.createElement('script')
     script1.async = true
     script1.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`
@@ -193,7 +220,7 @@ export class SEOService {
     document.head.appendChild(script2)
   }
 
-  loadYandexMetrica(ymId) {
+  loadYandexMetrica(ymId: string): void {
     const script = document.createElement('script')
     script.textContent = `
       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -209,7 +236,7 @@ export class SEOService {
   }
 
   // Track events
-  trackEvent(eventName, parameters = {}) {
+  trackEvent(eventName: string, parameters: IAnalyticsEvent = {}): void {
     // Google Analytics
     if (window.gtag) {
       window.gtag('event', eventName, parameters)

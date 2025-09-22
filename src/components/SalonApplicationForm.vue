@@ -321,11 +321,11 @@ const onSubmit = async () => {
       // Reset form
       Object.keys(formData).forEach(key => {
         if (key === 'socialMedia') {
-          (formData as any)[key] = { instagram: '', facebook: '', website: '' }
+          (formData as Record<string, unknown>)[key] = { instagram: '', facebook: '', website: '' }
         } else if (key === 'services' || key === 'specialties') {
-          (formData as any)[key] = []
+          (formData as Record<string, unknown>)[key] = []
         } else {
-          (formData as any)[key] = ''
+          (formData as Record<string, unknown>)[key] = ''
         }
       })
 

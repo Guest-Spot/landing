@@ -4,7 +4,7 @@ import { defineBoot } from '#q-app/wrappers'
 // Extend Window interface to include gtag
 declare global {
   interface Window {
-    gtag: (command: string, targetId: string, config?: Record<string, any>) => void
+    gtag: (command: string, targetId: string, config?: Record<string, unknown>) => void
   }
 }
 

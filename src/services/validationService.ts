@@ -1,8 +1,15 @@
 import { SalonApplication } from '../models/SalonApplication.js'
 import { ContactInquiry } from '../models/ContactInquiry.js'
+import type { ISalonApplication } from '../models/SalonApplication.js'
+import type { IContactInquiry } from '../models/ContactInquiry.js'
+
+export interface IValidationResult {
+  isValid: boolean
+  errors: string[]
+}
 
 export class ValidationService {
-  static validateSalonApplication(data) {
+  static validateSalonApplication(data: Partial<ISalonApplication>): IValidationResult {
     const application = new SalonApplication(data)
     const validation = application.validate()
 
@@ -15,34 +22,34 @@ export class ValidationService {
     return validation
   }
 
-  static validateContactInquiry(data) {
+  static validateContactInquiry(data: Partial<IContactInquiry>): IValidationResult {
     const inquiry = new ContactInquiry(data)
     return inquiry.validate()
   }
 
-  static isValidEmail(email) {
+  static isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   }
 
-  static isValidPhone(phone) {
+  static isValidPhone(phone: string): boolean {
     // Allow international format: +1-234-567-8900, +1 234 567 8900, +12345678900
     const phoneRegex = /^[+]?[1-9][\d\s\-()]{7,15}$/
     return phoneRegex.test(phone.replace(/\s/g, ''))
   }
 
-  static isValidZipCode(zipCode, country = 'US') {
-    const zipPatterns = {
+  static isValidZipCode(zipCode: string, country = 'US'): boolean {
+    const zipPatterns: Record<string, RegExp> = {
       US: /^\d{5}(-\d{4})?$/,
       CA: /^[A-Z]\d[A-Z] \d[A-Z]\d$/,
       UK: /^[A-Z]{1,2}\d[A-Z\d]? \d[A-Z]{2}$/
     }
 
     const pattern = zipPatterns[country] || zipPatterns.US
-    return pattern.test(zipCode)
+    return pattern ? pattern.test(zipCode) : false
   }
 
-  static sanitizeInput(input) {
+  static sanitizeInput(input: unknown): unknown {
     if (typeof input !== 'string') return input
 
     return input
@@ -51,30 +58,37 @@ export class ValidationService {
       .replace(/<[^>]*>/g, '')
   }
 
-  static validateBusinessInfo(data) {
+  static validateBusinessInfo(data: Record<string, unknown>): IValidationResult {
     const errors = []
 
-    if (!data.businessName || data.businessName.length < 2 || data.businessName.length > 100) {
+    const businessName = data.businessName as string
+    const address = data.address as string
+    const city = data.city as string
+    const state = data.state as string
+    const country = data.country as string
+    const zipCode = data.zipCode as string
+
+    if (!businessName || businessName.length < 2 || businessName.length > 100) {
       errors.push('Business name must be between 2 and 100 characters')
     }
 
-    if (!data.address || data.address.length < 5) {
+    if (!address || address.length < 5) {
       errors.push('Complete address is required')
     }
 
-    if (!data.city || data.city.length < 2) {
+    if (!city || city.length < 2) {
       errors.push('City is required')
     }
 
-    if (!data.state || data.state.length < 2) {
+    if (!state || state.length < 2) {
       errors.push('State/Province is required')
     }
 
-    if (!data.country || data.country.length < 2) {
+    if (!country || country.length < 2) {
       errors.push('Country is required')
     }
 
-    if (data.zipCode && !this.isValidZipCode(data.zipCode, data.country)) {
+    if (zipCode && !this.isValidZipCode(zipCode, country)) {
       errors.push('Invalid postal code format')
     }
 
@@ -84,18 +98,22 @@ export class ValidationService {
     }
   }
 
-  static validateContactInfo(data) {
+  static validateContactInfo(data: Record<string, unknown>): IValidationResult {
     const errors = []
 
-    if (!data.contactName || data.contactName.length < 2 || data.contactName.length > 100) {
+    const contactName = data.contactName as string
+    const email = data.email as string
+    const phone = data.phone as string
+
+    if (!contactName || contactName.length < 2 || contactName.length > 100) {
       errors.push('Contact name must be between 2 and 100 characters')
     }
 
-    if (!data.email || !this.isValidEmail(data.email)) {
+    if (!email || !this.isValidEmail(email)) {
       errors.push('Valid email address is required')
     }
 
-    if (data.phone && !this.isValidPhone(data.phone)) {
+    if (phone && !this.isValidPhone(phone)) {
       errors.push('Invalid phone number format')
     }
 

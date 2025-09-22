@@ -1,6 +1,6 @@
 import { ValidationService } from './validationService.js'
-import { ISalonApplication } from '../models/SalonApplication.js'
-import { IContactInquiry } from '../models/ContactInquiry.js'
+import type { ISalonApplication } from '../models/SalonApplication.js'
+import type { IContactInquiry } from '../models/ContactInquiry.js'
 
 export interface IFormSubmissionResult {
   success: boolean
@@ -13,7 +13,7 @@ export interface IFormSubmissionResult {
 export interface IFormServiceResponse {
   ok: boolean
   status: number
-  data: any
+  data: unknown
   id: string | null
 }
 
@@ -110,7 +110,7 @@ export class FormService {
     }
   }
 
-  async submitToFormService(data: any, formType: string): Promise<IFormServiceResponse> {
+  async submitToFormService(data: Record<string, unknown>, formType: string): Promise<IFormServiceResponse> {
     const endpoint = this.getEndpointForFormType(formType)
 
     const response = await fetch(endpoint, {
@@ -142,8 +142,8 @@ export class FormService {
     return endpoints[formType] || this.apiEndpoint
   }
 
-  sanitizeFormData(data: any): any {
-    const sanitized: Record<string, any> = {}
+  sanitizeFormData(data: Record<string, unknown>): Record<string, unknown> {
+    const sanitized: Record<string, unknown> = {}
 
     for (const [key, value] of Object.entries(data)) {
       if (typeof value === 'string') {
@@ -179,10 +179,26 @@ export class FormService {
   }
 
   // Fallback email submission (opens user's email client)
-  submitViaEmail(data: any, formType: string): IFormSubmissionResult {
+  submitViaEmail(data: Record<string, unknown>, formType: string): IFormSubmissionResult {
+    const safeString = (value: unknown): string => {
+      if (value === null || value === undefined) return ''
+      if (typeof value === 'string') return value
+      if (typeof value === 'number') return String(value)
+      if (typeof value === 'boolean') return String(value)
+      if (Array.isArray(value)) return value.join(', ')
+      if (typeof value === 'object' && value !== null) {
+        try {
+          return JSON.stringify(value)
+        } catch {
+          return '[Object]'
+        }
+      }
+      return '[Unknown]'
+    }
+
     const subject = formType === 'salon-application'
-      ? `Salon Application - ${data.businessName}`
-      : `Contact Inquiry - ${data.subject}`
+      ? `Salon Application - ${safeString(data.businessName)}`
+      : `Contact Inquiry - ${safeString(data.subject)}`
 
     const body = this.formatEmailBody(data, formType)
     const emailUrl = `mailto:info@guestspot.app?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
@@ -196,37 +212,73 @@ export class FormService {
     }
   }
 
-  formatEmailBody(data: any, formType: string): string {
+  formatEmailBody(data: Record<string, unknown>, formType: string): string {
+    const safeString = (value: unknown): string => {
+      if (value === null || value === undefined) return ''
+      if (typeof value === 'string') return value
+      if (typeof value === 'number') return String(value)
+      if (typeof value === 'boolean') return String(value)
+      if (Array.isArray(value)) return value.join(', ')
+      if (typeof value === 'object' && value !== null) {
+        try {
+          return JSON.stringify(value)
+        } catch {
+          return '[Object]'
+        }
+      }
+      return '[Unknown]'
+    }
+
     if (formType === 'salon-application') {
-      return `
-Business Name: ${data.businessName}
-Contact Name: ${data.contactName}
-Email: ${data.email}
-Phone: ${data.phone || 'Not provided'}
-Address: ${data.address}
-City: ${data.city}
-State: ${data.state}
-Zip Code: ${data.zipCode}
-Country: ${data.country}
-Services: ${Array.isArray(data.services) ? data.services.join(', ') : data.services}
-Experience: ${data.experience} years
-Portfolio URL: ${data.portfolioUrl || 'Not provided'}
-Specialties: ${Array.isArray(data.specialties) ? data.specialties.join(', ') : data.specialties || 'Not provided'}
-Message: ${data.message || 'No additional message'}
+      const businessName = safeString(data.businessName)
+      const contactName = safeString(data.contactName)
+      const email = safeString(data.email)
+      const phone = data.phone ? safeString(data.phone) : 'Not provided'
+      const address = safeString(data.address)
+      const city = safeString(data.city)
+      const state = safeString(data.state)
+      const zipCode = safeString(data.zipCode)
+      const country = safeString(data.country)
+      const services = safeString(data.services)
+      const experience = safeString(data.experience)
+      const portfolioUrl = data.portfolioUrl ? safeString(data.portfolioUrl) : 'Not provided'
+      const specialties = data.specialties ? safeString(data.specialties) : 'Not provided'
+      const message = data.message ? safeString(data.message) : 'No additional message'
 
-Submitted: ${new Date().toLocaleString()}
-      `.trim()
+      return [
+        `Business Name: ${businessName}`,
+        `Contact Name: ${contactName}`,
+        `Email: ${email}`,
+        `Phone: ${phone}`,
+        `Address: ${address}`,
+        `City: ${city}`,
+        `State: ${state}`,
+        `Zip Code: ${zipCode}`,
+        `Country: ${country}`,
+        `Services: ${services}`,
+        `Experience: ${experience} years`,
+        `Portfolio URL: ${portfolioUrl}`,
+        `Specialties: ${specialties}`,
+        `Message: ${message}`,
+        '',
+        `Submitted: ${new Date().toLocaleString()}`
+      ].join('\n')
     } else {
-      return `
-Name: ${data.name}
-Email: ${data.email}
-Subject: ${data.subject}
+      const name = safeString(data.name)
+      const email = safeString(data.email)
+      const subject = safeString(data.subject)
+      const message = safeString(data.message)
 
-Message:
-${data.message}
-
-Submitted: ${new Date().toLocaleString()}
-      `.trim()
+      return [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Subject: ${subject}`,
+        '',
+        'Message:',
+        message,
+        '',
+        `Submitted: ${new Date().toLocaleString()}`
+      ].join('\n')
     }
   }
 }

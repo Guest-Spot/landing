@@ -8,8 +8,8 @@ declare namespace NodeJS {
 
 declare global {
   interface Window {
-    gtag?: (command: string, action: string, parameters?: Record<string, any>) => void;
+    gtag?: (command: string, action: string, parameters?: Record<string, unknown>) => void;
   }
 
-  const gtag: (command: string, action: string, parameters?: Record<string, any>) => void;
+  const gtag: (command: string, action: string, parameters?: Record<string, unknown>) => void;
 }

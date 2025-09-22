@@ -82,15 +82,15 @@ const downloadApp = () => {
   window.open('https://apps.apple.com/app/guestspot', '_blank')
 }
 
-const scrollToFeatures = () => {
-  const featuresSection = document.querySelector('[data-cy="features-section"]')
-  if (featuresSection) {
-    featuresSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
-  }
-}
+// const scrollToFeatures = () => {
+//   const featuresSection = document.querySelector('[data-cy="features-section"]')
+//   if (featuresSection) {
+//     featuresSection.scrollIntoView({
+//       behavior: 'smooth',
+//       block: 'start'
+//     })
+//   }
+// }
 </script>
 
 <style scoped>

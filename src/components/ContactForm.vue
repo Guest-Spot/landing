@@ -180,7 +180,7 @@ const onSubmit = async () => {
 
       // Reset form
       Object.keys(formData).forEach(key => {
-        (formData as any)[key] = ''
+        (formData as Record<string, unknown>)[key] = ''
       })
 
       // Track successful submission
