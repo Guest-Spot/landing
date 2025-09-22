@@ -1,12 +1,32 @@
 import { ValidationService } from './validationService.js'
+import { ISalonApplication } from '../models/SalonApplication.js'
+import { IContactInquiry } from '../models/ContactInquiry.js'
+
+export interface IFormSubmissionResult {
+  success: boolean
+  message: string
+  id?: string
+  error?: string
+  fallback?: boolean
+}
+
+export interface IFormServiceResponse {
+  ok: boolean
+  status: number
+  data: any
+  id: string | null
+}
 
 export class FormService {
+  apiEndpoint: string
+  emailEndpoint: string | null
+
   constructor() {
     this.apiEndpoint = process.env.FORM_ENDPOINT || 'https://formspree.io/f/your-form-id'
     this.emailEndpoint = process.env.EMAIL_ENDPOINT || null
   }
 
-  async submitSalonApplication(data) {
+  async submitSalonApplication(data: Partial<ISalonApplication>): Promise<IFormSubmissionResult> {
     try {
       // Validate data first
       const validation = ValidationService.validateSalonApplication(data)
@@ -43,12 +63,12 @@ export class FormService {
       return {
         success: false,
         message: 'Failed to submit application. Please try again later.',
-        error: error.message
+        error: error instanceof Error ? error.message : 'Unknown error'
       }
     }
   }
 
-  async submitContactInquiry(data) {
+  async submitContactInquiry(data: Partial<IContactInquiry>): Promise<IFormSubmissionResult> {
     try {
       // Validate data first
       const validation = ValidationService.validateContactInquiry(data)
@@ -85,12 +105,12 @@ export class FormService {
       return {
         success: false,
         message: 'Failed to send message. Please try again later.',
-        error: error.message
+        error: error instanceof Error ? error.message : 'Unknown error'
       }
     }
   }
 
-  async submitToFormService(data, formType) {
+  async submitToFormService(data: any, formType: string): Promise<IFormServiceResponse> {
     const endpoint = this.getEndpointForFormType(formType)
 
     const response = await fetch(endpoint, {
@@ -112,9 +132,9 @@ export class FormService {
     }
   }
 
-  getEndpointForFormType(formType) {
+  getEndpointForFormType(formType: string): string {
     // In production, these would be different endpoints or include form IDs
-    const endpoints = {
+    const endpoints: Record<string, string> = {
       'salon-application': process.env.SALON_FORM_ENDPOINT || this.apiEndpoint,
       'contact': process.env.CONTACT_FORM_ENDPOINT || this.apiEndpoint
     }
@@ -122,8 +142,8 @@ export class FormService {
     return endpoints[formType] || this.apiEndpoint
   }
 
-  sanitizeFormData(data) {
-    const sanitized = {}
+  sanitizeFormData(data: any): any {
+    const sanitized: Record<string, any> = {}
 
     for (const [key, value] of Object.entries(data)) {
       if (typeof value === 'string') {
@@ -140,12 +160,12 @@ export class FormService {
     return sanitized
   }
 
-  generateSubmissionId() {
+  generateSubmissionId(): string {
     return 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
   }
 
   // Method to test form service availability
-  async testFormService() {
+  async testFormService(): Promise<boolean> {
     try {
       await fetch(this.apiEndpoint, {
         method: 'GET',
@@ -159,7 +179,7 @@ export class FormService {
   }
 
   // Fallback email submission (opens user's email client)
-  submitViaEmail(data, formType) {
+  submitViaEmail(data: any, formType: string): IFormSubmissionResult {
     const subject = formType === 'salon-application'
       ? `Salon Application - ${data.businessName}`
       : `Contact Inquiry - ${data.subject}`
@@ -176,7 +196,7 @@ export class FormService {
     }
   }
 
-  formatEmailBody(data, formType) {
+  formatEmailBody(data: any, formType: string): string {
     if (formType === 'salon-application') {
       return `
 Business Name: ${data.businessName}

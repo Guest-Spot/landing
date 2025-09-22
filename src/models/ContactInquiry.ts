@@ -1,5 +1,23 @@
-export class ContactInquiry {
-  constructor(data = {}) {
+export interface IContactInquiry {
+  id: string
+  name: string
+  email: string
+  subject: string
+  message: string
+  submittedAt: Date
+  status: string
+}
+
+export class ContactInquiry implements IContactInquiry {
+  id: string
+  name: string
+  email: string
+  subject: string
+  message: string
+  submittedAt: Date
+  status: string
+
+  constructor(data: Partial<IContactInquiry> = {}) {
     this.id = data.id || this.generateId()
     this.name = data.name || ''
     this.email = data.email || ''
@@ -56,7 +74,7 @@ export class ContactInquiry {
     }
   }
 
-  isValidEmail(email) {
+  isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   }

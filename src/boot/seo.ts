@@ -1,6 +1,14 @@
 import { SEOService } from '../services/seoService.js'
+import { defineBoot } from '#q-app/wrappers'
 
-export default ({ app, router }) => {
+// Extend Window interface to include gtag
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config?: Record<string, any>) => void
+  }
+}
+
+export default defineBoot(({ app, router }) => {
   const seoService = new SEOService()
 
   // Set default meta tags
@@ -34,7 +42,7 @@ export default ({ app, router }) => {
   })
 
   // Track form submissions
-  app.config.globalProperties.$trackFormSubmission = (formType, success = true) => {
+  app.config.globalProperties.$trackFormSubmission = (formType: string, success = true) => {
     if (window.gtag) {
       window.gtag('event', 'form_submit', {
         event_category: 'engagement',
@@ -45,7 +53,7 @@ export default ({ app, router }) => {
   }
 
   // Track button clicks
-  app.config.globalProperties.$trackButtonClick = (buttonName, location = 'unknown') => {
+  app.config.globalProperties.$trackButtonClick = (buttonName: string, location = 'unknown') => {
     if (window.gtag) {
       window.gtag('event', 'button_click', {
         event_category: 'engagement',
@@ -56,7 +64,7 @@ export default ({ app, router }) => {
   }
 
   // Track social media clicks
-  app.config.globalProperties.$trackSocialClick = (platform) => {
+  app.config.globalProperties.$trackSocialClick = (platform: string) => {
     if (window.gtag) {
       window.gtag('event', 'social_click', {
         event_category: 'engagement',
@@ -66,7 +74,7 @@ export default ({ app, router }) => {
   }
 
   // Track download attempts
-  app.config.globalProperties.$trackDownload = (platform) => {
+  app.config.globalProperties.$trackDownload = (platform: string) => {
     if (window.gtag) {
       window.gtag('event', 'download_app_click', {
         event_category: 'engagement',
@@ -74,4 +82,4 @@ export default ({ app, router }) => {
       })
     }
   }
-}
+})

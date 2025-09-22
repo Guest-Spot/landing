@@ -1,5 +1,51 @@
-export class SalonApplication {
-  constructor(data = {}) {
+export interface ISocialMedia {
+  instagram: string
+  facebook: string
+  website: string
+}
+
+export interface ISalonApplication {
+  id: string
+  businessName: string
+  contactName: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  state: string
+  zipCode: string
+  country: string
+  services: string[]
+  portfolioUrl: string
+  socialMedia: ISocialMedia
+  experience: string
+  specialties: string[]
+  message: string
+  submittedAt: Date
+  status: string
+}
+
+export class SalonApplication implements ISalonApplication {
+  id: string
+  businessName: string
+  contactName: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  state: string
+  zipCode: string
+  country: string
+  services: string[]
+  portfolioUrl: string
+  socialMedia: ISocialMedia
+  experience: string
+  specialties: string[]
+  message: string
+  submittedAt: Date
+  status: string
+
+  constructor(data: Partial<ISalonApplication> = {}) {
     this.id = data.id || this.generateId()
     this.businessName = data.businessName || ''
     this.contactName = data.contactName || ''
@@ -91,7 +137,7 @@ export class SalonApplication {
     }
   }
 
-  isValidEmail(email) {
+  isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   }

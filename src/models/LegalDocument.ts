@@ -1,5 +1,23 @@
-export class LegalDocument {
-  constructor(data = {}) {
+export interface ILegalDocument {
+  id: string
+  title: string
+  content: string
+  version: string
+  lastUpdated: Date
+  effectiveDate: Date
+  language: string
+}
+
+export class LegalDocument implements ILegalDocument {
+  id: string
+  title: string
+  content: string
+  version: string
+  lastUpdated: Date
+  effectiveDate: Date
+  language: string
+
+  constructor(data: Partial<ILegalDocument> = {}) {
     this.id = data.id || ''
     this.title = data.title || ''
     this.content = data.content || ''
@@ -43,17 +61,17 @@ export class LegalDocument {
     }
   }
 
-  isValidVersion(version) {
+  isValidVersion(version: string): boolean {
     const versionRegex = /^\d+\.\d+\.\d+$/
     return versionRegex.test(version)
   }
 
-  updateContent(newContent) {
+  updateContent(newContent: string): void {
     this.content = newContent
     this.lastUpdated = new Date()
   }
 
-  updateVersion(newVersion) {
+  updateVersion(newVersion: string): boolean {
     if (this.isValidVersion(newVersion)) {
       this.version = newVersion
       this.lastUpdated = new Date()
