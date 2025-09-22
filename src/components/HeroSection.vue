@@ -20,16 +20,6 @@
             icon="download"
             @click="downloadApp"
           />
-          <q-btn
-            data-cy="learn-more-btn"
-            class="secondary-button"
-            size="lg"
-            outline
-            color="white"
-            label="Learn More"
-            icon="info"
-            @click="scrollToFeatures"
-          />
         </div>
       </div>
       <div class="hero-image">

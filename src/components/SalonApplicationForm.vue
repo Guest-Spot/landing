@@ -217,8 +217,8 @@
               :disable="isSubmitting"
               class="submit-button"
               size="xl"
-              color="accent"
-              :label="isSubmitting ? 'Submitting...' : 'Submit Application'"
+              color="primary"
+              :label="isSubmitting ? 'Submitting...' : 'Submit Request'"
               icon="send"
             />
 
@@ -489,7 +489,6 @@ const onSubmit = async () => {
 }
 
 .submit-button {
-  background: linear-gradient(45deg, #ff3d00, #ff6b35) !important;
   border: none !important;
   font-weight: 600;
   padding: 1rem 3rem;
