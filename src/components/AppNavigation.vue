@@ -7,14 +7,14 @@
           <span class="brand-text">GuestSpot</span>
         </router-link>
       </div>
-      
+
       <div class="nav-menu" :class="{ 'nav-menu-open': isMenuOpen }">
         <ul class="nav-links">
           <li><a href="#features" class="nav-link" @click="closeMenu">Features</a></li>
           <li><a href="#for-studios" class="nav-link" @click="closeMenu">For Studios</a></li>
           <li><a href="#contact" class="nav-link" @click="closeMenu">Contact</a></li>
         </ul>
-        
+
         <div class="nav-actions">
           <q-btn
             class="download-btn"
@@ -25,7 +25,7 @@
           />
         </div>
       </div>
-      
+
       <div class="nav-toggle" @click="toggleMenu">
         <q-icon :name="isMenuOpen ? 'close' : 'menu'" class="toggle-icon" />
       </div>
@@ -33,22 +33,22 @@
   </nav>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'AppNavigation',
   setup() {
     const isMenuOpen = ref(false)
-    
+
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value
     }
-    
+
     const closeMenu = () => {
       isMenuOpen.value = false
     }
-    
+
     const downloadApp = () => {
       // Track download button click
       if (window.gtag) {
@@ -57,12 +57,12 @@ export default defineComponent({
           event_label: 'navigation'
         })
       }
-      
+
       // In a real app, this would redirect to app stores
       window.open('https://apps.apple.com/app/guestspot', '_blank')
       closeMenu()
     }
-    
+
     return {
       isMenuOpen,
       toggleMenu,
@@ -209,36 +209,36 @@ export default defineComponent({
     visibility: hidden;
     transition: all 0.3s ease;
   }
-  
+
   .nav-menu-open {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
   }
-  
+
   .nav-links {
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
   }
-  
+
   .nav-link {
     font-size: 1.1rem;
     padding: 0.5rem 0;
   }
-  
+
   .nav-actions {
     width: 100%;
     justify-content: center;
   }
-  
+
   .download-btn {
     width: 100%;
     max-width: 250px;
     padding: 0.75rem 2rem;
     font-size: 1rem;
   }
-  
+
   .nav-toggle {
     display: block;
   }
@@ -248,23 +248,23 @@ export default defineComponent({
   .nav-container {
     padding: 0 1rem;
   }
-  
+
   .brand-text {
     font-size: 1.25rem;
   }
-  
+
   .brand-icon {
     font-size: 1.75rem;
   }
-  
+
   .nav-menu {
     padding: 1.5rem;
   }
-  
+
   .nav-links {
     gap: 1rem;
   }
-  
+
   .nav-link {
     font-size: 1rem;
   }

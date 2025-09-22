@@ -42,17 +42,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: 'Error404',
+  name: 'ErrorNotFoundPage',
   setup() {
     const router = useRouter()
 
     const goHome = () => {
-      router.push('/')
+      void router.push('/')
     }
 
     const goBack = () => {

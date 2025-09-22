@@ -7,10 +7,10 @@
           We make finding and booking your perfect tattoo experience effortless
         </p>
       </div>
-      
+
       <div class="features-grid">
-        <div 
-          v-for="feature in features" 
+        <div
+          v-for="feature in features"
           :key="feature.id"
           data-cy="feature-card"
           class="feature-card"
@@ -27,7 +27,7 @@
           </ul>
         </div>
       </div>
-      
+
       <div class="cta-section">
         <h3 class="cta-title">Ready to Find Your Perfect Studio?</h3>
         <p class="cta-subtitle">Join thousands of satisfied customers</p>
@@ -45,7 +45,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -132,7 +132,7 @@ export default defineComponent({
     scrollToApplication() {
       const applicationSection = document.querySelector('[data-cy="salon-application-form"]')
       if (applicationSection) {
-        applicationSection.scrollIntoView({ 
+        applicationSection.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         })
@@ -156,7 +156,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 70% 30%, rgba(255, 61, 0, 0.03) 0%, transparent 50%),
     radial-gradient(circle at 30% 70%, rgba(255, 61, 0, 0.02) 0%, transparent 50%);
   pointer-events: none;
@@ -216,7 +216,7 @@ export default defineComponent({
   transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 61, 0, 0.3);
-  box-shadow: 
+  box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 61, 0, 0.1);
 }
@@ -307,36 +307,36 @@ export default defineComponent({
   .features-section {
     padding: 4rem 0;
   }
-  
+
   .section-title {
     font-size: 2.5rem;
   }
-  
+
   .section-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .feature-card {
     padding: 1.5rem;
   }
-  
+
   .cta-section {
     padding: 2rem 1rem;
   }
-  
+
   .cta-title {
     font-size: 2rem;
   }
-  
+
   .cta-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .cta-button {
     padding: 0.875rem 2rem;
     font-size: 1.1rem;
@@ -347,15 +347,15 @@ export default defineComponent({
   .container {
     padding: 0 1rem;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .feature-card {
     padding: 1.25rem;
   }
-  
+
   .cta-title {
     font-size: 1.75rem;
   }

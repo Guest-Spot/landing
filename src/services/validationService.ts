@@ -27,7 +27,7 @@ export class ValidationService {
 
   static isValidPhone(phone) {
     // Allow international format: +1-234-567-8900, +1 234 567 8900, +12345678900
-    const phoneRegex = /^[\+]?[1-9][\d\s\-()]{7,15}$/
+    const phoneRegex = /^[+]?[1-9][\d\s\-()]{7,15}$/
     return phoneRegex.test(phone.replace(/\s/g, ''))
   }
 
@@ -44,7 +44,7 @@ export class ValidationService {
 
   static sanitizeInput(input) {
     if (typeof input !== 'string') return input
-    
+
     return input
       .trim()
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')

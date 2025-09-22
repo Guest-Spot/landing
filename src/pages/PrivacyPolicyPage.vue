@@ -6,7 +6,7 @@
         <p class="page-subtitle">Last updated: {{ lastUpdated }}</p>
       </div>
     </div>
-    
+
     <div class="page-content">
       <div class="container">
         <div class="legal-content">
@@ -19,10 +19,10 @@
               Please read this Privacy Policy carefully. If you do not agree with the terms of this Privacy Policy, please do not access the application or website.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>2. Information We Collect</h2>
-            
+
             <h3>2.1 Personal Information</h3>
             <p>We may collect personal information that you voluntarily provide to us, including:</p>
             <ul>
@@ -32,7 +32,7 @@
               <li>Payment information (processed securely through third-party providers)</li>
               <li>Communications with us (support requests, feedback)</li>
             </ul>
-            
+
             <h3>2.2 Usage Information</h3>
             <p>We automatically collect certain information about your use of our Service:</p>
             <ul>
@@ -41,7 +41,7 @@
               <li>Location data (with your consent)</li>
               <li>App usage patterns and preferences</li>
             </ul>
-            
+
             <h3>2.3 Content Information</h3>
             <p>We may collect content you create or share, including:</p>
             <ul>
@@ -51,7 +51,7 @@
               <li>Booking history and preferences</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>3. How We Use Your Information</h2>
             <p>We use the information we collect to:</p>
@@ -67,11 +67,11 @@
               <li>Comply with legal obligations</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>4. Information Sharing and Disclosure</h2>
             <p>We may share your information in the following circumstances:</p>
-            
+
             <h3>4.1 With Service Providers</h3>
             <p>We may share your information with third-party service providers who assist us in operating our Service, including:</p>
             <ul>
@@ -81,7 +81,7 @@
               <li>Customer support tools</li>
               <li>Marketing platforms</li>
             </ul>
-            
+
             <h3>4.2 With Studios and Artists</h3>
             <p>When you book an appointment, we share necessary information with the studio or artist, including:</p>
             <ul>
@@ -89,11 +89,11 @@
               <li>Appointment details and preferences</li>
               <li>Any special requests or notes</li>
             </ul>
-            
+
             <h3>4.3 Legal Requirements</h3>
             <p>We may disclose your information if required to do so by law or in response to valid requests by public authorities.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>5. Data Security</h2>
             <p>We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:</p>
@@ -108,12 +108,12 @@
               However, no method of transmission over the Internet or electronic storage is 100% secure. While we strive to protect your personal information, we cannot guarantee its absolute security.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>6. Data Retention</h2>
             <p>We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. We will delete or anonymize your personal information when it is no longer needed.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>7. Your Rights and Choices</h2>
             <p>Depending on your location, you may have certain rights regarding your personal information:</p>
@@ -127,7 +127,7 @@
             </ul>
             <p>To exercise these rights, please contact us using the information provided below.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>8. Cookies and Tracking Technologies</h2>
             <p>We use cookies and similar tracking technologies to enhance your experience on our website. These technologies help us:</p>
@@ -139,27 +139,27 @@
             </ul>
             <p>You can control cookie settings through your browser preferences, but disabling cookies may affect the functionality of our Service.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>9. Third-Party Links</h2>
             <p>Our Service may contain links to third-party websites or services. We are not responsible for the privacy practices or content of these third parties. We encourage you to read the privacy policies of any third-party services you visit.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>10. Children's Privacy</h2>
             <p>Our Service is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under 13, we will take steps to delete such information.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>11. International Data Transfers</h2>
             <p>Your information may be transferred to and processed in countries other than your own. We ensure that such transfers comply with applicable data protection laws and implement appropriate safeguards to protect your information.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>12. Changes to This Privacy Policy</h2>
             <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. We encourage you to review this Privacy Policy periodically for any changes.</p>
           </section>
-          
+
           <section class="legal-section">
             <h2>13. Contact Us</h2>
             <p>If you have any questions about this Privacy Policy or our privacy practices, please contact us at:</p>
@@ -176,7 +176,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -189,7 +189,7 @@ export default defineComponent({
   mounted() {
     // Set page title and meta
     document.title = 'Privacy Policy - GuestSpot'
-    
+
     // Track page view
     if (window.gtag) {
       window.gtag('event', 'page_view', {
@@ -318,48 +318,48 @@ export default defineComponent({
     background: white;
     color: black;
   }
-  
+
   .page-header {
     background: white;
     border-bottom: 2px solid #000;
   }
-  
+
   .page-title {
     color: black;
   }
-  
+
   .page-subtitle {
     color: #666;
   }
-  
+
   .legal-content {
     background: white;
     border: 1px solid #000;
   }
-  
+
   .legal-section h2 {
     color: #000;
     border-bottom: 1px solid #000;
   }
-  
+
   .legal-section h3 {
     color: #000;
   }
-  
+
   .legal-section p,
   .legal-section li {
     color: #000;
   }
-  
+
   .legal-section strong {
     color: #000;
   }
-  
+
   .contact-info {
     background: #f5f5f5;
     border: 1px solid #000;
   }
-  
+
   .contact-info p {
     color: #000;
   }
@@ -370,19 +370,19 @@ export default defineComponent({
   .page-title {
     font-size: 2.5rem;
   }
-  
+
   .legal-content {
     padding: 2rem 1.5rem;
   }
-  
+
   .legal-section h2 {
     font-size: 1.3rem;
   }
-  
+
   .legal-section h3 {
     font-size: 1.1rem;
   }
-  
+
   .legal-section p,
   .legal-section li {
     font-size: 0.95rem;
@@ -393,19 +393,19 @@ export default defineComponent({
   .container {
     padding: 0 1rem;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .legal-content {
     padding: 1.5rem 1rem;
   }
-  
+
   .page-header {
     padding: 4rem 0 2rem;
   }
-  
+
   .page-content {
     padding: 2rem 0;
   }

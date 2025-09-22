@@ -9,7 +9,7 @@
               Find your perfect tattoo studio and create unforgettable experiences.
             </p>
           </div>
-          
+
           <div class="social-links">
             <h4 class="social-title">Follow Us</h4>
             <div class="social-buttons">
@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="footer-section">
           <h4 class="section-title">For Studios</h4>
           <ul class="footer-links">
@@ -62,7 +62,7 @@
             <li><a href="#support" class="footer-link">Studio Support</a></li>
           </ul>
         </div>
-        
+
         <div class="footer-section">
           <h4 class="section-title">For Customers</h4>
           <ul class="footer-links">
@@ -72,7 +72,7 @@
             <li><a href="#help" class="footer-link">Help Center</a></li>
           </ul>
         </div>
-        
+
         <div class="footer-section">
           <h4 class="section-title">Company</h4>
           <ul class="footer-links">
@@ -82,7 +82,7 @@
             <li><a href="#contact" class="footer-link">Contact</a></li>
           </ul>
         </div>
-        
+
         <div class="footer-section">
           <h4 class="section-title">Download App</h4>
           <div class="download-buttons">
@@ -105,12 +105,12 @@
           </div>
         </div>
       </div>
-      
+
       <div class="footer-bottom">
         <div class="footer-legal">
           <LegalDocuments />
         </div>
-        
+
         <div class="footer-copyright">
           <p>&copy; {{ currentYear }} GuestSpot. All rights reserved.</p>
         </div>
@@ -119,7 +119,7 @@
   </footer>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import LegalDocuments from './LegalDocuments.vue'
 
@@ -141,9 +141,9 @@ export default defineComponent({
         twitter: 'https://twitter.com/guestspot',
         youtube: 'https://youtube.com/guestspot'
       }
-      
+
       window.open(urls[platform], '_blank')
-      
+
       // Track social click
       if (window.gtag) {
         window.gtag('event', 'social_click', {
@@ -152,15 +152,15 @@ export default defineComponent({
         })
       }
     },
-    
+
     downloadApp(platform) {
       const urls = {
         ios: 'https://apps.apple.com/app/guestspot',
         android: 'https://play.google.com/store/apps/details?id=com.guestspot.app'
       }
-      
+
       window.open(urls[platform], '_blank')
-      
+
       // Track download click
       if (window.gtag) {
         window.gtag('event', 'download_app_click', {
@@ -188,7 +188,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 50% 0%, rgba(255, 61, 0, 0.02) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -324,7 +324,7 @@ export default defineComponent({
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
   }
-  
+
   .footer-section:first-child {
     grid-column: 1 / -1;
     text-align: center;
@@ -336,20 +336,20 @@ export default defineComponent({
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
-  
+
   .footer-section:first-child {
     grid-column: 1 / -1;
   }
-  
+
   .download-buttons {
     flex-direction: row;
     justify-content: center;
   }
-  
+
   .download-btn {
     max-width: 150px;
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     text-align: center;
@@ -361,20 +361,20 @@ export default defineComponent({
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .footer-section:first-child {
     grid-column: 1;
   }
-  
+
   .download-buttons {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .download-btn {
     max-width: 200px;
   }
-  
+
   .social-buttons {
     justify-content: center;
   }

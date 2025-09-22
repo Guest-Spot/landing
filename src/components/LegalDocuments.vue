@@ -10,7 +10,7 @@
         <q-icon name="description" class="link-icon" />
         Terms of Service
       </router-link>
-      
+
       <router-link
         data-cy="privacy-link"
         to="/privacy"
@@ -21,7 +21,7 @@
         Privacy Policy
       </router-link>
     </div>
-    
+
     <div class="external-links">
       <a
         href="https://www.apple.com/legal/internet-services/terms/site.html"
@@ -33,7 +33,7 @@
         <q-icon name="apple" class="link-icon" />
         App Store Terms
       </a>
-      
+
       <a
         href="https://play.google.com/about/play-terms/"
         target="_blank"
@@ -48,7 +48,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -127,7 +127,7 @@ export default defineComponent({
     flex-direction: column;
     gap: 0.75rem;
   }
-  
+
   .legal-link,
   .external-link {
     justify-content: center;
@@ -140,7 +140,7 @@ export default defineComponent({
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
   }
-  
+
   .external-link {
     font-size: 0.8rem;
     padding: 0.35rem 0.7rem;

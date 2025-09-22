@@ -7,7 +7,7 @@
           Have questions? We'd love to hear from you. Send us a message and we'll respond within 24 hours.
         </p>
       </div>
-      
+
       <div class="contact-content">
         <div class="contact-info">
           <h3 class="info-title">Contact Information</h3>
@@ -32,7 +32,7 @@
               <div class="info-value">Within 24 hours</div>
             </div>
           </div>
-          
+
           <div class="social-links">
             <h4 class="social-title">Follow Us</h4>
             <div class="social-buttons">
@@ -63,7 +63,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="form-container">
           <q-form @submit="onSubmit" class="contact-form-element">
             <div class="form-row">
@@ -85,7 +85,7 @@
                 class="form-input"
               />
             </div>
-            
+
             <q-input
               data-cy="subject"
               v-model="formData.subject"
@@ -94,7 +94,7 @@
               outlined
               class="form-input full-width"
             />
-            
+
             <q-input
               data-cy="contact-message"
               v-model="formData.message"
@@ -110,7 +110,7 @@
               class="form-input full-width"
               hint="Please provide as much detail as possible so we can help you better"
             />
-            
+
             <div class="submit-section">
               <q-btn
                 data-cy="submit-button"
@@ -123,13 +123,13 @@
                 :label="isSubmitting ? 'Sending...' : 'Send Message'"
                 icon="send"
               />
-              
+
               <p class="submit-note">
                 We'll get back to you within 24 hours. For urgent matters, please call us directly.
               </p>
             </div>
           </q-form>
-          
+
           <!-- Success/Error Messages -->
           <div v-if="submitMessage" class="message-container">
             <q-banner
@@ -145,7 +145,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
 import { FormService } from '../services/formService.js'
 
@@ -155,37 +155,37 @@ export default defineComponent({
     const formService = new FormService()
     const isSubmitting = ref(false)
     const submitMessage = ref(null)
-    
+
     const formData = reactive({
       name: '',
       email: '',
       subject: '',
       message: ''
     })
-    
+
     const isValidEmail = (email) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return emailRegex.test(email)
     }
-    
+
     const onSubmit = async () => {
       isSubmitting.value = true
       submitMessage.value = null
-      
+
       try {
         const result = await formService.submitContactInquiry(formData)
-        
+
         if (result.success) {
           submitMessage.value = {
             type: 'success',
             text: result.message
           }
-          
+
           // Reset form
           Object.keys(formData).forEach(key => {
             formData[key] = ''
           })
-          
+
           // Track successful submission
           if (window.gtag) {
             window.gtag('event', 'contact_form_submitted', {
@@ -209,16 +209,16 @@ export default defineComponent({
         isSubmitting.value = false
       }
     }
-    
+
     const openSocial = (platform) => {
       const urls = {
         facebook: 'https://facebook.com/guestspot',
         instagram: 'https://instagram.com/guestspot',
         twitter: 'https://twitter.com/guestspot'
       }
-      
+
       window.open(urls[platform], '_blank')
-      
+
       // Track social click
       if (window.gtag) {
         window.gtag('event', 'social_click', {
@@ -227,7 +227,7 @@ export default defineComponent({
         })
       }
     }
-    
+
     return {
       formData,
       isSubmitting,
@@ -254,7 +254,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 80%, rgba(255, 61, 0, 0.02) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 61, 0, 0.03) 0%, transparent 50%);
   pointer-events: none;
@@ -439,27 +439,27 @@ export default defineComponent({
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .form-container {
     padding: 2rem 1.5rem;
   }
-  
+
   .contact-info {
     padding: 1.5rem;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
   }
-  
+
   .form-title {
     font-size: 2rem;
   }
-  
+
   .form-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .submit-button {
     padding: 0.875rem 2rem;
     font-size: 1.1rem;
@@ -470,19 +470,19 @@ export default defineComponent({
   .container {
     padding: 0 1rem;
   }
-  
+
   .form-container {
     padding: 1.5rem 1rem;
   }
-  
+
   .contact-info {
     padding: 1.25rem;
   }
-  
+
   .form-title {
     font-size: 1.75rem;
   }
-  
+
   .social-buttons {
     justify-content: center;
   }

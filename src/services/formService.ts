@@ -92,7 +92,7 @@ export class FormService {
 
   async submitToFormService(data, formType) {
     const endpoint = this.getEndpointForFormType(formType)
-    
+
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -124,12 +124,12 @@ export class FormService {
 
   sanitizeFormData(data) {
     const sanitized = {}
-    
+
     for (const [key, value] of Object.entries(data)) {
       if (typeof value === 'string') {
         sanitized[key] = ValidationService.sanitizeInput(value)
       } else if (Array.isArray(value)) {
-        sanitized[key] = value.map(item => 
+        sanitized[key] = value.map(item =>
           typeof item === 'string' ? ValidationService.sanitizeInput(item) : item
         )
       } else {
@@ -147,7 +147,7 @@ export class FormService {
   // Method to test form service availability
   async testFormService() {
     try {
-      const response = await fetch(this.apiEndpoint, {
+      await fetch(this.apiEndpoint, {
         method: 'GET',
         mode: 'no-cors'
       })
@@ -160,15 +160,15 @@ export class FormService {
 
   // Fallback email submission (opens user's email client)
   submitViaEmail(data, formType) {
-    const subject = formType === 'salon-application' 
-      ? `Salon Application - ${data.businessName}` 
+    const subject = formType === 'salon-application'
+      ? `Salon Application - ${data.businessName}`
       : `Contact Inquiry - ${data.subject}`
-    
+
     const body = this.formatEmailBody(data, formType)
     const emailUrl = `mailto:info@guestspot.app?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    
+
     window.open(emailUrl)
-    
+
     return {
       success: true,
       message: 'Email client opened. Please send the email to complete your submission.',

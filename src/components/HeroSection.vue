@@ -7,7 +7,7 @@
           <span class="accent-text">Tattoo Studio</span>
         </h1>
         <p data-cy="hero-subtitle" class="hero-subtitle">
-          Discover the best tattoo artists and studios in your area. 
+          Discover the best tattoo artists and studios in your area.
           Book appointments, view portfolios, and create your perfect tattoo experience.
         </p>
         <div class="hero-actions">
@@ -78,7 +78,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -92,15 +92,15 @@ export default defineComponent({
           event_label: 'hero_section'
         })
       }
-      
+
       // In a real app, this would redirect to app stores
       window.open('https://apps.apple.com/app/guestspot', '_blank')
     },
-    
+
     scrollToFeatures() {
       const featuresSection = document.querySelector('[data-cy="features-section"]')
       if (featuresSection) {
-        featuresSection.scrollIntoView({ 
+        featuresSection.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         })
@@ -130,7 +130,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 50%, rgba(255, 61, 0, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 61, 0, 0.05) 0%, transparent 50%);
   pointer-events: none;
@@ -214,7 +214,7 @@ export default defineComponent({
   background: #1a1a1a;
   border-radius: 30px;
   padding: 8px;
-  box-shadow: 
+  box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.1);
   position: relative;
@@ -347,29 +347,29 @@ export default defineComponent({
     gap: 2rem;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .hero-actions {
     justify-content: center;
   }
-  
+
   .phone-mockup {
     width: 240px;
     height: 480px;
   }
-  
+
   .hero-stats {
     gap: 2rem;
     margin-top: 2rem;
   }
-  
+
   .stat-number {
     font-size: 2rem;
   }
@@ -379,12 +379,12 @@ export default defineComponent({
   .hero-title {
     font-size: 2rem;
   }
-  
+
   .hero-actions {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .cta-button,
   .secondary-button {
     width: 100%;

@@ -6,7 +6,7 @@
         <p class="page-subtitle">Last updated: {{ lastUpdated }}</p>
       </div>
     </div>
-    
+
     <div class="page-content">
       <div class="container">
         <div class="legal-content">
@@ -16,7 +16,7 @@
               By accessing and using GuestSpot ("the Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>2. Description of Service</h2>
             <p>
@@ -30,7 +30,7 @@
               <li>Customer support and assistance</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>3. User Accounts</h2>
             <p>
@@ -43,7 +43,7 @@
               <li>Notifying us immediately of any unauthorized use</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>4. Studio and Artist Listings</h2>
             <p>
@@ -59,7 +59,7 @@
               GuestSpot does not guarantee the quality, safety, or legality of services provided by listed studios and artists.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>5. Booking and Payments</h2>
             <p>
@@ -72,7 +72,7 @@
               <li>Refunds are subject to the individual studio's policies</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>6. User Content and Reviews</h2>
             <p>
@@ -85,7 +85,7 @@
               <li>Complies with our community guidelines</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>7. Prohibited Uses</h2>
             <p>You may not use our Service:</p>
@@ -98,21 +98,21 @@
               <li>To upload or transmit viruses or any other type of malicious code</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>8. Privacy Policy</h2>
             <p>
               Your privacy is important to us. Please review our Privacy Policy, which also governs your use of the Service, to understand our practices.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>9. Limitation of Liability</h2>
             <p>
               In no event shall GuestSpot, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the Service.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>10. Disclaimer</h2>
             <p>
@@ -123,21 +123,21 @@
               <li>Excludes all liability for damages arising out of or in connection with your use of this Service</li>
             </ul>
           </section>
-          
+
           <section class="legal-section">
             <h2>11. Governing Law</h2>
             <p>
               These Terms shall be interpreted and governed by the laws of the State of California, without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>12. Changes to Terms</h2>
             <p>
               We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect.
             </p>
           </section>
-          
+
           <section class="legal-section">
             <h2>13. Contact Information</h2>
             <p>
@@ -155,7 +155,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -168,7 +168,7 @@ export default defineComponent({
   mounted() {
     // Set page title and meta
     document.title = 'Terms of Service - GuestSpot'
-    
+
     // Track page view
     if (window.gtag) {
       window.gtag('event', 'page_view', {
@@ -285,40 +285,40 @@ export default defineComponent({
     background: white;
     color: black;
   }
-  
+
   .page-header {
     background: white;
     border-bottom: 2px solid #000;
   }
-  
+
   .page-title {
     color: black;
   }
-  
+
   .page-subtitle {
     color: #666;
   }
-  
+
   .legal-content {
     background: white;
     border: 1px solid #000;
   }
-  
+
   .legal-section h2 {
     color: #000;
     border-bottom: 1px solid #000;
   }
-  
+
   .legal-section p,
   .legal-section li {
     color: #000;
   }
-  
+
   .contact-info {
     background: #f5f5f5;
     border: 1px solid #000;
   }
-  
+
   .contact-info p {
     color: #000;
   }
@@ -329,15 +329,15 @@ export default defineComponent({
   .page-title {
     font-size: 2.5rem;
   }
-  
+
   .legal-content {
     padding: 2rem 1.5rem;
   }
-  
+
   .legal-section h2 {
     font-size: 1.3rem;
   }
-  
+
   .legal-section p,
   .legal-section li {
     font-size: 0.95rem;
@@ -348,19 +348,19 @@ export default defineComponent({
   .container {
     padding: 0 1rem;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .legal-content {
     padding: 1.5rem 1rem;
   }
-  
+
   .page-header {
     padding: 4rem 0 2rem;
   }
-  
+
   .page-content {
     padding: 2rem 0;
   }

@@ -7,14 +7,14 @@
           Apply to be featured on GuestSpot and reach thousands of potential customers
         </p>
       </div>
-      
+
       <div class="form-container">
         <q-form @submit="onSubmit" class="application-form">
           <div class="form-grid">
             <!-- Business Information -->
             <div class="form-section">
               <h3 class="section-title">Business Information</h3>
-              
+
               <div class="form-row">
                 <q-input
                   data-cy="business-name"
@@ -33,7 +33,7 @@
                   class="form-input"
                 />
               </div>
-              
+
               <div class="form-row">
                 <q-input
                   data-cy="email"
@@ -53,11 +53,11 @@
                 />
               </div>
             </div>
-            
+
             <!-- Address Information -->
             <div class="form-section">
               <h3 class="section-title">Address Information</h3>
-              
+
               <q-input
                 data-cy="address"
                 v-model="formData.address"
@@ -66,7 +66,7 @@
                 outlined
                 class="form-input full-width"
               />
-              
+
               <div class="form-row">
                 <q-input
                   data-cy="city"
@@ -93,7 +93,7 @@
                   class="form-input"
                 />
               </div>
-              
+
               <q-input
                 data-cy="country"
                 v-model="formData.country"
@@ -103,11 +103,11 @@
                 class="form-input full-width"
               />
             </div>
-            
+
             <!-- Services & Experience -->
             <div class="form-section">
               <h3 class="section-title">Services & Experience</h3>
-              
+
               <div class="services-section">
                 <label class="services-label">Services Offered *</label>
                 <div class="services-grid">
@@ -122,7 +122,7 @@
                   />
                 </div>
               </div>
-              
+
               <div class="form-row">
                 <q-input
                   data-cy="experience"
@@ -140,7 +140,7 @@
                   class="form-input"
                 />
               </div>
-              
+
               <div class="specialties-section">
                 <q-input
                   v-model="specialtiesInput"
@@ -163,11 +163,11 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Social Media -->
             <div class="form-section">
               <h3 class="section-title">Social Media & Online Presence</h3>
-              
+
               <div class="form-row">
                 <q-input
                   v-model="formData.socialMedia.instagram"
@@ -182,7 +182,7 @@
                   class="form-input"
                 />
               </div>
-              
+
               <q-input
                 v-model="formData.socialMedia.website"
                 label="Website URL"
@@ -190,11 +190,11 @@
                 class="form-input full-width"
               />
             </div>
-            
+
             <!-- Additional Information -->
             <div class="form-section">
               <h3 class="section-title">Additional Information</h3>
-              
+
               <q-input
                 data-cy="message"
                 v-model="formData.message"
@@ -207,7 +207,7 @@
               />
             </div>
           </div>
-          
+
           <!-- Submit Section -->
           <div class="submit-section">
             <q-btn
@@ -221,16 +221,16 @@
               :label="isSubmitting ? 'Submitting...' : 'Submit Application'"
               icon="send"
             />
-            
+
             <p class="submit-note">
-              By submitting this form, you agree to our 
-              <router-link to="/terms" class="link">Terms of Service</router-link> 
-              and 
+              By submitting this form, you agree to our
+              <router-link to="/terms" class="link">Terms of Service</router-link>
+              and
               <router-link to="/privacy" class="link">Privacy Policy</router-link>.
             </p>
           </div>
         </q-form>
-        
+
         <!-- Success/Error Messages -->
         <div v-if="submitMessage" class="message-container">
           <q-banner
@@ -245,7 +245,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
 import { FormService } from '../services/formService.js'
 
@@ -256,7 +256,7 @@ export default defineComponent({
     const isSubmitting = ref(false)
     const submitMessage = ref(null)
     const specialtiesInput = ref('')
-    
+
     const formData = reactive({
       businessName: '',
       contactName: '',
@@ -278,7 +278,7 @@ export default defineComponent({
       specialties: [],
       message: ''
     })
-    
+
     const availableServices = [
       { value: 'tattoo', label: 'Tattoo' },
       { value: 'piercing', label: 'Piercing' },
@@ -287,12 +287,12 @@ export default defineComponent({
       { value: 'touchup', label: 'Touch-up' },
       { value: 'design', label: 'Custom Design' }
     ]
-    
+
     const isValidEmail = (email) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return emailRegex.test(email)
     }
-    
+
     const updateSpecialties = () => {
       if (specialtiesInput.value.trim()) {
         const specialties = specialtiesInput.value
@@ -303,24 +303,24 @@ export default defineComponent({
         specialtiesInput.value = ''
       }
     }
-    
+
     const removeSpecialty = (specialty) => {
       formData.specialties = formData.specialties.filter(s => s !== specialty)
     }
-    
+
     const onSubmit = async () => {
       isSubmitting.value = true
       submitMessage.value = null
-      
+
       try {
         const result = await formService.submitSalonApplication(formData)
-        
+
         if (result.success) {
           submitMessage.value = {
             type: 'success',
             text: result.message
           }
-          
+
           // Reset form
           Object.keys(formData).forEach(key => {
             if (key === 'socialMedia') {
@@ -331,7 +331,7 @@ export default defineComponent({
               formData[key] = ''
             }
           })
-          
+
           // Track successful submission
           if (window.gtag) {
             window.gtag('event', 'salon_application_submitted', {
@@ -355,7 +355,7 @@ export default defineComponent({
         isSubmitting.value = false
       }
     }
-    
+
     return {
       formData,
       availableServices,
@@ -385,7 +385,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 30% 20%, rgba(255, 61, 0, 0.02) 0%, transparent 50%),
     radial-gradient(circle at 70% 80%, rgba(255, 61, 0, 0.03) 0%, transparent 50%);
   pointer-events: none;
@@ -559,23 +559,23 @@ export default defineComponent({
   .form-container {
     padding: 2rem 1.5rem;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
   }
-  
+
   .services-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .form-title {
     font-size: 2rem;
   }
-  
+
   .form-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .submit-button {
     padding: 0.875rem 2rem;
     font-size: 1.1rem;
@@ -586,11 +586,11 @@ export default defineComponent({
   .container {
     padding: 0 1rem;
   }
-  
+
   .form-container {
     padding: 1.5rem 1rem;
   }
-  
+
   .form-title {
     font-size: 1.75rem;
   }

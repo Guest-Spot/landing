@@ -2,25 +2,25 @@
   <div class="index-page">
     <!-- Navigation -->
     <AppNavigation />
-    
+
     <!-- Hero Section -->
     <HeroSection />
-    
+
     <!-- Features Section -->
     <FeaturesSection />
-    
+
     <!-- Salon Application Form -->
     <SalonApplicationForm />
-    
+
     <!-- Contact Form -->
     <ContactForm />
-    
+
     <!-- Footer -->
     <AppFooter />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import AppNavigation from 'src/components/AppNavigation.vue'
 import HeroSection from 'src/components/HeroSection.vue'
