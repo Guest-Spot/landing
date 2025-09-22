@@ -1,4 +1,3 @@
-import { SEOService } from '../services/seoService.js'
 import { defineBoot } from '#q-app/wrappers'
 
 // Extend Window interface to include gtag
@@ -9,27 +8,6 @@ declare global {
 }
 
 export default defineBoot(({ app, router }) => {
-  const seoService = new SEOService()
-
-  // Set default meta tags
-  seoService.setPageMeta({
-    title: 'GuestSpot - Find Your Perfect Tattoo Studio',
-    description: 'Discover the best tattoo studios and artists in your area. Book appointments, view portfolios, and find your perfect tattoo experience.',
-    url: 'https://guestspot.app'
-  })
-
-  // Add business structured data
-  seoService.addBusinessStructuredData()
-
-  // Add software application structured data
-  seoService.addSoftwareApplicationStructuredData()
-
-  // Preload critical resources
-  seoService.preloadCriticalResources()
-
-  // Load analytics
-  seoService.loadAnalytics()
-
   // Track page views
   router.afterEach((to) => {
     if (window.gtag) {

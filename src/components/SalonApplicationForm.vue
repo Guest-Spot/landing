@@ -247,7 +247,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { FormService } from '../services/formService.js'
+import { FormService } from '../services/formService'
 
 const formService = new FormService()
 const isSubmitting = ref(false)
