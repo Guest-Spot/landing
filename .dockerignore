@@ -1,0 +1,13 @@
+.git
+.gitignore
+.DS_Store
+node_modules
+.cursor
+memory-bank
+*.md
+.dockerignore
+Dockerfile
+README.md
+.output
+.nuxt
+docs

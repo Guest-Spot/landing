@@ -5,43 +5,40 @@
   "productName": "Quasar App",
   "author": "denisgrushkin <denis.grushkin@maddevs.io>",
   "type": "module",
-  "private": true,
+  "license": "MIT",
   "scripts": {
-    "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\"",
-    "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "test": "echo \"No test specified\" && exit 0",
-    "dev": "quasar dev -m ssr",
-    "build": "quasar build -m ssr",
-    "postinstall": "quasar prepare",
-    "serve": "node dist/ssr/index.js"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "vue-i18n": "^11.0.0",
-    "@quasar/extras": "^1.16.4",
-    "quasar": "^2.16.0",
-    "vue": "3.5.20",
-    "vue-router": "^4.0.12"
+    "@nuxt/ui": "2.21.0",
+    "@nuxthub/core": "0.8.11",
+    "@pinia/colada": "^0.13.8",
+    "@pinia/colada-nuxt": "0.0.4",
+    "@pinia/nuxt": "^0.9.0",
+    "axios": "^1.9.0",
+    "date-fns": "^4.1.0",
+    "h3-zod": "^0.5.3",
+    "nuxt": "^3.16.2",
+    "nuxt-auth-utils": "0.5.7",
+    "nuxt-swiper": "2.0.0",
+    "pinia": "^2.3.1",
+    "swiper": "^11.2.6",
+    "vue": "latest",
+    "vue-router": "latest",
+    "yandex-metrika-module-nuxt3": "^1.5.3",
+    "zod": "^3.24.3"
   },
+  "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a",
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
-    "eslint": "^9.14.0",
-    "eslint-plugin-vue": "^10.4.0",
-    "globals": "^16.4.0",
-    "vue-tsc": "^3.0.7",
-    "@vue/eslint-config-typescript": "^14.4.0",
-    "vite-plugin-checker": "^0.10.3",
-    "vue-eslint-parser": "^10.2.0",
-    "@vue/eslint-config-prettier": "^10.1.0",
-    "prettier": "^3.3.3",
-    "@types/node": "^20.5.9",
-    "@intlify/unplugin-vue-i18n": "^4.0.0",
-    "@quasar/app-vite": "^2.1.0",
-    "autoprefixer": "^10.4.2",
-    "typescript": "^5.9.2"
-  },
-  "engines": {
-    "node": "^28 || ^26 || ^24 || ^22 || ^20",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
+    "@iconify-json/heroicons": "^1.2.2",
+    "@iconify-json/simple-icons": "^1.2.32",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "sass": "^1.87.0",
+    "wrangler": "^4.12.1"
   }
 }
