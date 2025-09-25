@@ -1,0 +1,554 @@
+<template>
+  <section data-cy="contact-form" class="contact-form">
+    <div class="container">
+      <div class="form-header">
+        <h2 class="form-title">Get in Touch</h2>
+        <p class="form-subtitle">
+          Have questions? We'd love to hear from you. Send us a message and we'll respond within 24 hours.
+        </p>
+      </div>
+
+      <div class="contact-content">
+        <div class="contact-info">
+          <h3 class="info-title">Contact Information</h3>
+          <div class="info-item">
+            <i class="mdi mdi-email info-icon"></i>
+            <div>
+              <div class="info-label">Email</div>
+              <div class="info-value">support@guestspot.app</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="mdi mdi-phone info-icon"></i>
+            <div>
+              <div class="info-label">Phone</div>
+              <div class="info-value">+1 (800) GUEST-SPOT</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="mdi mdi-clock info-icon"></i>
+            <div>
+              <div class="info-label">Response Time</div>
+              <div class="info-value">Within 24 hours</div>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <h4 class="social-title">Follow Us</h4>
+            <div class="social-buttons">
+              <q-btn
+                flat
+                round
+                color="white"
+                icon="mdi-facebook"
+                size="lg"
+                @click="openSocial('facebook')"
+              />
+              <q-btn
+                flat
+                round
+                color="white"
+                icon="mdi-instagram"
+                size="lg"
+                @click="openSocial('instagram')"
+              />
+              <q-btn
+                flat
+                round
+                color="white"
+                icon="mdi-twitter"
+                size="lg"
+                @click="openSocial('twitter')"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-container">
+          <form @submit.prevent="onSubmit" class="contact-form-element">
+            <div class="form-row">
+              <div class="custom-input">
+                <input
+                  data-cy="contact-name"
+                  v-model="formData.name"
+                  type="text"
+                  placeholder="Your Name *"
+                  required
+                  minlength="2"
+                />
+                <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
+              </div>
+              <div class="custom-input">
+                <input
+                  data-cy="contact-email"
+                  v-model="formData.email"
+                  type="email"
+                  placeholder="Email Address *"
+                  required
+                />
+                <span v-if="errors.email" class="form-error">{{ errors.email }}</span>
+              </div>
+            </div>
+
+            <div class="custom-input full-width">
+              <input
+                data-cy="subject"
+                v-model="formData.subject"
+                type="text"
+                placeholder="Subject *"
+                required
+                minlength="5"
+              />
+              <span v-if="errors.subject" class="form-error">{{ errors.subject }}</span>
+            </div>
+
+            <div class="custom-input full-width">
+              <textarea
+                data-cy="contact-message"
+                v-model="formData.message"
+                placeholder="Message *"
+                rows="6"
+                required
+                minlength="10"
+                maxlength="1000"
+              ></textarea>
+              <span v-if="errors.message" class="form-error">{{ errors.message }}</span>
+              <span class="form-help">Please provide as much detail as possible so we can help you better</span>
+            </div>
+
+            <div class="submit-section">
+              <button
+                data-cy="submit-button"
+                type="submit"
+                :disabled="isSubmitting"
+                class="submit-button btn btn-primary btn-xl"
+              >
+                <span v-if="isSubmitting" class="loading-spinner"></span>
+                {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+              </button>
+
+              <p class="submit-note">
+                We'll get back to you within 24 hours. For urgent matters, please call us directly.
+              </p>
+            </div>
+          </form>
+
+          <!-- Success/Error Messages -->
+          <div v-if="submitMessage" class="message-container">
+            <div
+              :class="submitMessage.type === 'success' ? 'alert alert-success' : 'alert alert-error'"
+            >
+              {{ submitMessage.text }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive, computed } from 'vue'
+import { FormService } from '../services/formService'
+
+const formService = new FormService()
+const isSubmitting = ref(false)
+const submitMessage = ref<{ type: string; text: string } | null>(null)
+
+const formData = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+})
+
+const errors = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+})
+
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+const validateForm = () => {
+  // Reset errors
+  Object.keys(errors).forEach(key => {
+    (errors as Record<string, unknown>)[key] = ''
+  })
+
+  let isValid = true
+
+  // Validate name
+  if (!formData.name) {
+    errors.name = 'Name is required'
+    isValid = false
+  } else if (formData.name.length < 2) {
+    errors.name = 'Name must be at least 2 characters'
+    isValid = false
+  }
+
+  // Validate email
+  if (!formData.email) {
+    errors.email = 'Email is required'
+    isValid = false
+  } else if (!isValidEmail(formData.email)) {
+    errors.email = 'Invalid email format'
+    isValid = false
+  }
+
+  // Validate subject
+  if (!formData.subject) {
+    errors.subject = 'Subject is required'
+    isValid = false
+  } else if (formData.subject.length < 5) {
+    errors.subject = 'Subject must be at least 5 characters'
+    isValid = false
+  }
+
+  // Validate message
+  if (!formData.message) {
+    errors.message = 'Message is required'
+    isValid = false
+  } else if (formData.message.length < 10) {
+    errors.message = 'Message must be at least 10 characters'
+    isValid = false
+  } else if (formData.message.length > 1000) {
+    errors.message = 'Message must be no more than 1000 characters'
+    isValid = false
+  }
+
+  return isValid
+}
+
+const onSubmit = async () => {
+  if (!validateForm()) {
+    return
+  }
+
+  isSubmitting.value = true
+  submitMessage.value = null
+
+  try {
+    const result = await formService.submitContactInquiry(formData)
+
+    if (result.success) {
+      submitMessage.value = {
+        type: 'success',
+        text: result.message
+      }
+
+      // Reset form
+      Object.keys(formData).forEach(key => {
+        (formData as Record<string, unknown>)[key] = ''
+      })
+
+      // Track successful submission
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'contact_form_submitted', {
+          event_category: 'form_submission',
+          event_label: 'contact_inquiry'
+        })
+      }
+    } else {
+      submitMessage.value = {
+        type: 'error',
+        text: result.message
+      }
+    }
+  } catch (error) {
+    console.error('Form submission error:', error)
+    submitMessage.value = {
+      type: 'error',
+      text: 'An error occurred. Please try again later.'
+    }
+  } finally {
+    isSubmitting.value = false
+  }
+}
+
+const openSocial = (platform: string) => {
+  const urls: Record<string, string> = {
+    facebook: 'https://facebook.com/guestspot',
+    instagram: 'https://instagram.com/guestspot',
+    twitter: 'https://twitter.com/guestspot'
+  }
+
+  window.open(urls[platform], '_blank')
+
+  // Track social click
+  if ((window as any).gtag) {
+    (window as any).gtag('event', 'social_click', {
+      event_category: 'engagement',
+      event_label: platform
+    })
+  }
+}
+</script>
+
+<style scoped>
+.contact-form {
+  padding: 6rem 0;
+  background: #000;
+  position: relative;
+}
+
+.contact-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 61, 0, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 61, 0, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.form-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.form-subtitle {
+  font-size: 1.25rem;
+  color: #b3b3b3;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact-info {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.info-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ff3d00;
+  display: inline-block;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info-icon {
+  color: #ff3d00;
+  font-size: 1.5rem;
+}
+
+.info-label {
+  font-size: 0.9rem;
+  color: #b3b3b3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 500;
+}
+
+.social-links {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 3rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.contact-form-element {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.custom-input {
+  width: 100%;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.submit-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(45deg, #ff3d00, #ff6b35);
+  border: none;
+  font-weight: 600;
+  padding: 1rem 3rem;
+  border-radius: 12px;
+  text-transform: none;
+  font-size: 1.2rem;
+  box-shadow: 0 8px 25px rgba(255, 61, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: white;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(255, 61, 0, 0.4);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #b3b3b3;
+}
+
+.message-container {
+  margin-top: 2rem;
+}
+
+.success-banner {
+  background: rgba(76, 175, 80, 0.1) !important;
+  border: 1px solid rgba(76, 175, 80, 0.3) !important;
+  color: #4caf50 !important;
+}
+
+.error-banner {
+  background: rgba(244, 67, 54, 0.1) !important;
+  border: 1px solid rgba(244, 67, 54, 0.3) !important;
+  color: #f44336 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .form-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .contact-info {
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-title {
+    font-size: 2rem;
+  }
+
+  .form-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .submit-button {
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .form-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .contact-info {
+    padding: 1.25rem;
+  }
+
+  .form-title {
+    font-size: 1.75rem;
+  }
+
+  .social-buttons {
+    justify-content: center;
+  }
+}
+</style>
