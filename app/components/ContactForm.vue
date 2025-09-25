@@ -12,21 +12,21 @@
         <div class="contact-info">
           <h3 class="info-title">Contact Information</h3>
           <div class="info-item">
-            <q-icon name="email" class="info-icon" />
+            <i class="mdi mdi-email info-icon"></i>
             <div>
               <div class="info-label">Email</div>
               <div class="info-value">support@guestspot.app</div>
             </div>
           </div>
           <div class="info-item">
-            <q-icon name="phone" class="info-icon" />
+            <i class="mdi mdi-phone info-icon"></i>
             <div>
               <div class="info-label">Phone</div>
               <div class="info-value">+1 (800) GUEST-SPOT</div>
             </div>
           </div>
           <div class="info-item">
-            <q-icon name="schedule" class="info-icon" />
+            <i class="mdi mdi-clock info-icon"></i>
             <div>
               <div class="info-label">Response Time</div>
               <div class="info-value">Within 24 hours</div>
@@ -437,6 +437,9 @@ const openSocial = (platform: string) => {
 }
 
 .submit-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   margin-top: 2rem;
   padding-top: 2rem;

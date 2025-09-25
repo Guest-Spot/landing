@@ -3,21 +3,21 @@
     <div class="legal-links">
       <router-link
         data-cy="tos-link"
-        to="/terms"
+        to="/terms-of-service"
         class="legal-link"
         aria-label="Read our Terms of Service"
       >
-        <q-icon name="description" class="link-icon" />
+        <i class="mdi mdi-file-document link-icon"></i>
         Terms of Service
       </router-link>
 
       <router-link
         data-cy="privacy-link"
-        to="/privacy"
+        to="/privacy-policy"
         class="legal-link"
         aria-label="Read our Privacy Policy"
       >
-        <q-icon name="privacy_tip" class="link-icon" />
+        <i class="mdi mdi-shield-account link-icon"></i>
         Privacy Policy
       </router-link>
     </div>
@@ -30,7 +30,7 @@
         class="external-link"
         aria-label="Apple App Store Terms of Service"
       >
-        <q-icon name="apple" class="link-icon" />
+        <i class="mdi mdi-apple link-icon"></i>
         App Store Terms
       </a>
 
@@ -41,7 +41,7 @@
         class="external-link"
         aria-label="Google Play Store Terms of Service"
       >
-        <q-icon name="android" class="link-icon" />
+        <i class="mdi mdi-android link-icon"></i>
         Play Store Terms
       </a>
     </div>

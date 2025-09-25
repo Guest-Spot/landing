@@ -3,7 +3,7 @@
     <div class="nav-container">
       <div class="nav-brand">
         <router-link to="/" class="brand-link">
-          <q-icon name="local_fire_department" class="brand-icon" />
+          <i class="mdi mdi-fire brand-icon"></i>
           <span class="brand-text">GuestSpot</span>
         </router-link>
       </div>
@@ -27,7 +27,7 @@
       </div>
 
       <div class="nav-toggle" @click="toggleMenu">
-        <q-icon :name="isMenuOpen ? 'close' : 'menu'" class="toggle-icon" />
+        <i :class="isMenuOpen ? 'mdi mdi-close' : 'mdi mdi-menu'" class="toggle-icon"></i>
       </div>
     </div>
   </nav>

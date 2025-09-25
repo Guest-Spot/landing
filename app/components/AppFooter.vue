@@ -331,6 +331,11 @@ const downloadApp = (platform: string) => {
     grid-column: 1 / -1;
     text-align: center;
   }
+
+   .download-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {
@@ -341,11 +346,6 @@ const downloadApp = (platform: string) => {
 
   .footer-section:first-child {
     grid-column: 1 / -1;
-  }
-
-  .download-buttons {
-    flex-direction: row;
-    justify-content: center;
   }
 
   .download-btn {

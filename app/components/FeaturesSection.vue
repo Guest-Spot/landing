@@ -16,7 +16,7 @@
           class="feature-card"
         >
           <div class="feature-icon">
-            <q-icon :name="feature.icon" size="2.5rem" />
+            <i :class="`mdi mdi-${feature.icon}`" style="font-size: 2.5rem;"></i>
           </div>
           <h3 class="feature-title">{{ feature.title }}</h3>
           <p class="feature-description">{{ feature.description }}</p>
@@ -48,7 +48,7 @@
 const features = [
   {
     id: 1,
-    icon: 'search',
+    icon: 'mdi-search',
     title: 'Smart Search',
     description: 'Find studios and artists based on your location, style preferences, and availability.',
     benefits: [
@@ -60,7 +60,7 @@ const features = [
   },
   {
     id: 2,
-    icon: 'photo_library',
+    icon: 'mdi-image-multiple',
     title: 'Portfolio Gallery',
     description: 'Browse thousands of high-quality portfolios to find the perfect artist for your vision.',
     benefits: [
@@ -72,7 +72,7 @@ const features = [
   },
   {
     id: 3,
-    icon: 'event_available',
+    icon: 'mdi-calendar-check',
     title: 'Easy Booking',
     description: 'Book appointments directly through the app with real-time calendar integration.',
     benefits: [
@@ -84,7 +84,7 @@ const features = [
   },
   {
     id: 4,
-    icon: 'star_rate',
+    icon: 'mdi-star',
     title: 'Verified Reviews',
     description: 'Read authentic reviews from real customers to make informed decisions.',
     benefits: [
@@ -96,7 +96,7 @@ const features = [
   },
   {
     id: 5,
-    icon: 'security',
+    icon: 'mdi-shield',
     title: 'Safe & Secure',
     description: 'All studios are verified and licensed. Your safety and satisfaction are our priority.',
     benefits: [
@@ -108,7 +108,7 @@ const features = [
   },
   {
     id: 6,
-    icon: 'support_agent',
+    icon: 'mdi-help-circle',
     title: '24/7 Support',
     description: 'Get help whenever you need it with our dedicated customer support team.',
     benefits: [
@@ -252,6 +252,9 @@ const scrollToApplication = () => {
 }
 
 .cta-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   background: rgba(255, 61, 0, 0.05);
   border: 1px solid rgba(255, 61, 0, 0.2);

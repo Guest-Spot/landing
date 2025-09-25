@@ -243,9 +243,9 @@
 
             <p class="submit-note">
               By submitting this form, you agree to our
-              <router-link to="/terms" class="link">Terms of Service</router-link>
+              <router-link to="/terms-of-service" class="link">Terms of Service</router-link>
               and
-              <router-link to="/privacy" class="link">Privacy Policy</router-link>.
+              <router-link to="/privacy-policy" class="link">Privacy Policy</router-link>.
             </p>
           </div>
         </form>
@@ -587,8 +587,11 @@ const onSubmit = async () => {
 }
 
 .submit-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
