@@ -27,6 +27,15 @@ import FeaturesSection from '~/components/FeaturesSection.vue'
 import SalonApplicationForm from '~/components/SalonApplicationForm.vue'
 import ContactForm from '~/components/ContactForm.vue'
 import AppFooter from '~/components/AppFooter.vue'
+
+const getHello = async () => {
+  const { data } = await useFetch('/api/hello')
+  console.log(data.value)
+}
+
+onMounted(() => {
+  getHello()
+})
 </script>
 
 <style scoped>
