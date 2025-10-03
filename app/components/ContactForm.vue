@@ -36,30 +36,27 @@
           <div class="social-links">
             <h4 class="social-title">Follow Us</h4>
             <div class="social-buttons">
-              <q-btn
-                flat
-                round
-                color="white"
-                icon="mdi-facebook"
-                size="lg"
+              <button
+                class="btn btn-ghost btn-social"
                 @click="openSocial('facebook')"
-              />
-              <q-btn
-                flat
-                round
-                color="white"
-                icon="mdi-instagram"
-                size="lg"
+                aria-label="Follow us on Facebook"
+              >
+                <i class="mdi mdi-facebook"></i>
+              </button>
+              <button
+                class="btn btn-ghost btn-social"
                 @click="openSocial('instagram')"
-              />
-              <q-btn
-                flat
-                round
-                color="white"
-                icon="mdi-twitter"
-                size="lg"
+                aria-label="Follow us on Instagram"
+              >
+                <i class="mdi mdi-instagram"></i>
+              </button>
+              <button
+                class="btn btn-ghost btn-social"
                 @click="openSocial('twitter')"
-              />
+                aria-label="Follow us on Twitter"
+              >
+                <i class="mdi mdi-twitter"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -359,7 +356,7 @@ const openSocial = (platform: string) => {
   color: white;
   margin-bottom: 2rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #ff3d00;
+  border-bottom: 1px solid #ff3d00;
   display: inline-block;
 }
 

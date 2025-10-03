@@ -534,7 +534,7 @@ const onSubmit = async () => {
   color: white;
   margin-bottom: 0.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #ff3d00;
+  border-bottom: 1px solid #ff3d00;
   display: inline-block;
 }
 
