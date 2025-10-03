@@ -16,4 +16,7 @@ export default defineNuxtConfig({
       version: pkg.version,
     },
   },
+  nitro: {
+    preset: 'vercel',
+  },
 });
