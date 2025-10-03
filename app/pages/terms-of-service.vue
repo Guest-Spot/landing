@@ -2,6 +2,7 @@
   <div class="terms-page">
     <div class="page-header">
       <div class="container">
+        <BackBtn />
         <h1 class="page-title">Terms of Service</h1>
         <p class="page-subtitle">Last updated: {{ lastUpdated }}</p>
       </div>
@@ -598,6 +599,12 @@ onMounted(() => {
   text-align: center;
 }
 
+.back-nav-button {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+}
+
 .page-content {
   padding: 4rem 0;
 }
@@ -705,6 +712,43 @@ onMounted(() => {
 
   .contact-info p {
     color: #000;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .legal-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .legal-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .legal-section p,
+  .legal-section li {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .legal-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .page-content {
+    padding: 2rem 0;
   }
 }
 </style>

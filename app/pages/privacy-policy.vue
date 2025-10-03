@@ -2,6 +2,7 @@
   <div class="privacy-page">
     <div class="page-header">
       <div class="container">
+        <BackBtn />
         <h1 class="page-title">Privacy Policy</h1>
         <p class="page-subtitle">Last updated: {{ lastUpdated }}</p>
       </div>
@@ -218,6 +219,12 @@ onMounted(() => {
   font-size: 1.1rem;
   color: #b3b3b3;
   text-align: center;
+}
+
+.back-nav-button {
+  position: fixed;
+  left: 20px;
+  top: 20px;
 }
 
 .page-content {
