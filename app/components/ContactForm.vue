@@ -1,5 +1,5 @@
 <template>
-  <section data-cy="contact-form" class="contact-form">
+  <section id="contact" data-cy="contact-form" class="contact-form">
     <div class="container">
       <div class="form-header">
         <h2 class="form-title">Get in Touch</h2>
@@ -387,9 +387,7 @@ const openSocial = (platform: string) => {
 }
 
 .social-links {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
 }
 
 .social-title {
@@ -401,7 +399,27 @@ const openSocial = (platform: string) => {
 
 .social-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
+}
+
+.btn-social {
+  width: 40px;
+  height: 40px;
+  color: #b3b3b3;
+  text-decoration: none;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.btn-social:hover {
+  background: rgba(255, 61, 0, 0.1);
+  border-color: rgba(255, 61, 0, 0.3);
+  transform: translateY(-1px);
+  color: #ff3d00;
 }
 
 .form-container {

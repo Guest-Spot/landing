@@ -262,19 +262,21 @@ const downloadApp = (platform: string) => {
 .btn-social {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+  color: #b3b3b3;
+  text-decoration: none;
   font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .btn-social:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
+  background: rgba(255, 61, 0, 0.1);
+  border-color: rgba(255, 61, 0, 0.3);
+  transform: translateY(-1px);
+  color: #ff3d00;
 }
 
 .download-buttons {

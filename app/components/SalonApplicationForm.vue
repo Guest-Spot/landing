@@ -1,5 +1,5 @@
 <template>
-  <section data-cy="salon-application-form" class="salon-application-form">
+  <section id="for-studios" data-cy="salon-application-form" class="salon-application-form">
     <div class="container">
       <div class="form-header">
         <h2 class="form-title">Join Our Platform</h2>

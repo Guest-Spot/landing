@@ -1,5 +1,5 @@
 <template>
-  <section data-cy="features-section" class="features-section">
+  <section id="features" data-cy="features-section" class="features-section">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Why Choose GuestSpot?</h2>
