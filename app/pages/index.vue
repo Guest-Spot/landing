@@ -29,9 +29,12 @@ import ContactForm from '~/components/ContactForm.vue'
 import AppFooter from '~/components/AppFooter.vue'
 
 const getHello = async () => {
-  const { data, error } = await useFetch('/api/hello')
-  console.log('Error: ', error.value);  
-  console.log('Data: ', data.value)
+  try {
+    const response = await $fetch('/api/hello', { method: 'GET' })
+    console.log('Data: ', response)
+  } catch (err) {
+    console.error('Failed to fetch /api/hello:', err)
+  }
 }
 
 onMounted(() => {
