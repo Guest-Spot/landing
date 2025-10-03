@@ -13,12 +13,12 @@
 
       <router-link
         data-cy="privacy-link"
-        to="/privacy-policy"
+        to="/user-agreement"
         class="legal-link"
-        aria-label="Read our Privacy Policy"
+        aria-label="Read our User Agreement"
       >
         <i class="mdi mdi-shield-account link-icon"></i>
-        Privacy Policy
+        User Agreement
       </router-link>
     </div>
 

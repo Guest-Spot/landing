@@ -1,9 +1,9 @@
 <template>
-  <div class="privacy-page">
+  <div class="user-agreement-page">
     <div class="page-header">
       <div class="container">
         <BackBtn />
-        <h1 class="page-title">Privacy Policy</h1>
+        <h1 class="page-title">User Agreement</h1>
         <p class="page-subtitle">Last updated: {{ lastUpdated }}</p>
       </div>
     </div>
@@ -124,7 +124,7 @@
                 </ul>
               </li>
               <li><strong>Notifications:</strong> Adjust marketing preferences any time, though you may still receive essential account or legal notices.</li>
-              <li><strong>Data Handling:</strong> We delete or anonymize personal data per our Privacy Policy but retain necessary records for legal or business reasons.</li>
+              <li><strong>Data Handling:</strong> We delete or anonymize personal data per our User Agreement but retain necessary records for legal or business reasons.</li>
             </ul>
           </section>
 
@@ -143,7 +143,7 @@
           <section class="legal-section">
             <h2>10. Other Important Stuff &amp; Contact</h2>
             <ul>
-              <li><strong>Privacy:</strong> Using GuestSpot means agreeing to our Privacy Policy and data handling practices.</li>
+              <li><strong>Privacy:</strong> Using GuestSpot means agreeing to our User Agreement and data handling practices.</li>
               <li><strong>Governing Law:</strong> Delaware, USA law generally applies, while local consumer laws may grant additional rights.</li>
               <li><strong>Dispute Resolution:</strong> U.S. users agree to arbitration with a class action waiver, with opt-out rights within 30 days and exceptions where local law requires.</li>
               <li>
@@ -156,7 +156,7 @@
                 </ul>
               </li>
               <li><strong>Changes to Rules:</strong> We may update policies and will let you know when changes are material. Continued use means you accept updates.</li>
-              <li><strong>Entire Agreement:</strong> This summary, the full Terms of Service, Privacy Policy, and linked policies form our agreement.</li>
+              <li><strong>Entire Agreement:</strong> This summary, the full Terms of Service, User Agreement, and linked policies form our agreement.</li>
               <li><strong>Severability:</strong> If one part is invalid, the rest remains in effect.</li>
               <li><strong>No Waiver:</strong> If we do not enforce a rule immediately, we may still enforce it later.</li>
             </ul>
@@ -176,12 +176,12 @@ const lastUpdated = 'October 3, 2025'
 
 onMounted(() => {
   // Set page title and meta
-  document.title = 'Privacy Policy - GuestSpot'
+  document.title = 'User Agreement - GuestSpot'
 
   // Track page view
   if (window.gtag) {
     window.gtag('event', 'page_view', {
-      page_title: 'Privacy Policy',
+      page_title: 'User Agreement',
       page_location: window.location.href
     })
   }
@@ -189,7 +189,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.privacy-page {
+.user-agreement-page {
   min-height: 100vh;
   background: #000;
   color: white;
@@ -307,7 +307,7 @@ onMounted(() => {
 
 /* Print styles */
 @media print {
-  .privacy-page {
+  .user-agreement-page {
     background: white;
     color: black;
   }

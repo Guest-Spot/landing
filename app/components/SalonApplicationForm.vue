@@ -245,7 +245,7 @@
               By submitting this form, you agree to our
               <router-link to="/terms-of-service" class="link">Terms of Service</router-link>
               and
-              <router-link to="/privacy-policy" class="link">Privacy Policy</router-link>.
+              <router-link to="/user-agreement" class="link">User Agreement</router-link>.
             </p>
           </div>
         </form>

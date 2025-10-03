@@ -18,7 +18,7 @@
               Welcome to <strong>GuestSpot</strong> ("GuestSpot," "we," "us," "our"). GuestSpot is a digital platform and marketplace where tattoo shops, artists, suppliers, and clients (together, "Users") can connect, book services, buy products, and manage their professional tattoo experiences.
             </p>
             <p>
-              These Terms of Service (these "Terms") are a binding legal agreement between you and GuestSpot LLC. By creating an account, booking or selling through GuestSpot, or otherwise using the GuestSpot platform or services (collectively, the "Service"), you agree to these Terms and to our Privacy Policy (which explains how we handle your personal data). If you do not agree, please do not use GuestSpot.
+              These Terms of Service (these "Terms") are a binding legal agreement between you and GuestSpot LLC. By creating an account, booking or selling through GuestSpot, or otherwise using the GuestSpot platform or services (collectively, the "Service"), you agree to these Terms and to our User Agreement (which explains how we handle your personal data). If you do not agree, please do not use GuestSpot.
             </p>
             <p>
               <strong>Note:</strong> Section 15 of these Terms contains an arbitration agreement and class action waiver that require most disputes between you and GuestSpot to be resolved through binding arbitration on an individual basis, rather than in court. You may opt out of that arbitration agreement by following the instructions in Section 15. Please read these Terms carefully before using GuestSpot.
@@ -448,7 +448,7 @@
                 <strong>Surviving Provisions:</strong> Certain sections of these Terms will survive termination, including but not limited to payments owed, User Content license, GuestSpot IP rights, limitation of liability, indemnification, dispute resolution (Section 15), governing law, and other miscellaneous provisions.
               </li>
               <li>
-                <strong>Data Retention:</strong> After termination, GuestSpot may retain your personal data as necessary to comply with legal obligations, resolve disputes, and enforce agreements. Refer to our Privacy Policy for specifics on data retention and deletion.
+                <strong>Data Retention:</strong> After termination, GuestSpot may retain your personal data as necessary to comply with legal obligations, resolve disputes, and enforce agreements. Refer to our User Agreement for specifics on data retention and deletion.
               </li>
               <li>
                 <strong>Appeal:</strong> If you believe we made a mistake in terminating or suspending your account, contact legal@getguestspot.com to appeal. We will consider in good faith, but our decision will be final.
