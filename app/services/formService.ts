@@ -19,11 +19,9 @@ export interface IFormServiceResponse {
 
 export class FormService {
   apiEndpoint: string
-  emailEndpoint: string | null
 
   constructor() {
-    this.apiEndpoint = process.env.FORM_ENDPOINT || 'https://formspree.io/f/your-form-id'
-    this.emailEndpoint = process.env.EMAIL_ENDPOINT || null
+    this.apiEndpoint = process.env.NUXT_API_URL
   }
 
   async submitSalonApplication(data: Partial<ISalonApplication>): Promise<IFormSubmissionResult> {
@@ -47,7 +45,7 @@ export class FormService {
       }
 
       // Submit to form service
-      const response = await this.submitToFormService(submissionData, 'salon-application')
+      const response = await this.submitToFormService(submissionData, '/api/feedbacks')
 
       if (response.ok) {
         return {
@@ -89,7 +87,7 @@ export class FormService {
       }
 
       // Submit to form service
-      const response = await this.submitToFormService(submissionData, 'contact')
+      const response = await this.submitToFormService(submissionData, '/api/feedbacks')
 
       if (response.ok) {
         return {
@@ -110,10 +108,8 @@ export class FormService {
     }
   }
 
-  async submitToFormService(data: Record<string, unknown>, formType: string): Promise<IFormServiceResponse> {
-    const endpoint = this.getEndpointForFormType(formType)
-
-    const response = await fetch(endpoint, {
+  async submitToFormService(data: Record<string, unknown>, path: string): Promise<IFormServiceResponse> {
+    const response = await fetch(`${this.apiEndpoint}${path}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -130,16 +126,6 @@ export class FormService {
       data: result,
       id: result.id || null
     }
-  }
-
-  getEndpointForFormType(formType: string): string {
-    // In production, these would be different endpoints or include form IDs
-    const endpoints: Record<string, string> = {
-      'salon-application': process.env.SALON_FORM_ENDPOINT || this.apiEndpoint,
-      'contact': process.env.CONTACT_FORM_ENDPOINT || this.apiEndpoint
-    }
-
-    return endpoints[formType] || this.apiEndpoint
   }
 
   sanitizeFormData(data: Record<string, unknown>): Record<string, unknown> {
@@ -236,10 +222,6 @@ export class FormService {
       const phone = data.phone ? safeString(data.phone) : 'Not provided'
       const address = safeString(data.address)
       const city = safeString(data.city)
-      const state = safeString(data.state)
-      const zipCode = safeString(data.zipCode)
-      const country = safeString(data.country)
-      const services = safeString(data.services)
       const experience = safeString(data.experience)
       const portfolioUrl = data.portfolioUrl ? safeString(data.portfolioUrl) : 'Not provided'
       const specialties = data.specialties ? safeString(data.specialties) : 'Not provided'
@@ -252,10 +234,6 @@ export class FormService {
         `Phone: ${phone}`,
         `Address: ${address}`,
         `City: ${city}`,
-        `State: ${state}`,
-        `Zip Code: ${zipCode}`,
-        `Country: ${country}`,
-        `Services: ${services}`,
         `Experience: ${experience} years`,
         `Portfolio URL: ${portfolioUrl}`,
         `Specialties: ${specialties}`,

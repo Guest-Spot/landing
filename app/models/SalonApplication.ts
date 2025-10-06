@@ -12,10 +12,6 @@ export interface ISalonApplication {
   phone: string
   address: string
   city: string
-  state: string
-  zipCode: string
-  country: string
-  services: string[]
   portfolioUrl: string
   socialMedia: ISocialMedia
   experience: string
@@ -33,10 +29,6 @@ export class SalonApplication implements ISalonApplication {
   phone: string
   address: string
   city: string
-  state: string
-  zipCode: string
-  country: string
-  services: string[]
   portfolioUrl: string
   socialMedia: ISocialMedia
   experience: string
@@ -53,10 +45,6 @@ export class SalonApplication implements ISalonApplication {
     this.phone = data.phone || ''
     this.address = data.address || ''
     this.city = data.city || ''
-    this.state = data.state || ''
-    this.zipCode = data.zipCode || ''
-    this.country = data.country || ''
-    this.services = data.services || []
     this.portfolioUrl = data.portfolioUrl || ''
     this.socialMedia = data.socialMedia || {
       instagram: '',
@@ -83,10 +71,6 @@ export class SalonApplication implements ISalonApplication {
       phone: this.phone,
       address: this.address,
       city: this.city,
-      state: this.state,
-      zipCode: this.zipCode,
-      country: this.country,
-      services: this.services,
       portfolioUrl: this.portfolioUrl,
       socialMedia: this.socialMedia,
       experience: this.experience,
@@ -114,18 +98,6 @@ export class SalonApplication implements ISalonApplication {
     }
     if (!this.city || this.city.length < 2) {
       errors.push('City is required')
-    }
-    if (!this.state || this.state.length < 2) {
-      errors.push('State is required')
-    }
-    if (!this.zipCode) {
-      errors.push('Zip code is required')
-    }
-    if (!this.country || this.country.length < 2) {
-      errors.push('Country is required')
-    }
-    if (!this.services || this.services.length === 0) {
-      errors.push('At least one service must be selected')
     }
     if (!this.experience || isNaN(parseInt(this.experience))) {
       errors.push('Years of experience must be a number')

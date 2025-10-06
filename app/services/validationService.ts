@@ -64,9 +64,6 @@ export class ValidationService {
     const businessName = data.businessName as string
     const address = data.address as string
     const city = data.city as string
-    const state = data.state as string
-    const country = data.country as string
-    const zipCode = data.zipCode as string
 
     if (!businessName || businessName.length < 2 || businessName.length > 100) {
       errors.push('Business name must be between 2 and 100 characters')
@@ -78,18 +75,6 @@ export class ValidationService {
 
     if (!city || city.length < 2) {
       errors.push('City is required')
-    }
-
-    if (!state || state.length < 2) {
-      errors.push('State/Province is required')
-    }
-
-    if (!country || country.length < 2) {
-      errors.push('Country is required')
-    }
-
-    if (zipCode && !this.isValidZipCode(zipCode, country)) {
-      errors.push('Invalid postal code format')
     }
 
     return {

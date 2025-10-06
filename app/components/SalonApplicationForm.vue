@@ -75,69 +75,21 @@
                 <span v-if="errors.address" class="form-error">{{ errors.address }}</span>
               </div>
 
-              <div class="form-row">
-                <div class="custom-input">
-                  <input
-                    data-cy="city"
-                    v-model="formData.city"
-                    type="text"
-                    placeholder="City *"
-                    required
-                  />
-                  <span v-if="errors.city" class="form-error">{{ errors.city }}</span>
-                </div>
-                <div class="custom-input">
-                  <input
-                    data-cy="state"
-                    v-model="formData.state"
-                    type="text"
-                    placeholder="State/Province *"
-                    required
-                  />
-                  <span v-if="errors.state" class="form-error">{{ errors.state }}</span>
-                </div>
-                <div class="custom-input">
-                  <input
-                    data-cy="zip-code"
-                    v-model="formData.zipCode"
-                    type="text"
-                    placeholder="ZIP/Postal Code *"
-                    required
-                  />
-                  <span v-if="errors.zipCode" class="form-error">{{ errors.zipCode }}</span>
-                </div>
-              </div>
-
               <div class="custom-input full-width">
                 <input
-                  data-cy="country"
-                  v-model="formData.country"
+                  data-cy="city"
+                  v-model="formData.city"
                   type="text"
-                  placeholder="Country *"
+                  placeholder="City *"
                   required
                 />
-                <span v-if="errors.country" class="form-error">{{ errors.country }}</span>
+                <span v-if="errors.city" class="form-error">{{ errors.city }}</span>
               </div>
             </div>
 
             <!-- Services & Experience -->
             <div class="form-section">
               <h3 class="section-title">Services & Experience</h3>
-
-              <div class="services-section">
-                <label class="services-label">Services Offered *</label>
-                <div class="services-grid">
-                  <q-checkbox
-                    v-for="service in availableServices"
-                    :key="service.value"
-                    :data-cy="`service-${service.value}`"
-                    v-model="formData.services"
-                    :val="service.value"
-                    :label="service.label"
-                    class="service-checkbox"
-                  />
-                </div>
-              </div>
 
               <div class="form-row">
                 <div class="custom-input">
@@ -279,10 +231,6 @@ const formData = reactive({
   phone: '',
   address: '',
   city: '',
-  state: '',
-  zipCode: '',
-  country: '',
-  services: [] as string[],
   experience: '',
   portfolioUrl: '',
   socialMedia: {
@@ -300,20 +248,8 @@ const errors = reactive({
   email: '',
   address: '',
   city: '',
-  state: '',
-  zipCode: '',
-  country: '',
   experience: ''
 })
-
-const availableServices = [
-  { value: 'tattoo', label: 'Tattoo' },
-  { value: 'piercing', label: 'Piercing' },
-  { value: 'consultation', label: 'Consultation' },
-  { value: 'coverup', label: 'Cover-up' },
-  { value: 'touchup', label: 'Touch-up' },
-  { value: 'design', label: 'Custom Design' }
-]
 
 const isValidEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -361,24 +297,6 @@ const validateForm = () => {
     isValid = false
   }
 
-  // Validate state
-  if (!formData.state) {
-    errors.state = 'State is required'
-    isValid = false
-  }
-
-  // Validate zip code
-  if (!formData.zipCode) {
-    errors.zipCode = 'ZIP code is required'
-    isValid = false
-  }
-
-  // Validate country
-  if (!formData.country) {
-    errors.country = 'Country is required'
-    isValid = false
-  }
-
   // Validate experience
   if (!formData.experience) {
     errors.experience = 'Experience is required'
@@ -407,6 +325,7 @@ const removeSpecialty = (specialty: string) => {
 }
 
 const onSubmit = async () => {
+  debugger
   if (!validateForm()) {
     return
   }
@@ -525,7 +444,7 @@ const onSubmit = async () => {
 .form-section {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .section-title {
