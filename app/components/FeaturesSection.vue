@@ -121,7 +121,7 @@ const features = [
 ]
 
 const scrollToApplication = () => {
-  const applicationSection = document.querySelector('[data-cy="salon-application-form"]')
+  const applicationSection = document.querySelector('[data-cy="shop-application-form"]')
   if (applicationSection) {
     applicationSection.scrollIntoView({
       behavior: 'smooth',

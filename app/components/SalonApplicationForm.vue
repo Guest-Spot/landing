@@ -1,5 +1,5 @@
 <template>
-  <section id="for-studios" data-cy="salon-application-form" class="salon-application-form">
+  <section id="for-studios" data-cy="shop-application-form" class="shop-application-form">
     <div class="container">
       <div class="form-header">
         <h2 class="form-title">Join Our Platform</h2>
@@ -252,7 +252,6 @@ const validateForm = () => {
 }
 
 const onSubmit = async () => {
-  debugger
   if (!validateForm()) {
     return
   }
@@ -295,13 +294,13 @@ const onSubmit = async () => {
 </script>
 
 <style scoped>
-.salon-application-form {
+.shop-application-form {
   padding: 6rem 0;
   background: #000;
   position: relative;
 }
 
-.salon-application-form::before {
+.shop-application-form::before {
   content: '';
   position: absolute;
   top: 0;

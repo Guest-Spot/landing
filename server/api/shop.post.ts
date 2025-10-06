@@ -1,5 +1,12 @@
 import { defineEventHandler, readBody, createError } from 'h3';
+import qs from 'qs';
 import api from '../services/axios.service';
+
+const query = qs.stringify({
+  status: 'draft',
+}, {
+  encodeValuesOnly: true, // prettify URL
+});
 
 export default defineEventHandler(async event => {
   try {
@@ -15,7 +22,7 @@ export default defineEventHandler(async event => {
     }
 
     // Send feedback to the backend API
-    await api.post('/api/shops', {
+    await api.post(`/api/shop-requests?${query}`, {
       data,
     });
 

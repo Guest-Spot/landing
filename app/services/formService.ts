@@ -19,7 +19,6 @@ export interface IFormServiceResponse {
 
 export class FormService {
   async submitShopApplication(data: Partial<IShopApplication>): Promise<IFormSubmissionResult> {
-    debugger
     try {
       // Validate data first
       const validation = ValidationService.validateShopApplication(data)

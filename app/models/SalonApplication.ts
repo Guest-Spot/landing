@@ -42,7 +42,7 @@ export class SalonApplication implements IShopApplication {
   }
 
   generateId() {
-    return 'salon_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    return 'shop_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
   }
 
   validate() {
