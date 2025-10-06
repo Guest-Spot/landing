@@ -1,90 +1,54 @@
 export interface ISocialMedia {
-  instagram: string
-  facebook: string
-  website: string
+  type: string
+  value: string
 }
 
-export interface ISalonApplication {
+export interface IShopApplication {
   id: string
-  businessName: string
+  name: string
   contactName: string
   email: string
   phone: string
   address: string
   city: string
-  portfolioUrl: string
-  socialMedia: ISocialMedia
+  link: string
   experience: string
-  specialties: string[]
-  message: string
-  submittedAt: Date
-  status: string
+  description: string
 }
 
-export class SalonApplication implements ISalonApplication {
+export class SalonApplication implements IShopApplication {
   id: string
-  businessName: string
+  name: string
   contactName: string
   email: string
   phone: string
   address: string
   city: string
-  portfolioUrl: string
-  socialMedia: ISocialMedia
+  link: string
   experience: string
-  specialties: string[]
-  message: string
-  submittedAt: Date
-  status: string
+  description: string
 
-  constructor(data: Partial<ISalonApplication> = {}) {
+  constructor(data: Partial<IShopApplication> = {}) {
     this.id = data.id || this.generateId()
-    this.businessName = data.businessName || ''
+    this.name = data.name || ''
     this.contactName = data.contactName || ''
     this.email = data.email || ''
     this.phone = data.phone || ''
     this.address = data.address || ''
     this.city = data.city || ''
-    this.portfolioUrl = data.portfolioUrl || ''
-    this.socialMedia = data.socialMedia || {
-      instagram: '',
-      facebook: '',
-      website: ''
-    }
+    this.link = data.link || ''
     this.experience = data.experience || ''
-    this.specialties = data.specialties || []
-    this.message = data.message || ''
-    this.submittedAt = data.submittedAt || new Date()
-    this.status = data.status || 'draft'
+    this.description = data.description || ''
   }
 
   generateId() {
     return 'salon_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
   }
 
-  toJSON() {
-    return {
-      id: this.id,
-      businessName: this.businessName,
-      contactName: this.contactName,
-      email: this.email,
-      phone: this.phone,
-      address: this.address,
-      city: this.city,
-      portfolioUrl: this.portfolioUrl,
-      socialMedia: this.socialMedia,
-      experience: this.experience,
-      specialties: this.specialties,
-      message: this.message,
-      submittedAt: this.submittedAt,
-      status: this.status
-    }
-  }
-
   validate() {
     const errors = []
 
-    if (!this.businessName || this.businessName.length < 2) {
+    if (!this.name || this.name.length < 2) {
       errors.push('Business name must be at least 2 characters')
     }
     if (!this.contactName || this.contactName.length < 2) {
@@ -112,10 +76,5 @@ export class SalonApplication implements ISalonApplication {
   isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
-  }
-
-  submit() {
-    this.status = 'submitted'
-    this.submittedAt = new Date()
   }
 }

@@ -1,5 +1,5 @@
 import { ValidationService } from './validationService.js'
-import type { ISalonApplication } from '../models/SalonApplication.js'
+import type { IShopApplication } from '../models/SalonApplication.js'
 import type { IContactInquiry } from '../models/ContactInquiry.js'
 
 export interface IFormSubmissionResult {
@@ -18,10 +18,11 @@ export interface IFormServiceResponse {
 }
 
 export class FormService {
-  async submitSalonApplication(data: Partial<ISalonApplication>): Promise<IFormSubmissionResult> {
+  async submitShopApplication(data: Partial<IShopApplication>): Promise<IFormSubmissionResult> {
+    debugger
     try {
       // Validate data first
-      const validation = ValidationService.validateSalonApplication(data)
+      const validation = ValidationService.validateShopApplication(data)
       if (!validation.isValid) {
         throw new Error('Validation failed: ' + validation.errors.join(', '))
       }
@@ -29,17 +30,8 @@ export class FormService {
       // Sanitize input
       const sanitizedData = this.sanitizeFormData(data)
 
-      // Prepare submission data
-      const submissionData = {
-        ...sanitizedData,
-        formType: 'salon-application',
-        submittedAt: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        timestamp: Date.now()
-      }
-
       // Submit to form service
-      const response = await this.submitToFormService(submissionData, '/api/feedback')
+      const response = await this.submitToFormService(sanitizedData, '/api/shop')
 
       if (response.ok) {
         return {
@@ -51,7 +43,7 @@ export class FormService {
         throw new Error('Submission failed')
       }
     } catch (error) {
-      console.error('Salon application submission error:', error)
+      console.error('Shop application submission error:', error)
       return {
         success: false,
         message: 'Failed to submit application. Please try again later.',
@@ -131,101 +123,5 @@ export class FormService {
 
   generateSubmissionId(): string {
     return 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-  }
-
-  // Fallback email submission (opens user's email client)
-  submitViaEmail(data: Record<string, unknown>, formType: string): IFormSubmissionResult {
-    const safeString = (value: unknown): string => {
-      if (value === null || value === undefined) return ''
-      if (typeof value === 'string') return value
-      if (typeof value === 'number') return String(value)
-      if (typeof value === 'boolean') return String(value)
-      if (Array.isArray(value)) return value.join(', ')
-      if (typeof value === 'object' && value !== null) {
-        try {
-          return JSON.stringify(value)
-        } catch {
-          return '[Object]'
-        }
-      }
-      return '[Unknown]'
-    }
-
-    const subject = formType === 'salon-application'
-      ? `Salon Application - ${safeString(data.businessName)}`
-      : `Contact Inquiry - ${safeString(data.subject)}`
-
-    const body = this.formatEmailBody(data, formType)
-    const emailUrl = `mailto:info@guestspot.app?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-
-    window.open(emailUrl)
-
-    return {
-      success: true,
-      message: 'Email client opened. Please send the email to complete your submission.',
-      fallback: true
-    }
-  }
-
-  formatEmailBody(data: Record<string, unknown>, formType: string): string {
-    const safeString = (value: unknown): string => {
-      if (value === null || value === undefined) return ''
-      if (typeof value === 'string') return value
-      if (typeof value === 'number') return String(value)
-      if (typeof value === 'boolean') return String(value)
-      if (Array.isArray(value)) return value.join(', ')
-      if (typeof value === 'object' && value !== null) {
-        try {
-          return JSON.stringify(value)
-        } catch {
-          return '[Object]'
-        }
-      }
-      return '[Unknown]'
-    }
-
-    if (formType === 'salon-application') {
-      const businessName = safeString(data.businessName)
-      const contactName = safeString(data.contactName)
-      const email = safeString(data.email)
-      const phone = data.phone ? safeString(data.phone) : 'Not provided'
-      const address = safeString(data.address)
-      const city = safeString(data.city)
-      const experience = safeString(data.experience)
-      const portfolioUrl = data.portfolioUrl ? safeString(data.portfolioUrl) : 'Not provided'
-      const specialties = data.specialties ? safeString(data.specialties) : 'Not provided'
-      const message = data.message ? safeString(data.message) : 'No additional message'
-
-      return [
-        `Business Name: ${businessName}`,
-        `Contact Name: ${contactName}`,
-        `Email: ${email}`,
-        `Phone: ${phone}`,
-        `Address: ${address}`,
-        `City: ${city}`,
-        `Experience: ${experience} years`,
-        `Portfolio URL: ${portfolioUrl}`,
-        `Specialties: ${specialties}`,
-        `Message: ${message}`,
-        '',
-        `Submitted: ${new Date().toLocaleString()}`
-      ].join('\n')
-    } else {
-      const name = safeString(data.name)
-      const email = safeString(data.email)
-      const subject = safeString(data.subject)
-      const message = safeString(data.message)
-
-      return [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Subject: ${subject}`,
-        '',
-        'Message:',
-        message,
-        '',
-        `Submitted: ${new Date().toLocaleString()}`
-      ].join('\n')
-    }
   }
 }

@@ -1,6 +1,6 @@
 import { SalonApplication } from '../models/SalonApplication.js'
 import { ContactInquiry } from '../models/ContactInquiry.js'
-import type { ISalonApplication } from '../models/SalonApplication.js'
+import type { IShopApplication } from '../models/SalonApplication.js'
 import type { IContactInquiry } from '../models/ContactInquiry.js'
 
 export interface IValidationResult {
@@ -9,7 +9,7 @@ export interface IValidationResult {
 }
 
 export class ValidationService {
-  static validateSalonApplication(data: Partial<ISalonApplication>): IValidationResult {
+  static validateShopApplication(data: Partial<IShopApplication>): IValidationResult {
     const application = new SalonApplication(data)
     const validation = application.validate()
 
@@ -61,11 +61,11 @@ export class ValidationService {
   static validateBusinessInfo(data: Record<string, unknown>): IValidationResult {
     const errors = []
 
-    const businessName = data.businessName as string
+    const name = data.name as string
     const address = data.address as string
     const city = data.city as string
 
-    if (!businessName || businessName.length < 2 || businessName.length > 100) {
+    if (!name || name.length < 2 || name.length > 100) {
       errors.push('Business name must be between 2 and 100 characters')
     }
 
@@ -110,5 +110,5 @@ export class ValidationService {
 }
 
 // Named exports for backward compatibility with tests
-export const validateSalonApplication = ValidationService.validateSalonApplication.bind(ValidationService)
+export const validateShopApplication = ValidationService.validateShopApplication.bind(ValidationService)
 export const validateContactInquiry = ValidationService.validateContactInquiry.bind(ValidationService)

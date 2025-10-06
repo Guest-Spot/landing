@@ -19,12 +19,12 @@
                 <div class="custom-input">
                   <input
                     data-cy="business-name"
-                    v-model="formData.businessName"
+                    v-model="formData.name"
                     type="text"
                     placeholder="Business Name *"
                     required
                   />
-                  <span v-if="errors.businessName" class="form-error">{{ errors.businessName }}</span>
+                  <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
                 </div>
                 <div class="custom-input">
                   <input
@@ -89,7 +89,7 @@
 
             <!-- Services & Experience -->
             <div class="form-section">
-              <h3 class="section-title">Services & Experience</h3>
+              <h3 class="section-title">Experience</h3>
 
               <div class="form-row">
                 <div class="custom-input">
@@ -105,63 +105,11 @@
                 </div>
                 <div class="custom-input">
                   <input
-                    v-model="formData.portfolioUrl"
+                    v-model="formData.link"
                     type="url"
                     placeholder="Portfolio/Website URL"
                   />
                 </div>
-              </div>
-
-              <div class="specialties-section">
-                <div class="custom-input full-width">
-                  <input
-                    v-model="specialtiesInput"
-                    type="text"
-                    placeholder="Specialties (comma-separated)"
-                    @blur="updateSpecialties"
-                  />
-                </div>
-                <div v-if="formData.specialties.length > 0" class="specialties-tags">
-                  <span
-                    v-for="specialty in formData.specialties"
-                    :key="specialty"
-                    class="badge badge-primary"
-                    @click="removeSpecialty(specialty)"
-                    style="cursor: pointer;"
-                  >
-                    {{ specialty }} ×
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Social Media -->
-            <div class="form-section">
-              <h3 class="section-title">Social Media & Online Presence</h3>
-
-              <div class="form-row">
-                <div class="custom-input">
-                  <input
-                    v-model="formData.socialMedia.instagram"
-                    type="text"
-                    placeholder="Instagram Handle"
-                  />
-                </div>
-                <div class="custom-input">
-                  <input
-                    v-model="formData.socialMedia.facebook"
-                    type="text"
-                    placeholder="Facebook Page"
-                  />
-                </div>
-              </div>
-
-              <div class="custom-input full-width">
-                <input
-                  v-model="formData.socialMedia.website"
-                  type="url"
-                  placeholder="Website URL"
-                />
               </div>
             </div>
 
@@ -172,7 +120,7 @@
               <div class="custom-input full-width">
                 <textarea
                   data-cy="message"
-                  v-model="formData.message"
+                  v-model="formData.description"
                   placeholder="Tell us about your studio"
                   rows="4"
                 ></textarea>
@@ -222,33 +170,27 @@ import { FormService } from '../services/formService'
 const formService = new FormService()
 const isSubmitting = ref(false)
 const submitMessage = ref<{ type: string; text: string } | null>(null)
-const specialtiesInput = ref('')
 
 const formData = reactive({
-  businessName: '',
+  name: '',
   contactName: '',
   email: '',
   phone: '',
   address: '',
   city: '',
   experience: '',
-  portfolioUrl: '',
-  socialMedia: {
-    instagram: '',
-    facebook: '',
-    website: ''
-  },
-  specialties: [] as string[],
-  message: ''
+  link: '',
+  description: ''
 })
 
 const errors = reactive({
-  businessName: '',
+  name: '',
   contactName: '',
   email: '',
   address: '',
   city: '',
-  experience: ''
+  experience: '',
+  description: ''
 })
 
 const isValidEmail = (email: string) => {
@@ -265,8 +207,8 @@ const validateForm = () => {
   let isValid = true
 
   // Validate business name
-  if (!formData.businessName) {
-    errors.businessName = 'Business name is required'
+  if (!formData.name) {
+    errors.name = 'Business name is required'
     isValid = false
   }
 
@@ -309,21 +251,6 @@ const validateForm = () => {
   return isValid
 }
 
-const updateSpecialties = () => {
-  if (specialtiesInput.value.trim()) {
-    const specialties = specialtiesInput.value
-      .split(',')
-      .map(s => s.trim())
-      .filter(s => s.length > 0)
-    formData.specialties = [...new Set(specialties)]
-    specialtiesInput.value = ''
-  }
-}
-
-const removeSpecialty = (specialty: string) => {
-  formData.specialties = formData.specialties.filter(s => s !== specialty)
-}
-
 const onSubmit = async () => {
   debugger
   if (!validateForm()) {
@@ -334,7 +261,7 @@ const onSubmit = async () => {
   submitMessage.value = null
 
   try {
-    const result = await formService.submitSalonApplication(formData)
+    const result = await formService.submitShopApplication(formData)
 
     if (result.success) {
       submitMessage.value = {
@@ -342,22 +269,11 @@ const onSubmit = async () => {
         text: result.message
       }
 
-      // Reset form
-      Object.keys(formData).forEach(key => {
-        if (key === 'socialMedia') {
-          (formData as Record<string, unknown>)[key] = { instagram: '', facebook: '', website: '' }
-        } else if (key === 'services' || key === 'specialties') {
-          (formData as Record<string, unknown>)[key] = []
-        } else {
-          (formData as Record<string, unknown>)[key] = ''
-        }
-      })
-
       // Track successful submission
       if ((window as any).gtag) {
-        (window as any).gtag('event', 'salon_application_submitted', {
+        (window as any).gtag('event', 'shop_application_submitted', {
           event_category: 'form_submission',
-          event_label: 'salon_application'
+          event_label: 'shop_application'
         })
       }
     } else {
@@ -471,40 +387,6 @@ const onSubmit = async () => {
   grid-column: 1 / -1;
 }
 
-.services-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.services-label {
-  font-size: 1rem;
-  font-weight: 500;
-  color: white;
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.75rem;
-}
-
-.service-checkbox {
-  color: #b3b3b3;
-}
-
-.specialties-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.specialties-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
 .submit-section {
   display: flex;
   flex-direction: column;
@@ -583,10 +465,6 @@ const onSubmit = async () => {
   }
 
   .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .services-grid {
     grid-template-columns: 1fr;
   }
 
