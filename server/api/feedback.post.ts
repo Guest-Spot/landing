@@ -4,34 +4,31 @@ import api from '../services/axios.service';
 export default defineEventHandler(async event => {
   try {
     // Read the request body
-    const body = await readBody(event);
+    const data = await readBody(event);
 
     // Validate required fields
-    if (!body.message || body.message.trim() === '') {
+    if (!data.message || data.message.trim() === '') {
       throw createError({
         statusCode: 400,
         message: 'Feedback message is required',
       });
     }
 
-    // Prepare feedback data with optional fields
-    const feedbackData = {
-      message: body.message,
-    };
-
     // Send feedback to the backend API
-    await api.post('/api/feedbacks', feedbackData);
+    await api.post('/api/feedbacks', {
+      data,
+    });
 
     return {
       success: true,
       message: 'Feedback submitted successfully',
     };
-  } catch (error: any) {
-    console.error('Error processing feedback:', error);
+  } catch (e: any) {
+    console.error('Error processing feedback:', e.response.data);
 
     throw createError({
-      statusCode: error?.statusCode || 500,
-      message: error?.message || 'An error occurred while submitting feedback',
+      statusCode: e?.response.data.error.statusCode || 500,
+      message: e?.response.data.error.message || 'An error occurred while submitting feedback',
     });
   }
 });

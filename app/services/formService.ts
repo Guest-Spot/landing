@@ -18,12 +18,6 @@ export interface IFormServiceResponse {
 }
 
 export class FormService {
-  apiEndpoint: string
-
-  constructor() {
-    this.apiEndpoint = process.env.NUXT_API_URL
-  }
-
   async submitSalonApplication(data: Partial<ISalonApplication>): Promise<IFormSubmissionResult> {
     try {
       // Validate data first
@@ -45,7 +39,7 @@ export class FormService {
       }
 
       // Submit to form service
-      const response = await this.submitToFormService(submissionData, '/api/feedbacks')
+      const response = await this.submitToFormService(submissionData, '/api/feedback')
 
       if (response.ok) {
         return {
@@ -77,17 +71,8 @@ export class FormService {
       // Sanitize input
       const sanitizedData = this.sanitizeFormData(data)
 
-      // Prepare submission data
-      const submissionData = {
-        ...sanitizedData,
-        formType: 'contact-inquiry',
-        submittedAt: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        timestamp: Date.now()
-      }
-
       // Submit to form service
-      const response = await this.submitToFormService(submissionData, '/api/feedbacks')
+      const response = await this.submitToFormService(sanitizedData, '/api/feedback')
 
       if (response.ok) {
         return {
@@ -109,7 +94,7 @@ export class FormService {
   }
 
   async submitToFormService(data: Record<string, unknown>, path: string): Promise<IFormServiceResponse> {
-    const response = await fetch(`${this.apiEndpoint}${path}`, {
+    const response = await $fetch(path, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -118,13 +103,11 @@ export class FormService {
       body: JSON.stringify(data)
     })
 
-    const result = await response.json()
-
     return {
-      ok: response.ok,
-      status: response.status,
-      data: result,
-      id: result.id || null
+      ok: true,
+      status: 200,
+      data: response,
+      id: null
     }
   }
 
@@ -148,20 +131,6 @@ export class FormService {
 
   generateSubmissionId(): string {
     return 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-  }
-
-  // Method to test form service availability
-  async testFormService(): Promise<boolean> {
-    try {
-      await fetch(this.apiEndpoint, {
-        method: 'GET',
-        mode: 'no-cors'
-      })
-      return true
-    } catch (error) {
-      console.warn('Form service test failed:', error)
-      return false
-    }
   }
 
   // Fallback email submission (opens user's email client)

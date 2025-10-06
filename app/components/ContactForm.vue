@@ -94,7 +94,6 @@
                 type="text"
                 placeholder="Subject *"
                 required
-                minlength="5"
               />
               <span v-if="errors.subject" class="form-error">{{ errors.subject }}</span>
             </div>
@@ -106,7 +105,6 @@
                 placeholder="Message *"
                 rows="6"
                 required
-                minlength="10"
                 maxlength="1000"
               ></textarea>
               <span v-if="errors.message" class="form-error">{{ errors.message }}</span>
@@ -145,7 +143,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive } from 'vue'
 import { FormService } from '../services/formService'
 
 const formService = new FormService()
