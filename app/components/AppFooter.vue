@@ -158,7 +158,7 @@ const downloadApp = (platform: string) => {
 .app-footer {
   background: #000;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4rem 0 2rem;
+  padding: 2rem 0;
   position: relative;
 }
 
