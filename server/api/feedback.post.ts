@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody, createError } from 'h3';
 import api from '../services/axios.service';
+import { verifyRecaptchaToken } from '../utils/recaptcha';
 
 export default defineEventHandler(async event => {
   try {
@@ -14,9 +15,13 @@ export default defineEventHandler(async event => {
       });
     }
 
+    await verifyRecaptchaToken(event, data.recaptchaToken, 'contact_inquiry');
+
+    const { recaptchaToken, ...payload } = data;
+
     // Send feedback to the backend API
     await api.post('/api/feedbacks', {
-      data,
+      data: payload,
     });
 
     return {

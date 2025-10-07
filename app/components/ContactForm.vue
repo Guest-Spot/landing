@@ -115,12 +115,13 @@
               <button
                 data-cy="submit-button"
                 type="submit"
-                :disabled="isSubmitting"
+                :disabled="isSubmitting || isRecaptchaLoading"
                 class="submit-button btn btn-primary btn-xl"
               >
                 <span v-if="isSubmitting" class="loading-spinner"></span>
                 {{ isSubmitting ? 'Sending...' : 'Send Message' }}
               </button>
+              <span v-if="recaptchaError" class="form-error">{{ recaptchaError }}</span>
 
               <p class="submit-note">
                 We'll get back to you within 24 hours. For urgent matters, please call us directly.
@@ -149,6 +150,7 @@ import { FormService } from '../services/formService'
 const formService = new FormService()
 const isSubmitting = ref(false)
 const submitMessage = ref<{ type: string; text: string } | null>(null)
+const { executeRecaptcha, recaptchaError, isRecaptchaLoading } = useRecaptcha()
 
 const formData = reactive({
   name: '',
@@ -224,11 +226,24 @@ const onSubmit = async () => {
     return
   }
 
-  isSubmitting.value = true
   submitMessage.value = null
 
+  const recaptchaToken = await executeRecaptcha('contact_inquiry')
+
+  if (!recaptchaToken) {
+    if (!recaptchaError.value) {
+      recaptchaError.value = 'Please complete the reCAPTCHA verification.'
+    }
+    return
+  }
+
+  isSubmitting.value = true
+
   try {
-    const result = await formService.submitContactInquiry(formData)
+    const result = await formService.submitContactInquiry({
+      ...formData,
+      recaptchaToken
+    })
 
     if (result.success) {
       submitMessage.value = {

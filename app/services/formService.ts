@@ -17,8 +17,12 @@ export interface IFormServiceResponse {
   id: string | null
 }
 
+type WithRecaptcha<T> = T & { recaptchaToken?: string }
+
 export class FormService {
-  async submitShopApplication(data: Partial<IShopApplication>): Promise<IFormSubmissionResult> {
+  async submitShopApplication(
+    data: WithRecaptcha<Partial<IShopApplication>>
+  ): Promise<IFormSubmissionResult> {
     try {
       // Validate data first
       const validation = ValidationService.validateShopApplication(data)
@@ -51,7 +55,9 @@ export class FormService {
     }
   }
 
-  async submitContactInquiry(data: Partial<IContactInquiry>): Promise<IFormSubmissionResult> {
+  async submitContactInquiry(
+    data: WithRecaptcha<Partial<IContactInquiry>>
+  ): Promise<IFormSubmissionResult> {
     try {
       // Validate data first
       const validation = ValidationService.validateContactInquiry(data)

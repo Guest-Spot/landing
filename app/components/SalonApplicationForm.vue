@@ -272,12 +272,13 @@
             <button
               data-cy="submit-button"
               type="submit"
-              :disabled="isSubmitting"
+              :disabled="isSubmitting || isRecaptchaLoading"
               class="submit-button btn btn-primary btn-xl"
             >
               <span v-if="isSubmitting" class="loading-spinner"></span>
               {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
             </button>
+            <span v-if="recaptchaError" class="form-error">{{ recaptchaError }}</span>
 
             <p class="submit-note">
               By submitting this form, you agree to our
@@ -334,6 +335,7 @@ interface FormErrors {
 const formService = new FormService()
 const isSubmitting = ref(false)
 const submitMessage = ref<{ type: string; text: string } | null>(null)
+const { executeRecaptcha, recaptchaError, isRecaptchaLoading } = useRecaptcha()
 
 const formData = reactive<ApplicationFormData>({
   type: '',
@@ -456,13 +458,25 @@ const onSubmit = async () => {
     return
   }
 
-  isSubmitting.value = true
   submitMessage.value = null
 
+  const action = formData.type === 'artist' ? 'artist_application' : 'shop_application'
+  const recaptchaToken = await executeRecaptcha(action)
+
+  if (!recaptchaToken) {
+    if (!recaptchaError.value) {
+      recaptchaError.value = 'Please complete the reCAPTCHA verification.'
+    }
+    return
+  }
+
+  isSubmitting.value = true
+
   try {
-    const submissionPayload: Partial<IShopApplication> = {
+    const submissionPayload: Partial<IShopApplication> & { recaptchaToken: string } = {
       ...formData,
-      type: formData.type as ApplicantType
+      type: formData.type as ApplicantType,
+      recaptchaToken
     }
     const result = await formService.submitShopApplication(submissionPayload)
 

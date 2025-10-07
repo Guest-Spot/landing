@@ -1,6 +1,7 @@
 import { defineEventHandler, readBody, createError } from 'h3';
 import qs from 'qs';
 import api from '../services/axios.service';
+import { verifyRecaptchaToken } from '../utils/recaptcha';
 
 const query = qs.stringify({
   status: 'draft',
@@ -21,9 +22,17 @@ export default defineEventHandler(async event => {
       });
     }
 
+    await verifyRecaptchaToken(
+      event,
+      data.recaptchaToken,
+      data.type === 'artist' ? 'artist_application' : 'shop_application',
+    );
+
+    const { recaptchaToken, ...payload } = data;
+
     // Send feedback to the backend API
     await api.post(`/api/membership-requests?${query}`, {
-      data,
+      data: payload,
     });
 
     return {

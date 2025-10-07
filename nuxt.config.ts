@@ -13,8 +13,12 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiUrl: process.env.NUXT_API_URL || '',
     apiKey: process.env.NUXT_API_KEY || '',
+    recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY || '',
+    recaptchaScoreThreshold:
+      Number.parseFloat(process.env.RECAPTCHA_SCORE_THRESHOLD || '') || 0.5,
     public: {
       version: pkg.version,
+      recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY || '',
     },
   },
   nitro: {
