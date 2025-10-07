@@ -1,7 +1,7 @@
 <template>
   <footer data-cy="footer" class="app-footer">
     <div class="container">
-      <div class="footer-content">
+      <div class="footer-content hidden">
         <div class="footer-section">
           <div class="footer-brand">
             <h3 class="brand-name">GuestSpot</h3>
@@ -307,8 +307,8 @@ const downloadApp = (platform: string) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  /* padding-top: 2rem; */
+  /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
   flex-wrap: wrap;
   gap: 1rem;
 }

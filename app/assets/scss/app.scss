@@ -1,5 +1,6 @@
 // app global css in SCSS form
 @use './variables.scss';
+@use './base.scss';
 @use './theme.scss';
 @use './effects.scss';
 @use './responsive.scss';

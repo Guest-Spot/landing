@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     apiUrl: process.env.NUXT_API_URL || '',
+    apiKey: process.env.NUXT_API_KEY || '',
     public: {
       version: pkg.version,
     },

@@ -5,6 +5,7 @@ const api = axios.create({
   baseURL: process.env.NUXT_API_URL || '',
   headers: {
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${process.env.NUXT_API_KEY || ''}`,
   },
 });
 

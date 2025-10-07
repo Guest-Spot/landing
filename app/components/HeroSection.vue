@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div class="hero-stats">
+    <div class="hero-stats hidden">
       <div class="stat-item">
         <div class="stat-number">500+</div>
         <div class="stat-label">Studios</div>
