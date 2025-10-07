@@ -1,6 +1,6 @@
 <template>
   <nav class="app-navigation">
-    <div class="nav-container">
+    <div class="nav-container container">
       <div class="nav-brand">
         <router-link to="/" class="brand-link">
           <i class="mdi mdi-fire brand-icon"></i>
@@ -76,9 +76,6 @@ const downloadApp = () => {
 }
 
 .nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -232,10 +229,6 @@ const downloadApp = () => {
 }
 
 @media (max-width: 480px) {
-  .nav-container {
-    padding: 0 1rem;
-  }
-
   .brand-text {
     font-size: 1.25rem;
   }

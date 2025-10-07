@@ -114,6 +114,7 @@
                       min="1"
                     />
                     <span v-if="errors.experience" class="form-error">{{ errors.experience }}</span>
+                    <span class="form-help">Minimum 1 year of experience</span>
                   </div>
                   <div class="custom-input">
                     <input
@@ -214,6 +215,7 @@
                       placeholder="Studio Address (Optional)"
                     />
                     <span v-if="errors.address" class="form-error">{{ errors.address }}</span>
+                    <span class="form-help">Optional: minimum 5 characters if provided</span>
                   </div>
                 </div>
               </div>
@@ -233,6 +235,7 @@
                       min="1"
                     />
                     <span v-if="errors.experience" class="form-error">{{ errors.experience }}</span>
+                    <span class="form-help">Minimum 1 year of experience</span>
                   </div>
                   <div class="custom-input">
                     <input
@@ -537,10 +540,6 @@ const onSubmit = async () => {
 
 .container {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  position: relative;
-  z-index: 1;
 }
 
 .form-header {
@@ -710,10 +709,6 @@ const onSubmit = async () => {
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 1rem;
-  }
-
   .form-container {
     padding: 1.5rem 1rem;
   }

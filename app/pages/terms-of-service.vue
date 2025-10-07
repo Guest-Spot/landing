@@ -577,12 +577,12 @@ onMounted(() => {
   background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
   padding: 6rem 0 4rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  position: relative;
 }
 
 .container {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 0 2rem;
 }
 
 .page-title {
@@ -735,10 +735,6 @@ onMounted(() => {
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 1rem;
-  }
-
   .page-title {
     font-size: 2rem;
   }

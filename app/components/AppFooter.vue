@@ -174,14 +174,6 @@ const downloadApp = (platform: string) => {
   pointer-events: none;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  position: relative;
-  z-index: 1;
-}
-
 .footer-content {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;

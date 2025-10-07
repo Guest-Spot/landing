@@ -74,6 +74,7 @@
                   minlength="2"
                 />
                 <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
+                <span class="form-help">Minimum 2 characters</span>
               </div>
               <div class="custom-input">
                 <input
@@ -94,8 +95,10 @@
                 type="text"
                 placeholder="Subject *"
                 required
+                minlength="5"
               />
               <span v-if="errors.subject" class="form-error">{{ errors.subject }}</span>
+              <span class="form-help">Minimum 5 characters</span>
             </div>
 
             <div class="custom-input full-width">
@@ -105,10 +108,13 @@
                 placeholder="Message *"
                 rows="6"
                 required
+                minlength="10"
                 maxlength="1000"
               ></textarea>
               <span v-if="errors.message" class="form-error">{{ errors.message }}</span>
-              <span class="form-help">Please provide as much detail as possible so we can help you better</span>
+              <span class="form-help">
+                Please provide as much detail as possible (minimum 10 characters, maximum 1000)
+              </span>
             </div>
 
             <div class="submit-section">
@@ -321,8 +327,6 @@ const openSocial = (platform: string) => {
 
 .container {
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
   position: relative;
   z-index: 1;
 }
@@ -559,10 +563,6 @@ const openSocial = (platform: string) => {
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 1rem;
-  }
-
   .form-container {
     padding: 1.5rem 1rem;
   }

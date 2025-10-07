@@ -151,14 +151,6 @@ const scrollToApplication = () => {
   pointer-events: none;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  position: relative;
-  z-index: 1;
-}
-
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
@@ -335,10 +327,6 @@ const scrollToApplication = () => {
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 1rem;
-  }
-
   .section-title {
     font-size: 2rem;
   }

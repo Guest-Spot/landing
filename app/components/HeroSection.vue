@@ -1,46 +1,48 @@
 <template>
   <section data-cy="hero-section" class="hero-section">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 data-cy="hero-title" class="hero-title">
-          Find Your Perfect
-          <span class="accent-text">Tattoo Studio</span>
-        </h1>
-        <p data-cy="hero-subtitle" class="hero-subtitle">
-          Discover the best tattoo artists and studios in your area.
-          Book appointments, view portfolios, and create your perfect tattoo experience.
-        </p>
-        <div class="hero-actions">
-          <button
-            data-cy="download-app-btn"
-            class="btn btn-primary btn-lg cta-button"
-            @click="downloadApp"
-          >
-            <i class="mdi mdi-download"></i>
-            Download App
-          </button>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 data-cy="hero-title" class="hero-title">
+            Find Your Perfect
+            <span class="accent-text">Tattoo Studio</span>
+          </h1>
+          <p data-cy="hero-subtitle" class="hero-subtitle">
+            Discover the best tattoo artists and studios in your area.
+            Book appointments, view portfolios, and create your perfect tattoo experience.
+          </p>
+          <div class="hero-actions">
+            <button
+              data-cy="download-app-btn"
+              class="btn btn-primary btn-lg cta-button"
+              @click="downloadApp"
+            >
+              <i class="mdi mdi-download"></i>
+              Download App
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="hero-image">
-        <div class="phone-mockup">
-          <div class="phone-screen">
-            <div class="app-preview">
-              <div class="app-header">
-                <div class="status-bar"></div>
-                <div class="nav-bar">
-                  <div class="nav-title">GuestSpot</div>
+        <div class="hero-image">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="app-preview">
+                <div class="app-header">
+                  <div class="status-bar"></div>
+                  <div class="nav-bar">
+                    <div class="nav-title">GuestSpot</div>
+                  </div>
                 </div>
-              </div>
-              <div class="app-content">
-                <div class="search-bar">
-                  <div class="search-placeholder">Search studios...</div>
-                </div>
-                <div class="studio-cards">
-                  <div class="studio-card" v-for="i in 3" :key="i">
-                    <div class="studio-image"></div>
-                    <div class="studio-info">
-                      <div class="studio-name">Studio {{ i }}</div>
-                      <div class="studio-rating">★★★★★</div>
+                <div class="app-content">
+                  <div class="search-bar">
+                    <div class="search-placeholder">Search studios...</div>
+                  </div>
+                  <div class="studio-cards">
+                    <div class="studio-card" v-for="i in 3" :key="i">
+                      <div class="studio-image"></div>
+                      <div class="studio-info">
+                        <div class="studio-name">Studio {{ i }}</div>
+                        <div class="studio-rating">★★★★★</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -49,19 +51,19 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="hero-stats hidden">
-      <div class="stat-item">
-        <div class="stat-number">500+</div>
-        <div class="stat-label">Studios</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">10K+</div>
-        <div class="stat-label">Artists</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">50K+</div>
-        <div class="stat-label">Happy Customers</div>
+      <div class="hero-stats hidden">
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Studios</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Artists</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">50K+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
       </div>
     </div>
   </section>
@@ -123,7 +125,6 @@ const downloadApp = () => {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  max-width: 1200px;
   width: 100%;
   z-index: 1;
   position: relative;
