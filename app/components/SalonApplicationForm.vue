@@ -11,121 +11,259 @@
       <div class="form-container">
         <form @submit.prevent="onSubmit" class="application-form">
           <div class="form-grid">
-            <!-- Business Information -->
+            <!-- Application Type -->
             <div class="form-section">
-              <h3 class="section-title">Business Information</h3>
+              <h3 class="section-title">Application Type</h3>
 
-              <div class="form-row">
-                <div class="custom-input">
+              <ApplicationTypeSelect
+                v-model="formData.type"
+                :error="errors.type"
+                :disabled="isSubmitting"
+              />
+            </div>
+
+            <template v-if="isShop">
+              <!-- Business Information -->
+              <div class="form-section">
+                <h3 class="section-title">Business Information</h3>
+
+                <div class="form-row">
+                  <div class="custom-input">
+                    <input
+                      data-cy="business-name"
+                      v-model="formData.name"
+                      type="text"
+                      placeholder="Business Name *"
+                      required
+                    />
+                    <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
+                  </div>
+                  <div class="custom-input">
+                    <input
+                      data-cy="contact-name"
+                      v-model="formData.contactName"
+                      type="text"
+                      placeholder="Contact Person *"
+                      required
+                    />
+                    <span v-if="errors.contactName" class="form-error">{{ errors.contactName }}</span>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="custom-input">
+                    <input
+                      data-cy="email"
+                      v-model="formData.email"
+                      type="email"
+                      placeholder="Email Address *"
+                      required
+                    />
+                    <span v-if="errors.email" class="form-error">{{ errors.email }}</span>
+                  </div>
+                  <div class="custom-input">
+                    <input
+                      data-cy="phone"
+                      v-model="formData.phone"
+                      type="tel"
+                      placeholder="Phone Number"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Address Information -->
+              <div class="form-section">
+                <h3 class="section-title">Address Information</h3>
+
+                <div class="custom-input full-width">
                   <input
-                    data-cy="business-name"
-                    v-model="formData.name"
+                    data-cy="address"
+                    v-model="formData.address"
                     type="text"
-                    placeholder="Business Name *"
+                    placeholder="Street Address *"
                     required
                   />
-                  <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
+                  <span v-if="errors.address" class="form-error">{{ errors.address }}</span>
                 </div>
-                <div class="custom-input">
+
+                <div class="custom-input full-width">
                   <input
-                    data-cy="contact-name"
-                    v-model="formData.contactName"
+                    data-cy="city"
+                    v-model="formData.city"
                     type="text"
-                    placeholder="Contact Person *"
+                    placeholder="City *"
                     required
                   />
-                  <span v-if="errors.contactName" class="form-error">{{ errors.contactName }}</span>
+                  <span v-if="errors.city" class="form-error">{{ errors.city }}</span>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="custom-input">
-                  <input
-                    data-cy="email"
-                    v-model="formData.email"
-                    type="email"
-                    placeholder="Email Address *"
-                    required
-                  />
-                  <span v-if="errors.email" class="form-error">{{ errors.email }}</span>
-                </div>
-                <div class="custom-input">
-                  <input
-                    data-cy="phone"
-                    v-model="formData.phone"
-                    type="tel"
-                    placeholder="Phone Number"
-                  />
-                </div>
-              </div>
-            </div>
+              <!-- Services & Experience -->
+              <div class="form-section">
+                <h3 class="section-title">Experience</h3>
 
-            <!-- Address Information -->
-            <div class="form-section">
-              <h3 class="section-title">Address Information</h3>
-
-              <div class="custom-input full-width">
-                <input
-                  data-cy="address"
-                  v-model="formData.address"
-                  type="text"
-                  placeholder="Street Address *"
-                  required
-                />
-                <span v-if="errors.address" class="form-error">{{ errors.address }}</span>
-              </div>
-
-              <div class="custom-input full-width">
-                <input
-                  data-cy="city"
-                  v-model="formData.city"
-                  type="text"
-                  placeholder="City *"
-                  required
-                />
-                <span v-if="errors.city" class="form-error">{{ errors.city }}</span>
-              </div>
-            </div>
-
-            <!-- Services & Experience -->
-            <div class="form-section">
-              <h3 class="section-title">Experience</h3>
-
-              <div class="form-row">
-                <div class="custom-input">
-                  <input
-                    data-cy="experience"
-                    v-model="formData.experience"
-                    type="number"
-                    placeholder="Years of Experience *"
-                    required
-                    min="1"
-                  />
-                  <span v-if="errors.experience" class="form-error">{{ errors.experience }}</span>
-                </div>
-                <div class="custom-input">
-                  <input
-                    v-model="formData.link"
-                    type="url"
-                    placeholder="Portfolio/Website URL"
-                  />
+                <div class="form-row">
+                  <div class="custom-input">
+                    <input
+                      data-cy="experience"
+                      v-model="formData.experience"
+                      type="number"
+                      placeholder="Years of Experience *"
+                      required
+                      min="1"
+                    />
+                    <span v-if="errors.experience" class="form-error">{{ errors.experience }}</span>
+                  </div>
+                  <div class="custom-input">
+                    <input
+                      v-model="formData.link"
+                      type="url"
+                      placeholder="Portfolio/Website URL"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Additional Information -->
-            <div class="form-section">
-              <h3 class="section-title">Additional Information</h3>
+              <!-- Additional Information -->
+              <div class="form-section">
+                <h3 class="section-title">Additional Information</h3>
 
-              <div class="custom-input full-width">
-                <textarea
-                  data-cy="message"
-                  v-model="formData.description"
-                  placeholder="Tell us about your studio"
-                  rows="4"
-                ></textarea>
-                <span class="form-help">Optional: Share any additional information about your studio, specialties, or what makes you unique</span>
+                <div class="custom-input full-width">
+                  <textarea
+                    data-cy="message"
+                    v-model="formData.description"
+                    placeholder="Tell us about your studio"
+                    rows="4"
+                  ></textarea>
+                  <span class="form-help">Optional: Share any additional information about your studio, specialties, or what makes you unique</span>
+                </div>
               </div>
+            </template>
+
+            <template v-else-if="isArtist">
+              <!-- Artist Information -->
+              <div class="form-section">
+                <h3 class="section-title">Artist Information</h3>
+
+                <div class="form-row">
+                  <div class="custom-input">
+                    <input
+                      data-cy="business-name"
+                      v-model="formData.name"
+                      type="text"
+                      placeholder="Artist Name *"
+                      required
+                    />
+                    <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
+                  </div>
+                  <div class="custom-input">
+                    <input
+                      data-cy="contact-name"
+                      v-model="formData.contactName"
+                      type="text"
+                      placeholder="Booking Contact *"
+                      required
+                    />
+                    <span v-if="errors.contactName" class="form-error">{{ errors.contactName }}</span>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="custom-input">
+                    <input
+                      data-cy="email"
+                      v-model="formData.email"
+                      type="email"
+                      placeholder="Email Address *"
+                      required
+                    />
+                    <span v-if="errors.email" class="form-error">{{ errors.email }}</span>
+                  </div>
+                  <div class="custom-input">
+                    <input
+                      data-cy="phone"
+                      v-model="formData.phone"
+                      type="tel"
+                      placeholder="Preferred Phone or Messaging App"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location Information -->
+              <div class="form-section">
+                <h3 class="section-title">Location</h3>
+
+                <div class="form-row">
+                  <div class="custom-input">
+                    <input
+                      data-cy="city"
+                      v-model="formData.city"
+                      type="text"
+                      placeholder="Primary City *"
+                      required
+                    />
+                    <span v-if="errors.city" class="form-error">{{ errors.city }}</span>
+                  </div>
+                  <div class="custom-input">
+                    <input
+                      data-cy="address"
+                      v-model="formData.address"
+                      type="text"
+                      placeholder="Studio Address (Optional)"
+                    />
+                    <span v-if="errors.address" class="form-error">{{ errors.address }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experience & Portfolio -->
+              <div class="form-section">
+                <h3 class="section-title">Experience</h3>
+
+                <div class="form-row">
+                  <div class="custom-input">
+                    <input
+                      data-cy="experience"
+                      v-model="formData.experience"
+                      type="number"
+                      placeholder="Years of Experience *"
+                      required
+                      min="1"
+                    />
+                    <span v-if="errors.experience" class="form-error">{{ errors.experience }}</span>
+                  </div>
+                  <div class="custom-input">
+                    <input
+                      v-model="formData.link"
+                      type="url"
+                      placeholder="Portfolio or Instagram URL"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Information -->
+              <div class="form-section">
+                <h3 class="section-title">Additional Information</h3>
+
+                <div class="custom-input full-width">
+                  <textarea
+                    data-cy="message"
+                    v-model="formData.description"
+                    placeholder="Tell us about your style, specialties, and recent guest spots"
+                    rows="4"
+                  ></textarea>
+                  <span class="form-help">Optional: Share highlights about your tattoo style, availability, or upcoming travel plans</span>
+                </div>
+              </div>
+            </template>
+
+            <div v-else class="form-section">
+              <p class="form-placeholder">
+                Select an application type to see the relevant form fields.
+              </p>
             </div>
           </div>
 
@@ -164,14 +302,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
+import ApplicationTypeSelect from './ApplicationTypeSelect.vue'
 import { FormService } from '../services/formService'
+import type { ApplicantType, IShopApplication } from '../models/SalonApplication.js'
+
+interface ApplicationFormData {
+  type: ApplicantType | ''
+  name: string
+  contactName: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  experience: string
+  link: string
+  description: string
+}
+
+interface FormErrors {
+  type: string
+  name: string
+  contactName: string
+  email: string
+  address: string
+  city: string
+  experience: string
+  description: string
+}
 
 const formService = new FormService()
 const isSubmitting = ref(false)
 const submitMessage = ref<{ type: string; text: string } | null>(null)
 
-const formData = reactive({
+const formData = reactive<ApplicationFormData>({
+  type: '',
   name: '',
   contactName: '',
   email: '',
@@ -183,7 +348,8 @@ const formData = reactive({
   description: ''
 })
 
-const errors = reactive({
+const errors = reactive<FormErrors>({
+  type: '',
   name: '',
   contactName: '',
   email: '',
@@ -193,6 +359,22 @@ const errors = reactive({
   description: ''
 })
 
+const resetErrors = () => {
+  ;(Object.keys(errors) as Array<keyof FormErrors>).forEach(key => {
+    errors[key] = ''
+  })
+}
+
+const isShop = computed(() => formData.type === 'shop')
+const isArtist = computed(() => formData.type === 'artist')
+
+watch(
+  () => formData.type,
+  () => {
+    resetErrors()
+  }
+)
+
 const isValidEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
@@ -200,21 +382,25 @@ const isValidEmail = (email: string) => {
 
 const validateForm = () => {
   // Reset errors
-  Object.keys(errors).forEach(key => {
-    (errors as Record<string, unknown>)[key] = ''
-  })
+  resetErrors()
 
   let isValid = true
 
-  // Validate business name
+  if (!formData.type) {
+    errors.type = 'Please select the application type'
+    isValid = false
+  }
+
+  // Validate name
   if (!formData.name) {
-    errors.name = 'Business name is required'
+    errors.name = formData.type === 'artist' ? 'Artist name is required' : 'Business name is required'
     isValid = false
   }
 
   // Validate contact name
   if (!formData.contactName) {
-    errors.contactName = 'Contact name is required'
+    errors.contactName =
+      formData.type === 'artist' ? 'Booking contact is required' : 'Contact name is required'
     isValid = false
   }
 
@@ -227,16 +413,30 @@ const validateForm = () => {
     isValid = false
   }
 
-  // Validate address
-  if (!formData.address) {
-    errors.address = 'Address is required'
-    isValid = false
-  }
+  if (formData.type === 'shop') {
+    // Validate address
+    if (!formData.address) {
+      errors.address = 'Address is required'
+      isValid = false
+    }
 
-  // Validate city
-  if (!formData.city) {
-    errors.city = 'City is required'
-    isValid = false
+    // Validate city
+    if (!formData.city) {
+      errors.city = 'City is required'
+      isValid = false
+    }
+  } else if (formData.type === 'artist') {
+    // Validate city for artist
+    if (!formData.city) {
+      errors.city = 'Primary city is required'
+      isValid = false
+    }
+
+    // Optional address validation
+    if (formData.address && formData.address.length < 5) {
+      errors.address = 'Address should be at least 5 characters'
+      isValid = false
+    }
   }
 
   // Validate experience
@@ -260,7 +460,11 @@ const onSubmit = async () => {
   submitMessage.value = null
 
   try {
-    const result = await formService.submitShopApplication(formData)
+    const submissionPayload: Partial<IShopApplication> = {
+      ...formData,
+      type: formData.type as ApplicantType
+    }
+    const result = await formService.submitShopApplication(submissionPayload)
 
     if (result.success) {
       submitMessage.value = {
@@ -270,9 +474,13 @@ const onSubmit = async () => {
 
       // Track successful submission
       if ((window as any).gtag) {
-        (window as any).gtag('event', 'shop_application_submitted', {
+        const trackingEvent =
+          formData.type === 'artist' ? 'artist_application_submitted' : 'shop_application_submitted'
+        const eventLabel = formData.type === 'artist' ? 'artist_application' : 'shop_application'
+
+        ;(window as any).gtag('event', trackingEvent, {
           event_category: 'form_submission',
-          event_label: 'shop_application'
+          event_label: eventLabel
         })
       }
     } else {
@@ -384,6 +592,12 @@ const onSubmit = async () => {
 
 .full-width {
   grid-column: 1 / -1;
+}
+
+.form-placeholder {
+  color: #b3b3b3;
+  font-size: 1rem;
+  margin: 0;
 }
 
 .submit-section {

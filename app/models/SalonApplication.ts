@@ -3,8 +3,11 @@ export interface ISocialMedia {
   value: string
 }
 
+export type ApplicantType = 'shop' | 'artist'
+
 export interface IShopApplication {
   id: string
+  type: ApplicantType
   name: string
   contactName: string
   email: string
@@ -18,6 +21,7 @@ export interface IShopApplication {
 
 export class SalonApplication implements IShopApplication {
   id: string
+  type: ApplicantType
   name: string
   contactName: string
   email: string
@@ -29,6 +33,7 @@ export class SalonApplication implements IShopApplication {
   description: string
 
   constructor(data: Partial<IShopApplication> = {}) {
+    this.type = (data.type as ApplicantType) || 'shop'
     this.id = data.id || this.generateId()
     this.name = data.name || ''
     this.contactName = data.contactName || ''
@@ -42,29 +47,51 @@ export class SalonApplication implements IShopApplication {
   }
 
   generateId() {
-    return 'shop_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    const prefix = this.type === 'artist' ? 'artist_' : 'shop_'
+    return prefix + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
   }
 
   validate() {
     const errors = []
+    const isShop = this.type === 'shop'
+    const isArtist = this.type === 'artist'
+
+    if (!this.type || (!isShop && !isArtist)) {
+      errors.push('Application type is required')
+    }
 
     if (!this.name || this.name.length < 2) {
-      errors.push('Business name must be at least 2 characters')
+      errors.push(isArtist ? 'Artist name must be at least 2 characters' : 'Business name must be at least 2 characters')
     }
+
     if (!this.contactName || this.contactName.length < 2) {
-      errors.push('Contact name must be at least 2 characters')
+      errors.push(isArtist ? 'Booking contact must be at least 2 characters' : 'Contact name must be at least 2 characters')
     }
+
     if (!this.email || !this.isValidEmail(this.email)) {
       errors.push('Valid email is required')
     }
-    if (!this.address || this.address.length < 5) {
-      errors.push('Address must be at least 5 characters')
+
+    if (isShop) {
+      if (!this.address || this.address.length < 5) {
+        errors.push('Address must be at least 5 characters')
+      }
+    } else if (isArtist) {
+      if (this.address && this.address.length < 5) {
+        errors.push('If provided, address must be at least 5 characters')
+      }
     }
+
     if (!this.city || this.city.length < 2) {
-      errors.push('City is required')
+      errors.push(isArtist ? 'Primary city is required' : 'City is required')
     }
-    if (!this.experience || isNaN(parseInt(this.experience))) {
+
+    const experienceValue = parseInt(this.experience, 10)
+
+    if (!this.experience || Number.isNaN(experienceValue)) {
       errors.push('Years of experience must be a number')
+    } else if (experienceValue <= 0) {
+      errors.push('Years of experience must be greater than 0')
     }
 
     return {
