@@ -1,6 +1,7 @@
 import { createError, type H3Event } from 'h3'
 import { useRuntimeConfig } from '#imports'
 import { $fetch } from 'ofetch'
+import { getClientIp } from './request'
 
 interface RecaptchaVerificationResponse {
   success: boolean
@@ -9,20 +10,6 @@ interface RecaptchaVerificationResponse {
   challenge_ts?: string
   hostname?: string
   'error-codes'?: string[]
-}
-
-const getClientIp = (event: H3Event): string | undefined => {
-  const forwarded = event.node.req.headers['x-forwarded-for']
-
-  if (typeof forwarded === 'string' && forwarded.length > 0) {
-    return forwarded.split(',')[0]?.trim()
-  }
-
-  if (Array.isArray(forwarded) && forwarded.length > 0) {
-    return forwarded[0]
-  }
-
-  return event.node.req.socket.remoteAddress || undefined
 }
 
 export const verifyRecaptchaToken = async (
