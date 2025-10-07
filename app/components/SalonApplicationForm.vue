@@ -185,7 +185,7 @@
                       data-cy="phone"
                       v-model="formData.phone"
                       type="tel"
-                      placeholder="Preferred Phone or Messaging App"
+                      placeholder="Phone Number"
                     />
                   </div>
                 </div>

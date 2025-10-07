@@ -30,7 +30,7 @@ export class FormService {
       const sanitizedData = this.sanitizeFormData(data)
 
       // Submit to form service
-      const response = await this.submitToFormService(sanitizedData, '/api/shop')
+      const response = await this.submitToFormService(sanitizedData, '/api/membership')
 
       if (response.ok) {
         return {
