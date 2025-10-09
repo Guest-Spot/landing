@@ -354,7 +354,7 @@ const openSocial = (platform: string) => {
 .contact-content {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 4rem;
+  gap: 2rem;
   align-items: start;
 }
 
