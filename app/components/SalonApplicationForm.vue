@@ -197,7 +197,7 @@
                       data-cy="city"
                       v-model="formData.city"
                       type="text"
-                      placeholder="Primary City *"
+                      placeholder="City *"
                       required
                     />
                     <span v-if="errors.city" class="form-error">{{ errors.city }}</span>
@@ -435,7 +435,7 @@ const validateForm = () => {
   } else if (formData.type === 'artist') {
     // Validate city for artist
     if (!formData.city) {
-      errors.city = 'Primary city is required'
+      errors.city = 'City is required'
       isValid = false
     }
 

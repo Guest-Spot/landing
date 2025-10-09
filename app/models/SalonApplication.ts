@@ -83,7 +83,7 @@ export class SalonApplication implements IShopApplication {
     }
 
     if (!this.city || this.city.length < 2) {
-      errors.push(isArtist ? 'Primary city is required' : 'City is required')
+      errors.push('City is required')
     }
 
     const experienceValue = parseInt(this.experience, 10)
