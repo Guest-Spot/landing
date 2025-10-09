@@ -66,7 +66,11 @@
                       data-cy="phone"
                       v-model="formData.phone"
                       type="tel"
-                      placeholder="Phone Number"
+                      inputmode="tel"
+                      placeholder="Phone Number (e.g. 123-456-7890)"
+                      @input="onPhoneInput"
+                      @paste="onPhonePaste"
+                      @blur="onPhoneBlur"
                     />
                   </div>
                 </div>
@@ -186,7 +190,11 @@
                       data-cy="phone"
                       v-model="formData.phone"
                       type="tel"
-                      placeholder="Phone Number"
+                      inputmode="tel"
+                      placeholder="Phone Number (e.g. 123-456-7890)"
+                      @input="onPhoneInput"
+                      @paste="onPhonePaste"
+                      @blur="onPhoneBlur"
                     />
                   </div>
                 </div>
@@ -309,6 +317,7 @@
 import { ref, reactive, computed, watch } from 'vue'
 import ApplicationTypeSelect from './ApplicationTypeSelect.vue'
 import { FormService } from '../services/formService'
+import { usePhoneMask } from '../composables/usePhoneMask'
 import type { ApplicantType, IShopApplication } from '../models/SalonApplication.js'
 
 interface ApplicationFormData {
@@ -339,6 +348,7 @@ const formService = new FormService()
 const isSubmitting = ref(false)
 const submitMessage = ref<{ type: string; text: string } | null>(null)
 const { executeRecaptcha, recaptchaError, isRecaptchaLoading } = useRecaptcha()
+const { phoneValue, applyPhoneMask, onPhoneInput, onPhonePaste, onPhoneBlur } = usePhoneMask()
 
 const formData = reactive<ApplicationFormData>({
   type: '',
@@ -372,6 +382,11 @@ const resetErrors = () => {
 
 const isShop = computed(() => formData.type === 'shop')
 const isArtist = computed(() => formData.type === 'artist')
+
+// Sync phoneValue with formData.phone
+watch(phoneValue, (newValue: string) => {
+  formData.phone = newValue
+})
 
 watch(
   () => formData.type,
