@@ -113,12 +113,11 @@
                       data-cy="experience"
                       v-model="formData.experience"
                       type="number"
-                      placeholder="Years of Experience *"
+                      placeholder="Years of Founded *"
                       required
-                      min="1"
                     />
                     <span v-if="errors.experience" class="form-error">{{ errors.experience }}</span>
-                    <span class="form-help">Minimum 1 year of experience</span>
+                    <span class="form-help">When was your business founded?</span>
                   </div>
                   <div class="custom-input">
                     <input
@@ -151,27 +150,15 @@
               <div class="form-section">
                 <h3 class="section-title">Artist Information</h3>
 
-                <div class="form-row">
-                  <div class="custom-input">
-                    <input
-                      data-cy="business-name"
-                      v-model="formData.name"
-                      type="text"
-                      placeholder="Artist Name *"
-                      required
-                    />
-                    <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
-                  </div>
-                  <div class="custom-input">
-                    <input
-                      data-cy="contact-name"
-                      v-model="formData.contactName"
-                      type="text"
-                      placeholder="Booking Contact *"
-                      required
-                    />
-                    <span v-if="errors.contactName" class="form-error">{{ errors.contactName }}</span>
-                  </div>
+                <div class="custom-input">
+                  <input
+                    data-cy="business-name"
+                    v-model="formData.name"
+                    type="text"
+                    placeholder="Artist Name *"
+                    required
+                  />
+                  <span v-if="errors.name" class="form-error">{{ errors.name }}</span>
                 </div>
 
                 <div class="form-row">
@@ -249,7 +236,8 @@
                     <input
                       v-model="formData.link"
                       type="url"
-                      placeholder="Portfolio or Instagram URL"
+                      placeholder="Portfolio or Instagram URL *"
+                      required
                     />
                   </div>
                 </div>
@@ -418,9 +406,8 @@ const validateForm = () => {
   }
 
   // Validate contact name
-  if (!formData.contactName) {
-    errors.contactName =
-      formData.type === 'artist' ? 'Booking contact is required' : 'Contact name is required'
+  if (!formData.contactName && formData.type === 'shop') {
+    errors.contactName = 'Contact name is required'
     isValid = false
   }
 

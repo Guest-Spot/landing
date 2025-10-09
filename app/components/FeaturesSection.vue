@@ -29,8 +29,8 @@
       </div>
 
       <div class="cta-section">
-        <h3 class="cta-title">Ready to Find Your Perfect Studio?</h3>
-        <p class="cta-subtitle">Join thousands of satisfied customers</p>
+        <h3 class="cta-title">Ready to join Tattoo World?</h3>
+        <p class="cta-subtitle">Join our waiting list to be among the first ones!</p>
         <button
           data-cy="get-started-btn"
           class="btn btn-primary btn-xl cta-button"

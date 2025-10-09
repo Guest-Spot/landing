@@ -64,8 +64,8 @@ export class SalonApplication implements IShopApplication {
       errors.push(isArtist ? 'Artist name must be at least 2 characters' : 'Business name must be at least 2 characters')
     }
 
-    if (!this.contactName || this.contactName.length < 2) {
-      errors.push(isArtist ? 'Booking contact must be at least 2 characters' : 'Contact name must be at least 2 characters')
+    if (!this.contactName && isShop) {
+      errors.push('Contact name is required')
     }
 
     if (!this.email || !this.isValidEmail(this.email)) {
