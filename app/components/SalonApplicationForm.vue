@@ -288,22 +288,21 @@
           </div>
         </form>
 
-        <!-- Success/Error Messages -->
-        <div v-if="submitMessage" class="message-container">
-          <div
-            :class="submitMessage.type === 'success' ? 'alert alert-success' : 'alert alert-error'"
-          >
-            {{ submitMessage.text }}
-          </div>
-        </div>
       </div>
     </div>
+    <AlertToast
+      :visible="alertState.visible"
+      :type="alertState.type"
+      :message="alertState.text"
+      @close="hideAlert"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onBeforeUnmount } from 'vue'
 import ApplicationTypeSelect from './ApplicationTypeSelect.vue'
+import AlertToast from './AlertToast.vue'
 import { FormService } from '../services/formService'
 import { usePhoneMask } from '../composables/usePhoneMask'
 import type { ApplicantType, IShopApplication } from '../models/SalonApplication.js'
@@ -334,9 +333,61 @@ interface FormErrors {
 
 const formService = new FormService()
 const isSubmitting = ref(false)
-const submitMessage = ref<{ type: string; text: string } | null>(null)
 const { executeRecaptcha, recaptchaError, isRecaptchaLoading } = useRecaptcha()
 const { phoneValue, applyPhoneMask, onPhoneInput, onPhonePaste, onPhoneBlur } = usePhoneMask()
+const alertState = reactive({
+  visible: false,
+  type: 'success' as 'success' | 'error',
+  text: ''
+})
+
+let alertTimer: ReturnType<typeof setTimeout> | null = null
+let clearMessageTimer: ReturnType<typeof setTimeout> | null = null
+
+const hideAlert = () => {
+  alertState.visible = false
+
+  if (alertTimer) {
+    clearTimeout(alertTimer)
+    alertTimer = null
+  }
+
+  if (clearMessageTimer) {
+    clearTimeout(clearMessageTimer)
+  }
+
+  clearMessageTimer = setTimeout(() => {
+    alertState.text = ''
+    clearMessageTimer = null
+  }, 250)
+}
+
+const showAlert = (type: 'success' | 'error', text: string) => {
+  if (alertTimer) {
+    clearTimeout(alertTimer)
+  }
+  if (clearMessageTimer) {
+    clearTimeout(clearMessageTimer)
+    clearMessageTimer = null
+  }
+
+  alertState.type = type
+  alertState.text = text
+  alertState.visible = true
+
+  alertTimer = setTimeout(() => {
+    hideAlert()
+  }, 3000)
+}
+
+onBeforeUnmount(() => {
+  if (alertTimer) {
+    clearTimeout(alertTimer)
+  }
+  if (clearMessageTimer) {
+    clearTimeout(clearMessageTimer)
+  }
+})
 
 const formData = reactive<ApplicationFormData>({
   type: '',
@@ -463,8 +514,6 @@ const onSubmit = async () => {
     return
   }
 
-  submitMessage.value = null
-
   const action = formData.type === 'artist' ? 'artist_application' : 'shop_application'
   const recaptchaToken = await executeRecaptcha(action)
 
@@ -486,10 +535,7 @@ const onSubmit = async () => {
     const result = await formService.submitShopApplication(submissionPayload)
 
     if (result.success) {
-      submitMessage.value = {
-        type: 'success',
-        text: result.message
-      }
+      showAlert('success', result.message)
 
       // Track successful submission
       if ((window as any).gtag) {
@@ -503,17 +549,11 @@ const onSubmit = async () => {
         })
       }
     } else {
-      submitMessage.value = {
-        type: 'error',
-        text: result.message
-      }
+      showAlert('error', result.message)
     }
   } catch (error) {
     console.error('Form submission error:', error)
-    submitMessage.value = {
-      type: 'error',
-      text: 'An error occurred. Please try again later.'
-    }
+    showAlert('error', 'An error occurred. Please try again later.')
   } finally {
     isSubmitting.value = false
   }
