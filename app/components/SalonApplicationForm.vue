@@ -389,7 +389,7 @@ onBeforeUnmount(() => {
   }
 })
 
-const formData = reactive<ApplicationFormData>({
+const createInitialFormData = (): ApplicationFormData => ({
   type: '',
   name: '',
   contactName: '',
@@ -401,6 +401,8 @@ const formData = reactive<ApplicationFormData>({
   link: '',
   description: ''
 })
+
+const formData = reactive<ApplicationFormData>(createInitialFormData())
 
 const errors = reactive<FormErrors>({
   type: '',
@@ -417,6 +419,12 @@ const resetErrors = () => {
   ;(Object.keys(errors) as Array<keyof FormErrors>).forEach(key => {
     errors[key] = ''
   })
+}
+
+const resetForm = () => {
+  Object.assign(formData, createInitialFormData())
+  phoneValue.value = ''
+  resetErrors()
 }
 
 const isShop = computed(() => formData.type === 'shop')
@@ -535,13 +543,18 @@ const onSubmit = async () => {
     const result = await formService.submitShopApplication(submissionPayload)
 
     if (result.success) {
+      const submittedType = formData.type
       showAlert('success', result.message)
+      resetForm()
 
       // Track successful submission
       if ((window as any).gtag) {
         const trackingEvent =
-          formData.type === 'artist' ? 'artist_application_submitted' : 'shop_application_submitted'
-        const eventLabel = formData.type === 'artist' ? 'artist_application' : 'shop_application'
+          submittedType === 'artist'
+            ? 'artist_application_submitted'
+            : 'shop_application_submitted'
+        const eventLabel =
+          submittedType === 'artist' ? 'artist_application' : 'shop_application'
 
         ;(window as any).gtag('event', trackingEvent, {
           event_category: 'form_submission',
