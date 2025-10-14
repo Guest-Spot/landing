@@ -340,9 +340,13 @@ const alertState = reactive({
   type: 'success' as 'success' | 'error',
   text: ''
 })
+const DUPLICATE_EMAIL_MESSAGE = 'Email already registered'
 
 let alertTimer: ReturnType<typeof setTimeout> | null = null
 let clearMessageTimer: ReturnType<typeof setTimeout> | null = null
+let emailCheckTimer: ReturnType<typeof setTimeout> | null = null
+let emailCheckAbortController: AbortController | null = null
+const emailExists = ref(false)
 
 const hideAlert = () => {
   alertState.visible = false
@@ -386,6 +390,12 @@ onBeforeUnmount(() => {
   }
   if (clearMessageTimer) {
     clearTimeout(clearMessageTimer)
+  }
+  if (emailCheckTimer) {
+    clearTimeout(emailCheckTimer)
+  }
+  if (emailCheckAbortController) {
+    emailCheckAbortController.abort()
   }
 })
 
@@ -447,6 +457,77 @@ const isValidEmail = (email: string) => {
   return emailRegex.test(email)
 }
 
+const clearDuplicateEmailError = () => {
+  if (errors.email === DUPLICATE_EMAIL_MESSAGE) {
+    errors.email = ''
+  }
+}
+
+const checkEmailExistence = async (email: string) => {
+  if (emailCheckAbortController) {
+    emailCheckAbortController.abort()
+  }
+
+  const controller = new AbortController()
+  emailCheckAbortController = controller
+
+  try {
+    const response = await $fetch<{ exists: boolean }>('/api/auth/email-exists', {
+      method: 'GET',
+      params: { email },
+      signal: controller.signal
+    })
+
+    if (formData.email !== email) {
+      return
+    }
+
+    emailExists.value = !!response.exists
+
+    if (emailExists.value) {
+      errors.email = DUPLICATE_EMAIL_MESSAGE
+    } else {
+      clearDuplicateEmailError()
+    }
+  } catch (error) {
+    if ((error as Error).name !== 'AbortError') {
+      console.error('Email existence check failed:', error)
+    }
+  } finally {
+    if (emailCheckAbortController === controller) {
+      emailCheckAbortController = null
+    }
+  }
+}
+
+watch(
+  () => formData.email,
+  newEmail => {
+    emailExists.value = false
+
+    if (emailCheckTimer) {
+      clearTimeout(emailCheckTimer)
+      emailCheckTimer = null
+    }
+
+    clearDuplicateEmailError()
+
+    if (emailCheckAbortController) {
+      emailCheckAbortController.abort()
+      emailCheckAbortController = null
+    }
+
+    if (!newEmail || !isValidEmail(newEmail)) {
+      return
+    }
+
+    emailCheckTimer = setTimeout(() => {
+      checkEmailExistence(newEmail)
+      emailCheckTimer = null
+    }, 400)
+  }
+)
+
 const validateForm = () => {
   // Reset errors
   resetErrors()
@@ -476,6 +557,9 @@ const validateForm = () => {
     isValid = false
   } else if (!isValidEmail(formData.email)) {
     errors.email = 'Invalid email format'
+    isValid = false
+  } else if (emailExists.value) {
+    errors.email = DUPLICATE_EMAIL_MESSAGE
     isValid = false
   }
 
@@ -518,6 +602,10 @@ const validateForm = () => {
 }
 
 const onSubmit = async () => {
+  if (formData.email && isValidEmail(formData.email)) {
+    await checkEmailExistence(formData.email)
+  }
+
   if (!validateForm()) {
     return
   }
