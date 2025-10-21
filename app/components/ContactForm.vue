@@ -15,7 +15,7 @@
             <i class="mdi mdi-email info-icon"></i>
             <div>
               <div class="info-label">Email</div>
-              <div class="info-value">support@guestspot.app</div>
+              <div class="info-value">support@getguestspot.com</div>
             </div>
           </div>
           <div class="info-item">

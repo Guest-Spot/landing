@@ -1,3 +1,5 @@
+import { SITE_URL } from '@/config';
+
 export interface IMetaData {
   title: string
   description: string
@@ -32,7 +34,7 @@ export class SEOService {
       description: 'Discover the best tattoo studios and artists in your area. Book appointments, view portfolios, and find your perfect tattoo experience.',
       keywords: 'tattoo, tattoo studio, tattoo artist, body art, piercing, tattoo appointment, tattoo finder',
       image: '/og-image.jpg',
-      url: 'https://guestspot.app',
+      url: SITE_URL,
       siteName: 'GuestSpot'
     }
   }
@@ -113,8 +115,8 @@ export class SEOService {
       '@type': 'Organization',
       'name': 'GuestSpot',
       'description': 'Platform for finding and booking tattoo studios and artists',
-      'url': 'https://guestspot.app',
-      'logo': 'https://guestspot.app/logo.png',
+      'url': SITE_URL,
+      'logo': `${SITE_URL}/logo.png`,
       'sameAs': [
         'https://www.facebook.com/guestspot',
         'https://www.instagram.com/guestspot',
@@ -146,7 +148,7 @@ export class SEOService {
         'priceCurrency': 'USD'
       },
       'downloadUrl': 'https://apps.apple.com/app/guestspot',
-      'screenshot': 'https://guestspot.app/app-screenshot.jpg'
+      'screenshot': `${SITE_URL}/app-screenshot.jpg`
     }
 
     this.addStructuredData(appData)

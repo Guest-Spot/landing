@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const siteUrl = 'https://guestspot.app';
-const previewImage = `${siteUrl}/og-image.png`;
+import { SITE_URL } from '~/config/index';
+
+const previewImage = `${SITE_URL}/og-image.png`;
 const metaTitle = 'GuestSpot — Discover & Book Tattoo Studios Near You';
 const metaDescription =
   'GuestSpot connects you with verified tattoo studios and artists. Explore portfolios, compare reviews, and book appointments with confidence.';
@@ -19,7 +20,7 @@ useSeoMeta({
   ogType: 'website',
   ogSiteName: 'GuestSpot',
   ogLocale: 'en_US',
-  ogUrl: `${siteUrl}/`,
+  ogUrl: `${SITE_URL}/`,
   ogImage: previewImage,
   ogImageType: 'image/png',
   ogImageWidth: '1200',
