@@ -15,17 +15,10 @@
             <i class="mdi mdi-email info-icon"></i>
             <div>
               <div class="info-label">Email</div>
-              <div class="info-value">support@getguestspot.com</div>
+              <div class="info-value">guestspot9@gmail.com</div>
             </div>
           </div>
-          <div class="info-item">
-            <i class="mdi mdi-phone info-icon"></i>
-            <div>
-              <div class="info-label">Phone</div>
-              <div class="info-value">+1 (800) GUEST-SPOT</div>
-            </div>
-          </div>
-          <div class="info-item">
+          <div class="info-item no-margin-bottom">
             <i class="mdi mdi-clock info-icon"></i>
             <div>
               <div class="info-label">Response Time</div>
@@ -33,7 +26,7 @@
             </div>
           </div>
 
-          <div class="social-links">
+          <div class="social-links hidden">
             <h4 class="social-title">Follow Us</h4>
             <div class="social-buttons">
               <button
@@ -345,7 +338,7 @@ const openSocial = (platform: string) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .contact-form {
   padding: 6rem 0;
   background: #000;
@@ -422,6 +415,10 @@ const openSocial = (platform: string) => {
   align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
 }
 
 .info-icon {

@@ -20,6 +20,16 @@
         <i class="mdi mdi-shield-account link-icon"></i>
         User Agreement
       </router-link>
+
+      <router-link
+        data-cy="privacy-policy-link"
+        to="/privacy-policy"
+        class="legal-link"
+        aria-label="Read our Privacy Policy"
+      >
+        <i class="mdi mdi-shield-check link-icon"></i>
+        Privacy Policy
+      </router-link>
     </div>
 
     <div class="external-links">
