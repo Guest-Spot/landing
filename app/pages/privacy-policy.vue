@@ -27,19 +27,16 @@
             <p>We collect personal information in a few different ways:</p>
             <ul>
               <li>
-                <strong>Information You Provide:</strong> Account details (name, email, phone number, profile photos), professional credentials, portfolio links, payment preferences, appointment notes, and support inquiries.
+                <strong>Information You Provide:</strong> Account details (name, email, phone number, profile photos), professional credentials, portfolio links, appointment notes, and support inquiries.
               </li>
               <li>
                 <strong>Information From Your Activity:</strong> Bookings, messages, reviews, calendar activity, and interactions with other Users inside the platform.
               </li>
               <li>
-                <strong>Payment and Transaction Data:</strong> Deposits, invoices, refunds, payout details, and any tax identifiers that may be required to comply with legal obligations.
-              </li>
-              <li>
                 <strong>Usage and Device Information:</strong> Log files, IP address, browser type, operating system, referring/exit pages, and cookie data collected through analytics tools.
               </li>
               <li>
-                <strong>Third-Party Sources:</strong> We may receive information from payment processors, identity verification partners, background screening vendors (if applicable), and marketing partners to help maintain a safe marketplace.
+                <strong>Third-Party Sources:</strong> We may receive information from identity verification partners, background screening vendors (if applicable), and marketing partners to help maintain a safe marketplace.
               </li>
             </ul>
           </section>
@@ -49,7 +46,7 @@
             <p>GuestSpot uses personal information for the following purposes:</p>
             <ul>
               <li>Creating and managing User accounts, profiles, and storefronts.</li>
-              <li>Facilitating bookings, deposits, product purchases, and payouts.</li>
+              <li>Facilitating bookings and connections between Users.</li>
               <li>Providing customer support, resolving disputes, and addressing safety concerns.</li>
               <li>Customizing and improving the Services, including personalization and feature development.</li>
               <li>Communicating with you about updates, policy changes, promotions, and transactional notices.</li>
@@ -74,7 +71,7 @@
             <p>We share personal information in limited circumstances:</p>
             <ul>
               <li><strong>With Other Users:</strong> Profile details, availability, reviews, and messages that facilitate bookings and collaborations.</li>
-              <li><strong>Service Providers:</strong> Payment processors, cloud hosting, communications tools, analytics providers, marketing partners, and customer support platforms that perform services on our behalf.</li>
+              <li><strong>Service Providers:</strong> Cloud hosting, communications tools, analytics providers, marketing partners, and customer support platforms that perform services on our behalf.</li>
               <li>
                 <strong>Compliance and Safety:</strong> Law enforcement, regulators, governmental authorities, and litigants when required by law, legal process, or to protect the rights, property, or safety of GuestSpot, our Users, or the public.
               </li>
@@ -94,35 +91,28 @@
           </section>
 
           <section class="legal-section">
-            <h2>6. Payment Processing</h2>
-            <p>
-              GuestSpot partners with third-party payment processors to handle deposits, fees, and payouts. We do not store full payment card numbers on our servers. Payment processors may collect and store personal information, such as billing details and tax identifiers, in accordance with their own privacy policies.
-            </p>
-          </section>
-
-          <section class="legal-section">
-            <h2>7. Data Retention</h2>
+            <h2>6. Data Retention</h2>
             <p>
               We retain personal information for as long as necessary to provide the Services, comply with legal obligations, resolve disputes, and enforce our agreements. When information is no longer needed, we securely delete or anonymize it in accordance with our data retention schedule, unless a longer retention period is required by law.
             </p>
           </section>
 
           <section class="legal-section">
-            <h2>8. Security</h2>
+            <h2>7. Security</h2>
             <p>
               GuestSpot takes reasonable and appropriate technical, administrative, and physical safeguards to protect personal information against accidental or unlawful destruction, loss, alteration, unauthorized disclosure, or access. No system is 100% secure, so please use caution when sharing information and notify us immediately if you suspect unauthorized account activity.
             </p>
           </section>
 
           <section class="legal-section">
-            <h2>9. International Data Transfers</h2>
+            <h2>8. International Data Transfers</h2>
             <p>
               GuestSpot is headquartered in the United States and may process information in the U.S. and other countries. When we transfer personal information internationally, we rely on mechanisms such as Standard Contractual Clauses, adequacy decisions, or other lawful safeguards. By using the Services, you acknowledge that your information may be transferred to jurisdictions with different data protection laws than your home country.
             </p>
           </section>
 
           <section class="legal-section">
-            <h2>10. Your Choices and Rights</h2>
+            <h2>9. Your Choices and Rights</h2>
             <p>You have certain choices around how your personal information is used:</p>
             <ul>
               <li><strong>Account Settings:</strong> Update or correct profile data directly in your account dashboard.</li>
@@ -136,7 +126,7 @@
           </section>
 
           <section class="legal-section">
-            <h2>11. Region-Specific Notices</h2>
+            <h2>10. Region-Specific Notices</h2>
             <p>
               If you reside in California, you have rights under the California Consumer Privacy Act (CCPA), including the right to request access to, deletion of, or additional details about personal information we collect. California residents may also request a list of third parties that received personal information for direct marketing in the preceding year.
             </p>
@@ -146,21 +136,21 @@
           </section>
 
           <section class="legal-section">
-            <h2>12. Children's Privacy</h2>
+            <h2>11. Children's Privacy</h2>
             <p>
               GuestSpot is intended for adults 18 years or older. We do not knowingly collect personal information from anyone under 18. If we learn that a minor has provided personal information through the Services, we will take steps to delete such information. Parents or guardians who believe their child has submitted information should contact us immediately.
             </p>
           </section>
 
           <section class="legal-section">
-            <h2>13. Third-Party Links</h2>
+            <h2>12. Third-Party Links</h2>
             <p>
               The Services may include links to third-party websites, apps, or services. We are not responsible for the privacy practices of those third parties. We encourage you to review their privacy policies before providing personal information or engaging with their services.
             </p>
           </section>
 
           <section class="legal-section">
-            <h2>14. Changes to This Policy</h2>
+            <h2>13. Changes to This Policy</h2>
             <p>
               We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. If we make material changes, we will notify you through the Services or by other reasonable means. The "Last updated" date at the top of this page indicates when the policy was most recently revised.
             </p>
