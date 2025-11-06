@@ -1,5 +1,9 @@
 <template>
-  <div class="carousel-container">
+  <div 
+    class="carousel-container"
+    @mouseenter="stopCarousel"
+    @mouseleave="startCarousel"
+  >
     <div class="carousel-indicators">
       <div
         v-for="(slide, index) in slides"
@@ -14,6 +18,7 @@
           v-if="currentSlide === index"
           :key="`progress-${currentSlide}`"
           class="indicator-progress"
+          :class="{ paused: isPaused }"
           :style="{ animationDuration: `${slideDuration}ms` }"
         ></div>
         <div
@@ -53,27 +58,52 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const currentSlide = ref(0)
-let carouselInterval: ReturnType<typeof setInterval> | null = null
+const isPaused = ref(false)
+let carouselInterval: ReturnType<typeof setInterval> | ReturnType<typeof setTimeout> | null = null
+let slideStartTime: number = 0
+let remainingTime: number = 0
 
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % props.slides.length
+  slideStartTime = Date.now()
+  remainingTime = props.slideDuration
 }
 
 const startCarousel = () => {
+  isPaused.value = false
+  
   if (carouselInterval) {
-    clearInterval(carouselInterval)
+    clearTimeout(carouselInterval as unknown as ReturnType<typeof setTimeout>)
+    clearInterval(carouselInterval as unknown as ReturnType<typeof setInterval>)
   }
-  carouselInterval = setInterval(nextSlide, props.slideDuration)
+  
+  // If there's remaining time, use it; otherwise use full duration
+  const timeToNextSlide = remainingTime > 0 ? remainingTime : props.slideDuration
+  
+  carouselInterval = setTimeout(() => {
+    nextSlide()
+    // After the first slide with remaining time, switch to regular interval
+    carouselInterval = setInterval(nextSlide, props.slideDuration)
+  }, timeToNextSlide) as ReturnType<typeof setTimeout>
 }
 
 const stopCarousel = () => {
+  isPaused.value = true
+  
   if (carouselInterval) {
-    clearInterval(carouselInterval)
+    clearTimeout(carouselInterval as unknown as ReturnType<typeof setTimeout>)
+    clearInterval(carouselInterval as unknown as ReturnType<typeof setInterval>)
     carouselInterval = null
+    
+    // Calculate remaining time for current slide
+    const elapsed = Date.now() - slideStartTime
+    remainingTime = Math.max(0, props.slideDuration - elapsed)
   }
 }
 
 onMounted(() => {
+  slideStartTime = Date.now()
+  remainingTime = props.slideDuration
   startCarousel()
 })
 
@@ -94,7 +124,7 @@ onUnmounted(() => {
 
 .carousel-indicators {
   position: absolute;
-  top: -24px;
+  top: -12px;
   left: 12px;
   right: 12px;
   display: flex;
@@ -125,6 +155,10 @@ onUnmounted(() => {
 .indicator-progress.completed {
   width: 100%;
   animation: none;
+}
+
+.indicator-progress.paused {
+  animation-play-state: paused;
 }
 
 @keyframes progressFill {
@@ -172,7 +206,7 @@ onUnmounted(() => {
 /* Responsive Design */
 @media (max-width: 768px) {
   .carousel-indicators {
-    top: 8px;
+    top: -8px;
     left: 8px;
     right: 8px;
     gap: 4px;

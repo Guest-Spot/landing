@@ -54,6 +54,8 @@ import heroImage4 from '~/assets/images/hero/4.png'
 import heroImage5 from '~/assets/images/hero/5.png'
 import heroImage6 from '~/assets/images/hero/6.png'
 import heroImage7 from '~/assets/images/hero/7.png'
+import heroImage8 from '~/assets/images/hero/8.jpeg'
+import heroImage9 from '~/assets/images/hero/9.jpeg'
 
 const downloadApp = () => {
   // Track download button click
@@ -95,8 +97,16 @@ const slides: CarouselSlide[] = [
     alt: 'GuestSpot App Preview 6'
   },
   {
+    image: heroImage8,
+    alt: 'GuestSpot App Preview 8'
+  },
+  {
     image: heroImage7,
     alt: 'GuestSpot App Preview 7'
+  },
+  {
+    image: heroImage9,
+    alt: 'GuestSpot App Preview 9'
   },
 ]
 </script>
