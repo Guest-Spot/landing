@@ -23,32 +23,7 @@
           </div>
         </div>
         <div class="hero-image">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <div class="app-preview">
-                <div class="app-header">
-                  <div class="status-bar"></div>
-                  <div class="nav-bar">
-                    <div class="nav-title">GuestSpot</div>
-                  </div>
-                </div>
-                <div class="app-content">
-                  <div class="search-bar">
-                    <div class="search-placeholder">Search studios...</div>
-                  </div>
-                  <div class="studio-cards">
-                    <div class="studio-card" v-for="i in 3" :key="i">
-                      <div class="studio-image"></div>
-                      <div class="studio-info">
-                        <div class="studio-name">Studio {{ i }}</div>
-                        <div class="studio-rating">★★★★★</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ImageCarousel :slides="slides" />
         </div>
       </div>
       <div class="hero-stats hidden">
@@ -70,6 +45,16 @@
 </template>
 
 <script setup lang="ts">
+import type { CarouselSlide } from './ImageCarousel.vue'
+
+import heroImage1 from '~/assets/images/hero/1.png'
+import heroImage2 from '~/assets/images/hero/2.png'
+import heroImage3 from '~/assets/images/hero/3.png'
+import heroImage4 from '~/assets/images/hero/4.png'
+import heroImage5 from '~/assets/images/hero/5.png'
+import heroImage6 from '~/assets/images/hero/6.png'
+import heroImage7 from '~/assets/images/hero/7.png'
+
 const downloadApp = () => {
   // Track download button click
   if (window.gtag) {
@@ -83,15 +68,37 @@ const downloadApp = () => {
   window.open('https://apps.apple.com/app/guestspot', '_blank')
 }
 
-// const scrollToFeatures = () => {
-//   const featuresSection = document.querySelector('[data-cy="features-section"]')
-//   if (featuresSection) {
-//     featuresSection.scrollIntoView({
-//       behavior: 'smooth',
-//       block: 'start'
-//     })
-//   }
-// }
+// Carousel configuration
+const slides: CarouselSlide[] = [
+  {
+    image: heroImage1,
+    alt: 'GuestSpot App Preview 1'
+  },
+  {
+    image: heroImage2,
+    alt: 'GuestSpot App Preview 2'
+  },
+  {
+    image: heroImage3,
+    alt: 'GuestSpot App Preview 3'
+  },
+  {
+    image: heroImage4,
+    alt: 'GuestSpot App Preview 4'
+  },
+  {
+    image: heroImage5,
+    alt: 'GuestSpot App Preview 5'
+  },
+  {
+    image: heroImage6,
+    alt: 'GuestSpot App Preview 6'
+  },
+  {
+    image: heroImage7,
+    alt: 'GuestSpot App Preview 7'
+  },
+]
 </script>
 
 <style scoped>
@@ -162,6 +169,12 @@ const downloadApp = () => {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.hero-image-desktop {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .cta-button {
