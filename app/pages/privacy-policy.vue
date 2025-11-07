@@ -115,6 +115,9 @@
             <h2>9. Your Choices and Rights</h2>
             <p>You have certain choices around how your personal information is used:</p>
             <ul>
+              <li>
+                <strong>Account Deletion:</strong> You can delete your account from your profile page. Once you delete your account, there is no going back. Please be certain. This action permanently deletes your profile information, all portfolio items, all bookings, your photos and images, and your account settings and preferences.
+              </li>
               <li><strong>Account Settings:</strong> Update or correct profile data directly in your account dashboard.</li>
               <li><strong>Marketing Preferences:</strong> Opt out of promotional emails by following the unsubscribe link in the message.</li>
               <li><strong>Cookies:</strong> Adjust browser controls or use GuestSpot cookie settings when available.</li>

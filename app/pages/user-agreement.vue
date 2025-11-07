@@ -113,6 +113,9 @@
             <h2>8. Ending Your Account</h2>
             <ul>
               <li><strong>Leaving:</strong> You can delete your account at any time via settings or by contacting support.</li>
+              <li>
+                <strong>Permanent Deletion:</strong> Account deletion happens from your profile page. Once you delete your account, there is no going back. Please be certain. Permanent deletion removes your profile information, all portfolio items, all bookings, your photos and images, and your account settings and preferences.
+              </li>
               <li><strong>Our Termination Rights:</strong> We may suspend or ban accounts that violate the rules or pose risks.</li>
               <li>
                 <strong>After Termination:</strong> If an account ends, a few things happen.
