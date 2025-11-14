@@ -138,7 +138,7 @@ const openSocial = (platform: string) => {
 
 const downloadApp = (platform: string) => {
   const urls: Record<string, string> = {
-    ios: 'https://apps.apple.com/app/guestspot',
+    ios: 'https://apps.apple.com/us/app/getguestspot/id6753763635',
     android: 'https://play.google.com/store/apps/details?id=com.guestspot.app'
   }
 

@@ -56,7 +56,7 @@ const downloadApp = () => {
   }
 
   // In a real app, this would redirect to app stores
-  window.open('https://apps.apple.com/app/guestspot', '_blank')
+  window.open('https://apps.apple.com/us/app/getguestspot/id6753763635', '_blank')
   closeMenu()
 }
 </script>

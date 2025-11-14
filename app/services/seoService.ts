@@ -147,7 +147,7 @@ export class SEOService {
         'price': '0',
         'priceCurrency': 'USD'
       },
-      'downloadUrl': 'https://apps.apple.com/app/guestspot',
+      'downloadUrl': 'https://apps.apple.com/us/app/getguestspot/id6753763635',
       'screenshot': `${SITE_URL}/app-screenshot.jpg`
     }
 
