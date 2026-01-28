@@ -118,7 +118,7 @@ const slides: CarouselSlide[] = [
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 6rem 0;
   background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
   position: relative;
   overflow: hidden;
@@ -347,6 +347,10 @@ const slides: CarouselSlide[] = [
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .hero-section {
+    padding: 4rem 0;
+  }
+
   .hero-content {
     grid-template-columns: 1fr;
     gap: 2rem;

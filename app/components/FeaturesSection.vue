@@ -3,20 +3,13 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Why Choose GuestSpot?</h2>
-        <p class="section-subtitle">
-          We make finding and booking your perfect tattoo experience effortless
-        </p>
+        <p class="section-subtitle">We make finding and booking your perfect tattoo experience effortless</p>
       </div>
 
       <div class="features-grid">
-        <div
-          v-for="feature in features"
-          :key="feature.id"
-          data-cy="feature-card"
-          class="feature-card"
-        >
+        <div v-for="feature in features" :key="feature.id" data-cy="feature-card" class="feature-card">
           <div class="feature-icon">
-            <i :class="`mdi mdi-${feature.icon}`" style="font-size: 2.5rem;"></i>
+            <i :class="`mdi mdi-${feature.icon}`" style="font-size: 2.5rem"></i>
           </div>
           <h3 class="feature-title">{{ feature.title }}</h3>
           <p class="feature-description">{{ feature.description }}</p>
@@ -26,19 +19,6 @@
             </li>
           </ul>
         </div>
-      </div>
-
-      <div class="cta-section">
-        <h3 class="cta-title">Ready to join Tattoo World?</h3>
-        <p class="cta-subtitle">Join our waiting list to be among the first ones!</p>
-        <button
-          data-cy="get-started-btn"
-          class="btn btn-primary btn-xl cta-button"
-          @click="scrollToApplication"
-        >
-          <i class="mdi mdi-rocket-launch"></i>
-          Get Started Now
-        </button>
       </div>
     </div>
   </section>
@@ -51,84 +31,44 @@ const features = [
     icon: 'mdi-search',
     title: 'Smart Search',
     description: 'Find studios and artists based on your location, style preferences, and availability.',
-    benefits: [
-      'Advanced filtering options',
-      'Real-time availability',
-      'Style-based recommendations',
-      'Distance-based sorting'
-    ]
+    benefits: ['Advanced filtering options', 'Real-time availability', 'Style-based recommendations', 'Distance-based sorting'],
   },
   {
     id: 2,
     icon: 'mdi-image-multiple',
     title: 'Portfolio Gallery',
     description: 'Browse thousands of high-quality portfolios to find the perfect artist for your vision.',
-    benefits: [
-      'High-resolution images',
-      'Style categorization',
-      'Before/after photos',
-      'Artist specializations'
-    ]
+    benefits: ['High-resolution images', 'Style categorization', 'Before/after photos', 'Artist specializations'],
   },
   {
     id: 3,
     icon: 'mdi-calendar-check',
     title: 'Easy Booking',
     description: 'Book appointments directly through the app with real-time calendar integration.',
-    benefits: [
-      'Instant booking confirmation',
-      'Calendar synchronization',
-      'Reminder notifications',
-      'Rescheduling options'
-    ]
+    benefits: ['Instant booking confirmation', 'Calendar synchronization', 'Reminder notifications', 'Rescheduling options'],
   },
   {
     id: 4,
     icon: 'mdi-star',
     title: 'Verified Reviews',
     description: 'Read authentic reviews from real customers to make informed decisions.',
-    benefits: [
-      'Verified customer reviews',
-      'Photo reviews included',
-      'Rating breakdowns',
-      'Recent feedback'
-    ]
+    benefits: ['Verified customer reviews', 'Photo reviews included', 'Rating breakdowns', 'Recent feedback'],
   },
   {
     id: 5,
     icon: 'mdi-shield',
     title: 'Safe & Secure',
     description: 'All studios are verified and licensed. Your safety and satisfaction are our priority.',
-    benefits: [
-      'Licensed professionals only',
-      'Health & safety compliance',
-      'Secure payment processing',
-      'Insurance coverage'
-    ]
+    benefits: ['Licensed professionals only', 'Health & safety compliance', 'Secure payment processing', 'Insurance coverage'],
   },
   {
     id: 6,
     icon: 'mdi-help-circle',
     title: '24/7 Support',
     description: 'Get help whenever you need it with our dedicated customer support team.',
-    benefits: [
-      'Live chat support',
-      'Phone assistance',
-      'Email support',
-      'FAQ database'
-    ]
-  }
-]
-
-const scrollToApplication = () => {
-  const applicationSection = document.querySelector('[data-cy="shop-application-form"]')
-  if (applicationSection) {
-    applicationSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
-  }
-}
+    benefits: ['Live chat support', 'Phone assistance', 'Email support', 'FAQ database'],
+  },
+];
 </script>
 
 <style scoped>
@@ -145,9 +85,7 @@ const scrollToApplication = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background:
-    radial-gradient(circle at 70% 30%, rgba(255, 61, 0, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 30% 70%, rgba(255, 61, 0, 0.02) 0%, transparent 50%);
+  background: radial-gradient(circle at 70% 30%, rgba(255, 61, 0, 0.03) 0%, transparent 50%), radial-gradient(circle at 30% 70%, rgba(255, 61, 0, 0.02) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -243,48 +181,6 @@ const scrollToApplication = () => {
   font-weight: bold;
 }
 
-.cta-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background: rgba(255, 61, 0, 0.05);
-  border: 1px solid rgba(255, 61, 0, 0.2);
-  border-radius: 20px;
-  padding: 3rem 2rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.cta-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.cta-subtitle {
-  font-size: 1.25rem;
-  color: #b3b3b3;
-  margin-bottom: 2rem;
-}
-
-.cta-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  text-transform: none;
-  font-size: 1.2rem;
-  box-shadow: 0 8px 25px rgba(255, 61, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(255, 61, 0, 0.4);
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .features-section {
@@ -307,23 +203,6 @@ const scrollToApplication = () => {
   .feature-card {
     padding: 1.5rem;
   }
-
-  .cta-section {
-    padding: 2rem 1rem;
-  }
-
-  .cta-title {
-    font-size: 2rem;
-  }
-
-  .cta-subtitle {
-    font-size: 1.1rem;
-  }
-
-  .cta-button {
-    padding: 0.875rem 2rem;
-    font-size: 1.1rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -333,10 +212,6 @@ const scrollToApplication = () => {
 
   .feature-card {
     padding: 1.25rem;
-  }
-
-  .cta-title {
-    font-size: 1.75rem;
   }
 }
 </style>

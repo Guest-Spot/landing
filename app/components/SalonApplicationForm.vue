@@ -829,6 +829,10 @@ const onSubmit = async () => {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .shop-application-form {
+    padding: 4rem 0;
+  }
+
   .form-container {
     padding: 2rem 1.5rem;
   }

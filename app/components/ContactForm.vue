@@ -15,7 +15,7 @@
             <i class="mdi mdi-email info-icon"></i>
             <div>
               <div class="info-label">Email</div>
-              <div class="info-value">guestspot9@gmail.com</div>
+              <div class="info-value">guestspot.dev@gmail.com</div>
             </div>
           </div>
           <div class="info-item no-margin-bottom">
@@ -568,6 +568,10 @@ const openSocial = (platform: string) => {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .contact-form {
+    padding: 4rem 0;
+  }
+
   .contact-content {
     grid-template-columns: 1fr;
     gap: 2rem;
